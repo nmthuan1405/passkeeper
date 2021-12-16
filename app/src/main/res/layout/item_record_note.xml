@@ -10,38 +10,21 @@
         android:id="@+id/icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/ic_password"
+        android:src="@drawable/ic_note"
         android:padding="14dp"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/name_record_text_view"
         android:layout_width="match_parent"
         android:layout_height="88dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/icon"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/name_record_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/black"
-            tools:text="Name" />
-
-        <TextView
-            android:id="@+id/username_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#9A9A9A"
-            tools:text="Username" />
-    </LinearLayout>
+        android:orientation="vertical"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@android:color/black"
+        tools:text="Name" />
 
     <ImageView
         android:layout_width="60dp"

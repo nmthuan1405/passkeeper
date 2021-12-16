@@ -10,7 +10,7 @@
         android:id="@+id/icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/ic_password"
+        android:src="@drawable/ic_card"
         android:padding="14dp"/>
 
     <LinearLayout
@@ -33,14 +33,14 @@
             tools:text="Name" />
 
         <TextView
-            android:id="@+id/username_text_view"
+            android:id="@+id/user_fullname_text_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="top"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="#9A9A9A"
-            tools:text="Username" />
+            tools:text="User's fullname" />
     </LinearLayout>
 
     <ImageView
