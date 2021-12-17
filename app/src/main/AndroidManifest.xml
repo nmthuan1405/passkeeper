@@ -10,8 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Passkeeper">
         <activity
-            android:name=".LoginActivity"
+            android:name=".NavActivity"
             android:exported="true"
+            android:label="@string/title_activity_nav"
             android:theme="@style/Theme.Passkeeper.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Passkeeper.NoActionBar">
+        </activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

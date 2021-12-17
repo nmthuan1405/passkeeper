@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/layout/activity_login.xml" value="0.10739614994934144" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/layout/activity_nav.xml" value="0.21" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/layout/app_bar_nav.xml" value="0.22083333333333333" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/layout/content_nav.xml" value="0.10739614994934144" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/layout/fragment_gallery.xml" value="0.22083333333333333" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/layout/fragment_home.xml" value="0.22083333333333333" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/layout/fragment_slideshow.xml" value="0.22083333333333333" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/layout/nav_header_nav.xml" value="0.22083333333333333" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/layout/nav_main.xml" value="0.22083333333333333" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
+        <entry key="..\:/AndroidProjects/passkeeper/app/src/main/res/menu/nav.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Passkeeper/app/src/main/res/drawable/bg_button.xml" value="0.2375" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Passkeeper/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Passkeeper/app/src/main/res/layout/item_record.xml" value="0.10144927536231885" />
