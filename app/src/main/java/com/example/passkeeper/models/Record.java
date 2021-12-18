@@ -1,6 +1,12 @@
 package com.example.passkeeper.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "Record")
 public class Record {
+    @PrimaryKey
+    private int Id;
     private String mNameRecord;
     private boolean mIsLike;
 

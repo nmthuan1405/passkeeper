@@ -42,7 +42,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     @NonNull
     @Override
     public RecordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mLayoutInflater.inflate(R.layout.item_record_note, parent, false);
+        View itemView = mLayoutInflater.inflate(R.layout.item_record, parent, false);
         return new RecordViewHolder(itemView);
     }
 
@@ -83,7 +83,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         final private ImageView mIsLikeLabel;
         public RecordViewHolder(@NonNull View itemView) {
             super(itemView);
-
             mRecordName = itemView.findViewById(R.id.name_record_text_view);
             mIsLikeLabel = itemView.findViewById(R.id.isLike_label);
         }
