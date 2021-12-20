@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fab_add_secure_note" type="id" />
+    <item name="fab_add_card" type="id" />
+    <item name="fab_add_password" type="id" />
+</resources>
