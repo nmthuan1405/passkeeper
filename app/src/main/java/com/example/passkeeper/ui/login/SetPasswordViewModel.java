@@ -1,7 +1,0 @@
-package com.example.passkeeper.ui.login;
-
-import androidx.lifecycle.ViewModel;
-
-public class SetPasswordViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
-}
