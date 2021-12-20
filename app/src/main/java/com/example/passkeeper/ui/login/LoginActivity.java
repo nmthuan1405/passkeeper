@@ -2,31 +2,24 @@ package com.example.passkeeper.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.passkeeper.R;
+import com.example.passkeeper.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
-    Button loginBtn;
-    TextView signUpBtn;
+    private ActivityLoginBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        initInterface();
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        signUpBtn.setOnClickListener(view -> {
+        binding.signUp.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(intent);
         });
-    }
-
-    private void initInterface() {
-        loginBtn = findViewById(R.id.login);
-        signUpBtn = findViewById(R.id.sign_up);
     }
 }
