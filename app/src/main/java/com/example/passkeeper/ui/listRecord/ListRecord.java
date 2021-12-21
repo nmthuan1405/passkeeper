@@ -16,13 +16,13 @@ import com.example.passkeeper.databinding.ListRecordFragmentBinding;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 
-public class listRecord extends Fragment {
+public class ListRecord extends Fragment {
 
     private ListRecordViewModel mViewModel;
     private ListRecordFragmentBinding binding;
 
-    public static listRecord newInstance() {
-        return new listRecord();
+    public static ListRecord newInstance() {
+        return new ListRecord();
     }
 
     @Override
@@ -40,8 +40,7 @@ public class listRecord extends Fragment {
         Bundle bundle = getArguments();
         int type = bundle.getInt("type");
 
-
-
+        // TODO: observer get data from viewModel to UI
     }
 
     private void speedDialFloatingButton(boolean isAddActionItems) {
