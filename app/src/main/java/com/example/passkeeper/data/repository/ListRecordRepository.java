@@ -43,4 +43,13 @@ public class ListRecordRepository {
 
         return mAllRecord;
     }
+
+    public void insert(Record record) {
+    }
+
+    public void delete(Record record) {
+    }
+
+    public void deleteAllRecords() {
+    }
 }

@@ -9,17 +9,25 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passkeeper.R;
+import com.example.passkeeper.data.model.ListRecord;
+import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.databinding.ListRecordFragmentBinding;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
+
+import java.util.List;
 
 public class ListRecordFragment extends Fragment {
 
     private ListRecordViewModel mViewModel;
     private ListRecordFragmentBinding binding;
+    private RecordAdapter mAdapter;
 
     public static ListRecordFragment newInstance() {
         return new ListRecordFragment();
@@ -41,6 +49,13 @@ public class ListRecordFragment extends Fragment {
         int type = bundle.getInt("type");
 
         // TODO: observer get data from viewModel to UI
+        mAdapter = new RecordAdapter(this.getContext());
+
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setAdapter(mAdapter);
+        mViewModel = new ViewModelProvider(this).get(ListRecordViewModel.class);
+        mViewModel.getAllRecords().observe(getViewLifecycleOwner(),mAdapter::setListRecord);
     }
 
     private void speedDialFloatingButton(boolean isAddActionItems) {
