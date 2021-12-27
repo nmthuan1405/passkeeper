@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.passkeeper">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,25 +12,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Passkeeper">
         <activity
+            android:name=".ui.group.GroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.listGroup.ListGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.record.EditRecordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.record.AddRecordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.login.SignUpActivity"
             android:exported="false"
             android:theme="@style/Theme.Passkeeper.NoActionBar" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Passkeeper.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.Passkeeper.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Passkeeper.NoActionBar" />
     </application>
 
 </manifest>
