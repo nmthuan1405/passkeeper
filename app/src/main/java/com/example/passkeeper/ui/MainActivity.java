@@ -3,8 +3,11 @@ package com.example.passkeeper.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,10 +21,11 @@ import com.example.passkeeper.databinding.ActivityMainBinding;
 import com.example.passkeeper.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private NavController navController;
     private SessionManager sessionManager;
 
     @Override
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPref.init(getApplicationContext());
         sessionManager = SessionManager.getInstance();
         sessionManager.setOnLoginListener(() -> {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         });
         sessionManager.fetchToken();
@@ -49,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_all, R.id.nav_password, R.id.nav_card, R.id.nav_note)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -66,5 +71,18 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.log_out:
+                sessionManager.logOut();
+                break;
+        }
+
+        NavigationUI.onNavDestinationSelected(item ,navController);
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

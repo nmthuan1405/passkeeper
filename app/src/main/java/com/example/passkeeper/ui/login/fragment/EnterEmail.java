@@ -15,11 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.passkeeper.R;
-import com.example.passkeeper.ui.login.SignUpViewModel;
+import com.example.passkeeper.ui.login.AccountViewModel;
 
 public class EnterEmail extends Fragment implements View.OnClickListener {
 
-    private SignUpViewModel mViewModel;
+    private AccountViewModel mViewModel;
     private Button nextBtn;
 
     public static EnterEmail newInstance() {
@@ -36,7 +36,7 @@ public class EnterEmail extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
         nextBtn = view.findViewById(R.id.next_btn);
         nextBtn.setOnClickListener(this);
