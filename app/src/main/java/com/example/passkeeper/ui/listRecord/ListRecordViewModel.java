@@ -15,7 +15,7 @@ public class ListRecordViewModel extends ViewModel {
     private LiveData<List<Record>> mAllRecords;
 
     public ListRecordViewModel() {
-        mRepository = new ListRecordRepository();
+        mRepository = ListRecordRepository.getInstance();
         mAllRecords = mRepository.getAllRecord();
     }
 

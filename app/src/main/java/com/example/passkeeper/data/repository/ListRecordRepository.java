@@ -20,12 +20,21 @@ import retrofit2.Response;
 public class ListRecordRepository {
     private String TAG = "@@LR_Repo";
 
+    private static ListRecordRepository listRecordRepository = null;
     private ListRecordApi listRecordApi;
     private MutableLiveData<List<Record>> mAllRecord;
 
-    public ListRecordRepository() {
+    private ListRecordRepository() {
         listRecordApi = RetrofitService.createService(ListRecordApi.class);
         mAllRecord = new MutableLiveData<>();
+    }
+
+    public static ListRecordRepository getInstance() {
+        if (listRecordRepository == null) {
+            listRecordRepository = new ListRecordRepository();
+        }
+
+        return listRecordRepository;
     }
 
     public LiveData<List<Record>> getAllRecord() {
