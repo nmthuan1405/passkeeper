@@ -2,19 +2,19 @@ package com.example.passkeeper.ui.listRecord;
 
 import android.app.Application;
 
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
-import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.repository.ListRecordRepository;
 
-public class ListRecordViewModel extends AndroidViewModel {
-    private ListRecordRepository mRepository;
-    private LiveData<ListRecord> mAllRecords;
+import java.util.List;
 
-    public ListRecordViewModel(Application application) {
-        super(application);
+public class ListRecordViewModel extends ViewModel {
+    private ListRecordRepository mRepository;
+    private LiveData<List<Record>> mAllRecords;
+
+    public ListRecordViewModel() {
         mRepository = new ListRecordRepository();
         mAllRecords = mRepository.getAllRecord();
     }
@@ -31,7 +31,7 @@ public class ListRecordViewModel extends AndroidViewModel {
         mRepository.deleteAllRecords();
     }
 
-    public LiveData<ListRecord> getAllRecords() {
+    public LiveData<List<Record>> getAllRecords() {
         return mAllRecords;
     }
 }

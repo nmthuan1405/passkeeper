@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passkeeper.R;
-import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
 
 import java.util.List;
@@ -19,16 +18,10 @@ import java.util.List;
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
 
     final private LayoutInflater layoutInflater;
-
-    private List<Record> listRecord;
+    private List<Record> mListRecord = null;
 
     public RecordAdapter(Context context) {
         this.layoutInflater = LayoutInflater.from(context);
-    }
-
-    public RecordAdapter(Context context, List<Record> listRecord) {
-        this(context);
-        this.listRecord = listRecord;
     }
 
     @NonNull
@@ -40,20 +33,24 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
-        Record currentRecord = listRecord.get(position);
+        Record currentRecord = mListRecord.get(position);
         //holder.titleRecord.setText("");
         //holder.titleRecord.setText("");
     }
 
     @Override
     public int getItemCount() {
-        return listRecord.size();
+        if (mListRecord != null)
+            return mListRecord.size();
+        return 0;
     }
 
 
-    public void setListRecord(ListRecord listRecord) {
-        this.listRecord = (List<Record>) listRecord;
-        notifyDataSetChanged();
+    public void setListRecord(List<Record> listRecord) {
+        if (listRecord != null) {
+            mListRecord = listRecord;
+            notifyDataSetChanged();
+        }
     }
 
     public static class RecordViewHolder extends RecyclerView.ViewHolder {

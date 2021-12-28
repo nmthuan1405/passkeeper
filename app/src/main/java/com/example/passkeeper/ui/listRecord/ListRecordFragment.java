@@ -1,6 +1,7 @@
 package com.example.passkeeper.ui.listRecord;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passkeeper.R;
-import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.databinding.ListRecordFragmentBinding;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
@@ -24,6 +23,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import java.util.List;
 
 public class ListRecordFragment extends Fragment {
+    private String TAG = "@@LR_Frag";
 
     private ListRecordViewModel mViewModel;
     private ListRecordFragmentBinding binding;
@@ -43,22 +43,32 @@ public class ListRecordFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        mViewModel = new ViewModelProvider(this).get(ListRecordViewModel.class);
-        speedDialFloatingButton(savedInstanceState == null);
+
+        mViewModel = new ViewModelProvider(this).get(ListRecordViewModel.class);
+
+        initRecycleView();
+        initSpeedDialFloatingButton(savedInstanceState == null);
+
+        // get type of list record
         Bundle bundle = getArguments();
         int type = bundle.getInt("type");
+    }
 
-        // TODO: observer get data from viewModel to UI
+    private void initRecycleView() {
         mAdapter = new RecordAdapter(this.getContext());
-
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);
-        mViewModel = new ViewModelProvider(this).get(ListRecordViewModel.class);
-        mViewModel.getAllRecords().observe(getViewLifecycleOwner(),mAdapter::setListRecord);
+
+        mViewModel.getAllRecords().observe(getViewLifecycleOwner(), records -> {
+            if (records != null) {
+                Log.i(TAG, "List record data changed, size = " + records.size());
+                mAdapter.setListRecord(records);
+            }
+        });
     }
 
-    private void speedDialFloatingButton(boolean isAddActionItems) {
+    private void initSpeedDialFloatingButton(boolean isAddActionItems) {
         SpeedDialView speedDialView = binding.speedDial;
         if (isAddActionItems){
             speedDialView.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_add_password, R.drawable.ic_password)

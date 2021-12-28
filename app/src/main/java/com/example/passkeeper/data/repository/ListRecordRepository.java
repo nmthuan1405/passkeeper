@@ -1,12 +1,12 @@
 package com.example.passkeeper.data.repository;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import com.example.passkeeper.data.RetrofitService;
+import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.ListRecordApi;
 import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
@@ -18,25 +18,34 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListRecordRepository {
+    private String TAG = "@@LR_Repo";
+
     private ListRecordApi listRecordApi;
-    private MutableLiveData<ListRecord> mAllRecord;
+    private MutableLiveData<List<Record>> mAllRecord;
 
     public ListRecordRepository() {
         listRecordApi = RetrofitService.createService(ListRecordApi.class);
         mAllRecord = new MutableLiveData<>();
     }
 
-    public LiveData<ListRecord> getAllRecord() {
-        listRecordApi.getListRecord().enqueue(new Callback<ListRecord>() {
+    public LiveData<List<Record>> getAllRecord() {
+        String token = SessionManager.getInstance().getAccessToken();
+        Log.i(TAG, "Starting fetch data, token: " + token);
+        listRecordApi.getListRecord(token).enqueue(new Callback<ListRecord>() {
             @Override
             public void onResponse(Call<ListRecord> call, Response<ListRecord> response) {
+                Log.i(TAG, "Fetch data code: " + response.code());
                 if (response.isSuccessful()) {
-                    mAllRecord.setValue(response.body());
+                    Log.i(TAG, "Fetch data successful");
+
+                    mAllRecord.setValue(response.body().getResults());
                 }
             }
 
             @Override
             public void onFailure(Call<ListRecord> call, Throwable t) {
+                Log.i(TAG, "Fetch data failed: " + t.getMessage());
+
                 mAllRecord.setValue(null);
             }
         });

@@ -1,5 +1,6 @@
-package com.example.passkeeper;
+package com.example.passkeeper.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -10,17 +11,30 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.passkeeper.R;
+import com.example.passkeeper.data.SessionManager;
+import com.example.passkeeper.data.SharedPref;
 import com.example.passkeeper.databinding.ActivityMainBinding;
+import com.example.passkeeper.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPref.init(getApplicationContext());
+        sessionManager = SessionManager.getInstance();
+        sessionManager.setOnLoginListener(() -> {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        });
+        sessionManager.fetchToken();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
