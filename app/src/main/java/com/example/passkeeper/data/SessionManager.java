@@ -2,9 +2,6 @@ package com.example.passkeeper.data;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-
 import com.example.passkeeper.data.model.AuthResponse;
 
 public class SessionManager {

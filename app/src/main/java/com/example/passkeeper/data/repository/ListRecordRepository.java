@@ -1,7 +1,5 @@
 package com.example.passkeeper.data.repository;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,21 +11,16 @@ import com.example.passkeeper.data.api.ListRecordApi;
 import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
 
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ListRecordRepository {
-    private ListRecordApi listRecordApi;
-    private MutableLiveData<DataWrapper<ListRecord>> listRecord;
+    private final MutableLiveData<DataWrapper<ListRecord>> listRecord;
+    private final ListRecordApi listRecordApi;
 
     public ListRecordRepository() {
         listRecordApi = RetrofitService.createService(ListRecordApi.class);
         listRecord = new MutableLiveData<>();
     }
-
 
     public LiveData<DataWrapper<ListRecord>> getRawListRecord() {
         String token = SessionManager.getInstance().getAccessToken();

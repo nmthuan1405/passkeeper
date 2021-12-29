@@ -10,8 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -26,7 +24,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import java.util.List;
 
 public class ListRecordFragment extends Fragment {
-    private String TAG = "@@LR_Frag";
+    private final String TAG = "@@LR_Frag";
 
     private ListRecordViewModel mViewModel;
     private ListRecordFragmentBinding binding;
@@ -90,12 +88,9 @@ public class ListRecordFragment extends Fragment {
                     .create());
         }
 
-        speedDialView.setOnActionSelectedListener(new SpeedDialView.OnActionSelectedListener() {
-            @Override
-            public boolean onActionSelected(SpeedDialActionItem actionItem) {
-                Toast.makeText(getActivity(), actionItem.getLabel(getActivity())+" clicked", Toast.LENGTH_LONG).show();
-                return false;
-            }
+        speedDialView.setOnActionSelectedListener(actionItem -> {
+            Toast.makeText(getActivity(), actionItem.getLabel(getActivity())+" clicked", Toast.LENGTH_LONG).show();
+            return false;
         });
     }
 }

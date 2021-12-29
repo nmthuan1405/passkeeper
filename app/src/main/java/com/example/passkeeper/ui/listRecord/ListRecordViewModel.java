@@ -13,9 +13,9 @@ import com.example.passkeeper.data.retrofit.DataWrapper;
 import java.util.List;
 
 public class ListRecordViewModel extends ViewModel {
-    private ListRecordRepository repository;
-    private LiveData<DataWrapper<ListRecord>> rawListRecord;
-    private MutableLiveData<DataWrapper<List<Record>>> listRecord;
+    private final ListRecordRepository repository;
+    private final LiveData<DataWrapper<ListRecord>> rawListRecord;
+    private final MutableLiveData<DataWrapper<List<Record>>> listRecord;
 
     public ListRecordViewModel() {
         repository = new ListRecordRepository();
