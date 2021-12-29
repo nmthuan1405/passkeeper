@@ -1,4 +1,4 @@
-package com.example.passkeeper.data;
+package com.example.passkeeper.data.retrofit;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

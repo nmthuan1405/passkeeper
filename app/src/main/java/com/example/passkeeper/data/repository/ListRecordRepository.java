@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.passkeeper.data.RetrofitService;
+import com.example.passkeeper.data.retrofit.RetrofitService;
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.ListRecordApi;
 import com.example.passkeeper.data.model.ListRecord;

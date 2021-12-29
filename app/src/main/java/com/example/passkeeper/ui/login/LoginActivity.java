@@ -9,44 +9,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.passkeeper.data.RetrofitService;
 import com.example.passkeeper.data.SessionManager;
-import com.example.passkeeper.data.api.AuthenticationApi;
-import com.example.passkeeper.data.model.AuthRequest;
 import com.example.passkeeper.data.model.AuthResponse;
-import com.example.passkeeper.data.model.DataWrapper;
+import com.example.passkeeper.data.retrofit.DataWrapper;
 import com.example.passkeeper.databinding.ActivityLoginBinding;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.passkeeper.ui.MainActivity;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements Observer<DataWrapper<AuthResponse>> {
     private String TAG = "@@LoginAct";
     private ActivityLoginBinding binding;
-    private SessionManager sessionManager;
     private AccountViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sessionManager = SessionManager.getInstance();
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         model = new ViewModelProvider(this).get(AccountViewModel.class);
-        model.getLoginStatus().observe(this, data -> {
-            switch (data.getStatus()) {
-                case SUCCESS:
-                    finish();
-                    break;
-                case ERROR:
-                    Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        });
+        model.getLoginStatus().observe(this, this);
 
         binding.signUp.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
@@ -59,5 +41,27 @@ public class LoginActivity extends AppCompatActivity {
 
             model.login(email, password);
         });
+    }
+
+    @Override
+    public void onChanged(DataWrapper<AuthResponse> data) {
+        switch (data.getStatus()) {
+            case WAITING:
+                Log.i(TAG, "Waiting login");
+                break;
+
+            case SUCCESS:
+                Log.i(TAG, "Login successful");
+                SessionManager.getInstance().setToken(data.getData());
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+
+            case ERROR:
+                Log.e(TAG, "Login failed");
+                Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

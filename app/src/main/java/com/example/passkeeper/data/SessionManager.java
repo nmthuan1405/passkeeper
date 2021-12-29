@@ -14,24 +14,8 @@ public class SessionManager {
 
     private static SessionManager instance = null;
     private AuthResponse auth = null;
-    private MutableLiveData<Boolean> isLogin;
-    private OnLoginListener onLoginListener = null;
-
-    public interface OnLoginListener {
-        void onLogin();
-    }
-
-    public void setOnLoginListener(OnLoginListener onLoginListener) {
-        this.onLoginListener = onLoginListener;
-    }
 
     private SessionManager() {
-        isLogin = new MutableLiveData<>();
-        isLogin.observeForever(isLogin -> {
-            if (!isLogin && onLoginListener != null) {
-                onLoginListener.onLogin();
-            }
-        });
     }
 
     public static SessionManager getInstance() {
@@ -41,33 +25,32 @@ public class SessionManager {
         return instance;
     }
 
-    public void fetchToken() {
-        Log.i(TAG, "Fetch token");
+    public boolean fetchToken() {
+        Log.i(TAG, "Fetch token from storage");
         String refresh = SharedPref.read(REFRESH_TOKEN, null);
         String access = SharedPref.read(ACCESS_TOKEN, null);
 
         if (refresh != null && access != null) {
             auth = new AuthResponse(refresh, access);
-            isLogin.setValue(true);
+            return true;
         }
-        else {
-            Log.i(TAG, "Login status is false");
-            isLogin.setValue(false);
-        }
+        return false;
     }
 
     public void setToken(AuthResponse authResponse) {
-        auth = authResponse;
         if (authResponse != null) {
-            Log.i(TAG, "Set valid token");
+            Log.i(TAG, "Set token");
             SharedPref.write(REFRESH_TOKEN, authResponse.getRefresh());
             SharedPref.write(ACCESS_TOKEN, authResponse.getAccess());
-            isLogin.setValue(true);
+
+            auth = authResponse;
         }
-        else {
+        else if (auth != null) {
             Log.i(TAG, "Set null token");
             SharedPref.write(REFRESH_TOKEN, null);
             SharedPref.write(ACCESS_TOKEN, null);
+
+            auth = null;
         }
     }
 
@@ -78,7 +61,10 @@ public class SessionManager {
         return null;
     }
 
-    public void logOut() {
-        isLogin.setValue(false);
+    public String getRefreshToken() {
+        if (auth != null) {
+            return "Bearer " + auth.getRefresh();
+        }
+        return null;
     }
 }
