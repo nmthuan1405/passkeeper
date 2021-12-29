@@ -15,14 +15,13 @@ public class BaseCallback<T> implements Callback<T> {
     }
 
     public void onSuccess(Call<T> call, Response<T> response){
-
-    };
+        data.setValue(DataWrapper.SUCCESS(response.body()));
+    }
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         if (response.isSuccessful()) {
             onSuccess(call, response);
-            data.setValue(DataWrapper.SUCCESS(response.body()));
         }
         else {
             data.setValue(DataWrapper.ERROR(response.message()));

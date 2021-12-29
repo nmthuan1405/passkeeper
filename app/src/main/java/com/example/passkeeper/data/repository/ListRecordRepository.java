@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.passkeeper.data.retrofit.BaseCallback;
+import com.example.passkeeper.data.retrofit.DataWrapper;
 import com.example.passkeeper.data.retrofit.RetrofitService;
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.ListRecordApi;
@@ -18,48 +20,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListRecordRepository {
-    private String TAG = "@@LR_Repo";
-
-    private static ListRecordRepository listRecordRepository = null;
     private ListRecordApi listRecordApi;
-    private MutableLiveData<List<Record>> mAllRecord;
+    private MutableLiveData<DataWrapper<ListRecord>> listRecord;
 
-    private ListRecordRepository() {
+    public ListRecordRepository() {
         listRecordApi = RetrofitService.createService(ListRecordApi.class);
-        mAllRecord = new MutableLiveData<>();
+        listRecord = new MutableLiveData<>();
     }
 
-    public static ListRecordRepository getInstance() {
-        if (listRecordRepository == null) {
-            listRecordRepository = new ListRecordRepository();
-        }
 
-        return listRecordRepository;
-    }
-
-    public LiveData<List<Record>> getAllRecord() {
+    public LiveData<DataWrapper<ListRecord>> getRawListRecord() {
         String token = SessionManager.getInstance().getAccessToken();
-        Log.i(TAG, "Starting fetch data, token: " + token);
-        listRecordApi.getListRecord(token).enqueue(new Callback<ListRecord>() {
-            @Override
-            public void onResponse(Call<ListRecord> call, Response<ListRecord> response) {
-                Log.i(TAG, "Fetch data code: " + response.code());
-                if (response.isSuccessful()) {
-                    Log.i(TAG, "Fetch data successful");
-
-                    mAllRecord.setValue(response.body().getResults());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ListRecord> call, Throwable t) {
-                Log.i(TAG, "Fetch data failed: " + t.getMessage());
-
-                mAllRecord.setValue(null);
-            }
-        });
-
-        return mAllRecord;
+        listRecordApi.getListRecord(token).enqueue(new BaseCallback<>(listRecord));
+        return listRecord;
     }
 
     public void insert(Record record) {

@@ -26,7 +26,6 @@ public class AccountRepository {
     }
 
     public void login(String email, String password) {
-        loginStatus.setValue(DataWrapper.WAITING());
         AuthenticationApi authenticationApi = RetrofitService.createService(AuthenticationApi.class);
         authenticationApi.login(new AuthRequest(email, password)).enqueue(new BaseCallback<>(loginStatus));
     }

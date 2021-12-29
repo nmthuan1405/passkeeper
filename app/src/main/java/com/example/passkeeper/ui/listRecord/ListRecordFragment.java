@@ -10,12 +10,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.passkeeper.R;
+import com.example.passkeeper.data.BaseObserver;
 import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.data.retrofit.DataWrapper;
 import com.example.passkeeper.databinding.ListRecordFragmentBinding;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -60,10 +63,15 @@ public class ListRecordFragment extends Fragment {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);
 
-        mViewModel.getAllRecords().observe(getViewLifecycleOwner(), records -> {
-            if (records != null) {
-                Log.i(TAG, "List record data changed, size = " + records.size());
-                mAdapter.setListRecord(records);
+        mViewModel.getAllRecords().observe(getViewLifecycleOwner(), new BaseObserver<List<Record>>(getActivity()) {
+
+            @Override
+            public void onSuccess(DataWrapper<List<Record>> data) {
+                List<Record> records = data.getData();
+                if (records != null) {
+                    Log.i(TAG, "List record data changed, size = " + records.size());
+                    mAdapter.setListRecord(records);
+                }
             }
         });
     }
