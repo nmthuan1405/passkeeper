@@ -1,13 +1,13 @@
 package com.example.passkeeper.data.retrofit;
 
-public class DataWrapper<T> {
+public class Resource<T> {
     public enum Status { SUCCESS, ERROR, WAITING }
 
     T data;
     Status dataStatus;
     String errorText;
 
-    public DataWrapper(T data, Status dataStatus, String errorText) {
+    public Resource(T data, Status dataStatus, String errorText) {
         this.data = data;
         this.dataStatus = dataStatus;
         this.errorText = errorText;
@@ -26,15 +26,15 @@ public class DataWrapper<T> {
     }
 
 
-    public static<T> DataWrapper<T> WAITING() {
-        return new DataWrapper<>(null, Status.WAITING, null);
+    public static<T> Resource<T> WAITING() {
+        return new Resource<>(null, Status.WAITING, null);
     }
 
-    public static<T> DataWrapper<T> ERROR(String errorText) {
-        return new DataWrapper<>(null, Status.ERROR, errorText);
+    public static<T> Resource<T> ERROR(String errorText) {
+        return new Resource<>(null, Status.ERROR, errorText);
     }
 
-    public static<T> DataWrapper<T> SUCCESS(T data) {
-        return new DataWrapper<>(data, Status.SUCCESS, null);
+    public static<T> Resource<T> SUCCESS(T data) {
+        return new Resource<>(data, Status.SUCCESS, null);
     }
 }

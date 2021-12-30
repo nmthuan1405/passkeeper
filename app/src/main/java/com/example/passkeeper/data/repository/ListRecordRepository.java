@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.passkeeper.data.retrofit.CompleteCallback;
-import com.example.passkeeper.data.retrofit.DataWrapper;
+import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.data.retrofit.RetrofitService;
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.ListRecordApi;
@@ -14,7 +14,7 @@ import com.example.passkeeper.data.model.Record;
 
 
 public class ListRecordRepository {
-    private final MutableLiveData<DataWrapper<ListRecord>> listRecord;
+    private final MutableLiveData<Resource<ListRecord>> listRecord;
     private final ListRecordApi listRecordApi;
 
     public ListRecordRepository() {
@@ -22,7 +22,7 @@ public class ListRecordRepository {
         listRecord = new MutableLiveData<>();
     }
 
-    public LiveData<DataWrapper<ListRecord>> getRawListRecord() {
+    public LiveData<Resource<ListRecord>> getRawListRecord() {
         String token = SessionManager.getInstance().getAccessToken();
         listRecordApi.getListRecord(token).enqueue(new CompleteCallback<>(listRecord));
         return listRecord;

@@ -6,14 +6,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public abstract class BaseCallback<Response, DataIn> implements Callback<Response> {
-    private MutableLiveData<DataWrapper<DataIn>> data;
+    private MutableLiveData<Resource<DataIn>> data;
 
-    public BaseCallback(MutableLiveData<DataWrapper<DataIn>> data) {
+    public BaseCallback(MutableLiveData<Resource<DataIn>> data) {
         this.data = data;
-        this.data.setValue(DataWrapper.WAITING());
+        this.data.setValue(Resource.WAITING());
     }
 
-    public abstract void onSuccess(Call<Response> call, retrofit2.Response<Response> response, MutableLiveData<DataWrapper<DataIn>> data);
+    public abstract void onSuccess(Call<Response> call, retrofit2.Response<Response> response, MutableLiveData<Resource<DataIn>> data);
 
     @Override
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
@@ -21,13 +21,13 @@ public abstract class BaseCallback<Response, DataIn> implements Callback<Respons
             onSuccess(call, response, data);
         }
         else {
-            data.setValue(DataWrapper.ERROR(response.message()));
+            data.setValue(Resource.ERROR(response.message()));
         }
     }
 
 
     @Override
     public void onFailure(Call<Response> call, Throwable t) {
-        data.setValue(DataWrapper.ERROR(t.getMessage()));
+        data.setValue(Resource.ERROR(t.getMessage()));
     }
 }

@@ -8,11 +8,11 @@ import com.example.passkeeper.data.retrofit.RetrofitService;
 import com.example.passkeeper.data.api.AuthenticationApi;
 import com.example.passkeeper.data.model.AuthRequest;
 import com.example.passkeeper.data.model.AuthResponse;
-import com.example.passkeeper.data.retrofit.DataWrapper;
+import com.example.passkeeper.data.retrofit.Resource;
 
 
 public class AccountRepository {
-    private final MutableLiveData<DataWrapper<AuthResponse>> loginStatus;
+    private final MutableLiveData<Resource<AuthResponse>> loginStatus;
 
     public AccountRepository() {
         loginStatus = new MutableLiveData<>();
@@ -23,7 +23,7 @@ public class AccountRepository {
         authenticationApi.login(new AuthRequest(email, password)).enqueue(new CompleteCallback<>(loginStatus));
     }
 
-    public LiveData<DataWrapper<AuthResponse>> getLoginStatus() {
+    public LiveData<Resource<AuthResponse>> getLoginStatus() {
         return loginStatus;
     }
 }

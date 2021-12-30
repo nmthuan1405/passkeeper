@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.model.AuthResponse;
-import com.example.passkeeper.data.retrofit.DataWrapper;
+import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityLoginBinding;
 import com.example.passkeeper.ui.MainActivity;
 import com.example.passkeeper.ui.utils.BaseObserver;
@@ -30,18 +30,18 @@ public class LoginActivity extends AppCompatActivity{
         model = new ViewModelProvider(this).get(AccountViewModel.class);
         model.getLoginStatus().observe(this, new BaseObserver<AuthResponse>() {
             @Override
-            public void onWaiting(DataWrapper<AuthResponse> data) {
+            public void onWaiting(Resource<AuthResponse> data) {
                 Log.i(TAG, "Waiting login");
             }
 
             @Override
-            public void onError(DataWrapper<AuthResponse> data) {
+            public void onError(Resource<AuthResponse> data) {
                 Log.e(TAG, "Login failed");
                 Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onSuccess(DataWrapper<AuthResponse> data) {
+            public void onSuccess(Resource<AuthResponse> data) {
                 Log.i(TAG, "Login successful");
                 SessionManager.getInstance().setToken(data.getData());
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);

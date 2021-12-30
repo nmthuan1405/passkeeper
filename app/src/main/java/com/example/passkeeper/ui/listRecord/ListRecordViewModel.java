@@ -7,15 +7,15 @@ import androidx.lifecycle.ViewModel;
 import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.repository.ListRecordRepository;
-import com.example.passkeeper.data.retrofit.DataWrapper;
+import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.ui.utils.FunctionWrapper;
 
 import java.util.List;
 
 public class ListRecordViewModel extends ViewModel {
     private final ListRecordRepository repository;
-    private final LiveData<DataWrapper<ListRecord>> rawListRecord;
-    private final LiveData<DataWrapper<List<Record>>> listRecord;
+    private final LiveData<Resource<ListRecord>> rawListRecord;
+    private final LiveData<Resource<List<Record>>> listRecord;
 
     public ListRecordViewModel() {
         repository = new ListRecordRepository();
@@ -23,18 +23,18 @@ public class ListRecordViewModel extends ViewModel {
 
         listRecord = Transformations.map(rawListRecord, new FunctionWrapper<ListRecord, List<Record>>() {
             @Override
-            public DataWrapper<List<Record>> onSuccess(DataWrapper<ListRecord> input) {
-                return DataWrapper.SUCCESS(input.getData().getResults());
+            public Resource<List<Record>> onSuccess(Resource<ListRecord> input) {
+                return Resource.SUCCESS(input.getData().getResults());
             }
 
             @Override
-            public DataWrapper<List<Record>> onError(DataWrapper<ListRecord> input) {
-                return DataWrapper.ERROR(input.getError());
+            public Resource<List<Record>> onError(Resource<ListRecord> input) {
+                return Resource.ERROR(input.getError());
             }
 
             @Override
-            protected DataWrapper<List<Record>> onWaiting(DataWrapper<ListRecord> input) {
-                return DataWrapper.WAITING();
+            protected Resource<List<Record>> onWaiting(Resource<ListRecord> input) {
+                return Resource.WAITING();
             }
         });
     }
@@ -51,7 +51,7 @@ public class ListRecordViewModel extends ViewModel {
         repository.deleteAllRecords();
     }
 
-    public LiveData<DataWrapper<List<Record>>> getAllRecords() {
+    public LiveData<Resource<List<Record>>> getAllRecords() {
         return listRecord;
     }
 }

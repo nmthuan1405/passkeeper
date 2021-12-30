@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.passkeeper.R;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.example.passkeeper.data.model.Record;
-import com.example.passkeeper.data.retrofit.DataWrapper;
+import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ListRecordFragmentBinding;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -63,7 +63,7 @@ public class ListRecordFragment extends Fragment {
 
         mViewModel.getAllRecords().observe(getViewLifecycleOwner(), new ActivityObserver<List<Record>>(getActivity()) {
             @Override
-            public void onSuccess(DataWrapper<List<Record>> data) {
+            public void onSuccess(Resource<List<Record>> data) {
                 List<Record> records = data.getData();
                 if (records != null) {
                     Log.i(TAG, "List record data changed, size = " + records.size());

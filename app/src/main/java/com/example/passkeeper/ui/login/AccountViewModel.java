@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.passkeeper.data.model.AuthResponse;
-import com.example.passkeeper.data.retrofit.DataWrapper;
+import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.data.repository.AccountRepository;
 
 public class AccountViewModel extends ViewModel {
     private final AccountRepository accountRepository;
-    private final LiveData<DataWrapper<AuthResponse>> loginStatus;
+    private final LiveData<Resource<AuthResponse>> loginStatus;
 
     public AccountViewModel() {
         accountRepository = new AccountRepository();
@@ -20,7 +20,7 @@ public class AccountViewModel extends ViewModel {
         accountRepository.login(email, password);
     }
 
-    public LiveData<DataWrapper<AuthResponse>> getLoginStatus() {
+    public LiveData<Resource<AuthResponse>> getLoginStatus() {
         return loginStatus;
     }
 

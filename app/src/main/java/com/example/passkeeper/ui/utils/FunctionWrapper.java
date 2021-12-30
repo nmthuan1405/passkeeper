@@ -2,11 +2,11 @@ package com.example.passkeeper.ui.utils;
 
 import androidx.arch.core.util.Function;
 
-import com.example.passkeeper.data.retrofit.DataWrapper;
+import com.example.passkeeper.data.retrofit.Resource;
 
-public abstract class FunctionWrapper<I, O> implements Function<DataWrapper<I>, DataWrapper<O>> {
+public abstract class FunctionWrapper<I, O> implements Function<Resource<I>, Resource<O>> {
     @Override
-    public DataWrapper<O> apply(DataWrapper<I> input) {
+    public Resource<O> apply(Resource<I> input) {
         switch (input.getStatus()) {
             case SUCCESS:
                 return onSuccess(input);
@@ -20,7 +20,7 @@ public abstract class FunctionWrapper<I, O> implements Function<DataWrapper<I>, 
         return null;
     }
 
-    public abstract DataWrapper<O> onSuccess(DataWrapper<I> input);
-    public abstract DataWrapper<O> onError(DataWrapper<I> input);
-    protected abstract DataWrapper<O> onWaiting(DataWrapper<I> input);
+    public abstract Resource<O> onSuccess(Resource<I> input);
+    public abstract Resource<O> onError(Resource<I> input);
+    protected abstract Resource<O> onWaiting(Resource<I> input);
 }
