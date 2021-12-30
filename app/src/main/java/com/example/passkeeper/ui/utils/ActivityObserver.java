@@ -1,27 +1,26 @@
-package com.example.passkeeper.data;
+package com.example.passkeeper.ui.utils;
 
 import android.app.Activity;
 import android.content.Intent;
 
-import androidx.lifecycle.Observer;
-
+import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.retrofit.DataWrapper;
 import com.example.passkeeper.ui.login.LoginActivity;
 
-public abstract class BaseObserver<T> implements Observer<DataWrapper<T>> {
+public abstract class ActivityObserver<T> extends BaseObserver<T> {
     private final String ERROR_401 = "Unauthorized";
     private final Activity activity;
 
-    public BaseObserver(Activity activity) {
+    public ActivityObserver(Activity activity) {
         this.activity = activity;
     }
 
+    @Override
     public void onWaiting(DataWrapper<T> data) {
 
     }
 
-    public abstract void onSuccess(DataWrapper<T> data);
-
+    @Override
     public void onError(DataWrapper<T> data) {
         if (activity != null && data.getError().equals(ERROR_401)) {
             SessionManager.getInstance().setToken(null);
@@ -30,21 +29,5 @@ public abstract class BaseObserver<T> implements Observer<DataWrapper<T>> {
             activity.finishAffinity();
         }
     }
-
-    @Override
-    public void onChanged(DataWrapper<T> data) {
-        switch (data.getStatus()) {
-            case WAITING:
-                onWaiting(data);
-                break;
-
-            case SUCCESS:
-                onSuccess(data);
-                break;
-
-            case ERROR:
-                onError(data);
-                break;
-        }
-    }
 }
+

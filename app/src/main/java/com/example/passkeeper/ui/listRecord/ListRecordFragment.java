@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.passkeeper.R;
-import com.example.passkeeper.data.BaseObserver;
+import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.DataWrapper;
 import com.example.passkeeper.databinding.ListRecordFragmentBinding;
@@ -61,8 +61,7 @@ public class ListRecordFragment extends Fragment {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);
 
-        mViewModel.getAllRecords().observe(getViewLifecycleOwner(), new BaseObserver<List<Record>>(getActivity()) {
-
+        mViewModel.getAllRecords().observe(getViewLifecycleOwner(), new ActivityObserver<List<Record>>(getActivity()) {
             @Override
             public void onSuccess(DataWrapper<List<Record>> data) {
                 List<Record> records = data.getData();

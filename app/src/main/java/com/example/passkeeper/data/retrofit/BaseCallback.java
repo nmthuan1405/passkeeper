@@ -4,32 +4,30 @@ import androidx.lifecycle.MutableLiveData;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
-public class BaseCallback<T> implements Callback<T> {
-    MutableLiveData<DataWrapper<T>> data;
+public abstract class BaseCallback<Response, DataIn> implements Callback<Response> {
+    private MutableLiveData<DataWrapper<DataIn>> data;
 
-    public BaseCallback(MutableLiveData<DataWrapper<T>> data) {
+    public BaseCallback(MutableLiveData<DataWrapper<DataIn>> data) {
         this.data = data;
         this.data.setValue(DataWrapper.WAITING());
     }
 
-    public void onSuccess(Call<T> call, Response<T> response){
-        data.setValue(DataWrapper.SUCCESS(response.body()));
-    }
+    public abstract void onSuccess(Call<Response> call, retrofit2.Response<Response> response, MutableLiveData<DataWrapper<DataIn>> data);
 
     @Override
-    public void onResponse(Call<T> call, Response<T> response) {
+    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
         if (response.isSuccessful()) {
-            onSuccess(call, response);
+            onSuccess(call, response, data);
         }
         else {
             data.setValue(DataWrapper.ERROR(response.message()));
         }
     }
 
+
     @Override
-    public void onFailure(Call<T> call, Throwable t) {
+    public void onFailure(Call<Response> call, Throwable t) {
         data.setValue(DataWrapper.ERROR(t.getMessage()));
     }
 }
