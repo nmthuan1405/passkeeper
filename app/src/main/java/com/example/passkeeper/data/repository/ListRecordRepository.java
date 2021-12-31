@@ -36,4 +36,5 @@ public class ListRecordRepository {
 
     public void deleteAllRecords() {
     }
+
 }

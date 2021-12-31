@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
-import com.example.passkeeper.ui.MainActivity;
 
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     @NonNull
     @Override
     public RecordAdapter.RecordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.item_record_card, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.item_record, parent, false);
         return new RecordViewHolder(itemView);
     }
 
