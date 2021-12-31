@@ -54,6 +54,41 @@ public class Record {
         this.recordFields = recordFields;
     }
 
+    public String isHaveRecordFields(){
+        if (recordFields.size() == 0 || recordFields == null)
+            return "No";
+        return recordFields.get(0).getName();
+    }
+
+    public String getRecordName(){
+        for (RecordField tmp: recordFields){
+            if (tmp.getName().equals("name")){
+                return tmp.getValue();
+            }
+        }
+        return "None";
+    }
+
+    public String getRecordSub(){
+        switch (recordType){
+            case "password":{
+                for (RecordField tmp: recordFields){
+                    if (tmp.getName().equals("username")){
+                        return tmp.getValue();
+                    }
+                }
+            }
+            break;
+            case "card":{
+                for (RecordField tmp: recordFields){
+                    if (tmp.getName().equals("cardholdername")){
+                        return tmp.getValue();
+                    }
+                }
+            }
+        }
+        return "None";
+    }
     public Integer getId() {
         return id;
     }

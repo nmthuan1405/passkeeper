@@ -6,12 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.ui.MainActivity;
 
 import java.util.List;
 
@@ -34,8 +37,29 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
         Record currentRecord = mListRecord.get(position);
-        //holder.titleRecord.setText("");
-        //holder.titleRecord.setText("");
+        holder.titleRecord.setText(currentRecord.getRecordName());
+        holder.descriptionRecord.setText(currentRecord.getRecordSub());
+        if (currentRecord.getIsFav()){
+            holder.isFavRecord.setChecked(true);
+        } else {
+            holder.isFavRecord.setChecked(false);
+        }
+        switch (currentRecord.getRecordType()){
+            case "password":
+                holder.typeRecord.setImageResource(R.drawable.ic_password);
+                break;
+            case "card":
+                holder.typeRecord.setImageResource(R.drawable.ic_card);
+                break;
+            case "note":
+                holder.typeRecord.setImageResource(R.drawable.ic_note);
+        }
+        holder.isFavRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentRecord.setIsFav(!currentRecord.getIsFav());
+            }
+        });
     }
 
     @Override
@@ -57,13 +81,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
         private TextView titleRecord;
         private TextView descriptionRecord;
-        private ImageView isLikeRecord;
+        private ToggleButton isFavRecord;
+        private ImageView typeRecord;
 
         public RecordViewHolder(@NonNull View itemView) {
             super(itemView);
             titleRecord = itemView.findViewById(R.id.name_record_text_view);
             descriptionRecord = itemView.findViewById(R.id.description_text_view);
-            isLikeRecord = itemView.findViewById(R.id.icon);
+            isFavRecord = itemView.findViewById(R.id.fav_toggle);
+            typeRecord = itemView.findViewById(R.id.icon);
         }
     }
 }

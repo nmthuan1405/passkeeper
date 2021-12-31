@@ -43,13 +43,16 @@
             tools:text="User's fullname" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <ToggleButton
+        android:id="@+id/fav_toggle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:padding="14dp"
-        android:src="@drawable/ic_star" />
+        android:layout_margin="14dp"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/toggle_fav"/>
 
     <View
         android:layout_width="match_parent"
