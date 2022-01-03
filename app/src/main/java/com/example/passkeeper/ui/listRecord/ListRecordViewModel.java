@@ -15,43 +15,37 @@ import java.util.List;
 public class ListRecordViewModel extends ViewModel {
     private final ListRecordRepository repository;
     private final LiveData<Resource<ListRecord>> rawListRecord;
-    private final LiveData<Resource<List<Record>>> listRecord;
+    private LiveData<Resource<List<Record>>> listRecord = null;
 
     public ListRecordViewModel() {
         repository = new ListRecordRepository();
         rawListRecord = repository.getRawListRecord();
-
-        listRecord = Transformations.map(rawListRecord, new FunctionWrapper<ListRecord, List<Record>>() {
-            @Override
-            public Resource<List<Record>> onSuccess(Resource<ListRecord> input) {
-                return Resource.SUCCESS(input.getData().getResults());
-            }
-
-            @Override
-            public Resource<List<Record>> onError(Resource<ListRecord> input) {
-                return Resource.ERROR(input.getError());
-            }
-
-            @Override
-            protected Resource<List<Record>> onWaiting(Resource<ListRecord> input) {
-                return Resource.WAITING();
-            }
-        });
     }
 
-    public void insert(Record record){
-        repository.insert(record);
-    }
-
-    public void delete(Record record){
-        repository.delete(record);
-    }
-
-    public void deleteAllRecords() {
-        repository.deleteAllRecords();
+    public void fetchListRecord() {
+        repository.fetchRawListRecord();
     }
 
     public LiveData<Resource<List<Record>>> getAllRecords() {
+        if (listRecord == null) {
+            listRecord = Transformations.map(rawListRecord, new FunctionWrapper<ListRecord, List<Record>>() {
+                @Override
+                public Resource<List<Record>> onSuccess(Resource<ListRecord> input) {
+                    return Resource.SUCCESS(input.getData().getResults());
+                }
+
+                @Override
+                public Resource<List<Record>> onError(Resource<ListRecord> input) {
+                    return Resource.ERROR(input.getError());
+                }
+
+                @Override
+                protected Resource<List<Record>> onWaiting(Resource<ListRecord> input) {
+                    return Resource.WAITING();
+                }
+            });
+            fetchListRecord();
+        }
         return listRecord;
     }
 }
