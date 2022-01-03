@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.passkeeper.R;
-import com.example.passkeeper.ui.login.SignUpViewModel;
+import com.example.passkeeper.ui.login.AccountViewModel;
 
 public class SetPassword extends Fragment implements View.OnClickListener {
 
-    private SignUpViewModel mViewModel;
+    private AccountViewModel mViewModel;
     private Button savePassBtn;
     public static SetPassword newInstance() {
         return new SetPassword();
@@ -34,7 +34,7 @@ public class SetPassword extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
         savePassBtn = view.findViewById(R.id.save_pass_btn);
         savePassBtn.setOnClickListener(this);

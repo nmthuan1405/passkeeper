@@ -1,13 +1,13 @@
-package com.example.passkeeper.data;
+package com.example.passkeeper.data.retrofit;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitService {
     private static Retrofit retrofit = null;
-    public static String BASE_URL = "127.0.0.2";
+    private static final String BASE_URL = "https://pk.thucdev.software/";
 
-    public static Retrofit getService(String baseUrl) {
+    private static Retrofit getRetrofitService(String baseUrl) {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
@@ -18,7 +18,7 @@ public class RetrofitService {
     }
 
     public static <S> S createService(Class<S> serviceClass) {
-        return getService(BASE_URL).create(serviceClass);
+        return getRetrofitService(BASE_URL).create(serviceClass);
     }
 }
 

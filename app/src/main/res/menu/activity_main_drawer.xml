@@ -24,4 +24,9 @@
             android:title="@string/note" />
     </group>
 
+    <group>
+        <item
+            android:id="@+id/log_out"
+            android:title="Log out" />
+    </group>
 </menu>

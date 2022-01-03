@@ -13,6 +13,6 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        SignUpViewModel model = new ViewModelProvider(this).get(SignUpViewModel.class);
+        AccountViewModel model = new ViewModelProvider(this).get(AccountViewModel.class);
     }
 }
