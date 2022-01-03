@@ -15,7 +15,7 @@ public class AccountRepository {
     private final MutableLiveData<Resource<AuthResponse>> loginStatus;
 
     public AccountRepository() {
-        loginStatus = new MutableLiveData<>();
+        loginStatus = new MutableLiveData<>(Resource.NONE());
     }
 
     public void login(String email, String password) {

@@ -9,9 +9,6 @@ import com.example.passkeeper.data.retrofit.RetrofitService;
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.ListRecordApi;
 import com.example.passkeeper.data.model.ListRecord;
-import com.example.passkeeper.data.model.Record;
-
-
 
 public class ListRecordRepository {
     private final MutableLiveData<Resource<ListRecord>> listRecord;
@@ -19,22 +16,15 @@ public class ListRecordRepository {
 
     public ListRecordRepository() {
         listRecordApi = RetrofitService.createService(ListRecordApi.class);
-        listRecord = new MutableLiveData<>();
+        listRecord = new MutableLiveData<>(Resource.NONE());
+    }
+
+    public void fetchRawListRecord() {
+        String token = SessionManager.getInstance().getAccessToken();
+        listRecordApi.getListRecord(token).enqueue(new CompleteCallback<>(listRecord));
     }
 
     public LiveData<Resource<ListRecord>> getRawListRecord() {
-        String token = SessionManager.getInstance().getAccessToken();
-        listRecordApi.getListRecord(token).enqueue(new CompleteCallback<>(listRecord));
         return listRecord;
     }
-
-    public void insert(Record record) {
-    }
-
-    public void delete(Record record) {
-    }
-
-    public void deleteAllRecords() {
-    }
-
 }

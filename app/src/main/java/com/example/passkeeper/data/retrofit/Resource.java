@@ -1,7 +1,7 @@
 package com.example.passkeeper.data.retrofit;
 
 public class Resource<T> {
-    public enum Status { SUCCESS, ERROR, WAITING }
+    public enum Status { SUCCESS, ERROR, WAITING, NONE}
 
     T data;
     Status dataStatus;
@@ -28,6 +28,10 @@ public class Resource<T> {
 
     public static<T> Resource<T> WAITING() {
         return new Resource<>(null, Status.WAITING, null);
+    }
+
+    public static<T> Resource<T> NONE() {
+        return new Resource<>(null, Status.NONE, null);
     }
 
     public static<T> Resource<T> ERROR(String errorText) {
