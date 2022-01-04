@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Enter code"
+        android:text="@string/enter_code"
         android:textSize="24sp"
         android:textColor="#0077B6"/>
 
@@ -19,7 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Code"
+        android:autofillHints="verifyCode"
+        android:hint="@string/code"
+        android:inputType="numberSigned"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="#D38F8E8E"
@@ -31,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
         android:background="@drawable/bg_button"
-        android:text="Verify"
+        android:text="@string/verify"
         android:textColor="@color/white"/>
 
 </LinearLayout>
