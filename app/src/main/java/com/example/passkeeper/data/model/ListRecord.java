@@ -51,5 +51,4 @@ public class ListRecord {
         this.results = results;
     }
 
-
 }

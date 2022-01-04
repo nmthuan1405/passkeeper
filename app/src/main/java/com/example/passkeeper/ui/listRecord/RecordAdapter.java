@@ -4,15 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.data.model.RecordField;
+import com.example.passkeeper.databinding.ItemRecordBinding;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     final private LayoutInflater layoutInflater;
     private List<Record> mListRecord = null;
+    private ItemRecordBinding binding;
 
     public RecordAdapter(Context context) {
         this.layoutInflater = LayoutInflater.from(context);
@@ -28,34 +29,47 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     @NonNull
     @Override
     public RecordAdapter.RecordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.item_record, parent, false);
-        return new RecordViewHolder(itemView);
+        binding = ItemRecordBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new RecordViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
         Record currentRecord = mListRecord.get(position);
-        holder.titleRecord.setText(currentRecord.getRecordName());
-        holder.descriptionRecord.setText(currentRecord.getRecordSub());
-        if (currentRecord.getIsFav()){
-            holder.isFavRecord.setChecked(true);
+        String recordName = currentRecord.getRecordFieldValue("name");
+        holder.binding.nameRecordTextView.setText(recordName==null ? "None":recordName);
+        String recordType = currentRecord.getRecordType();
+        String recordDescription = null;
+        switch (recordType){
+            case "password":
+                recordDescription = currentRecord.getRecordFieldValue("username");
+            break;
+            case "card":
+                recordDescription = currentRecord.getRecordFieldValue("cardholdername");
+            break;
+        }
+        holder.binding.descriptionRecordTextView.setText(recordDescription==null ? "None":recordDescription);
+        if (currentRecord.getIsFavorite()){
+            holder.binding.favoriteToggle.setChecked(true);
         } else {
-            holder.isFavRecord.setChecked(false);
+            holder.binding.favoriteToggle.setChecked(false);
         }
         switch (currentRecord.getRecordType()){
             case "password":
-                holder.typeRecord.setImageResource(R.drawable.ic_password);
+                holder.binding.iconTypeRecord.setImageResource(R.drawable.ic_password);
                 break;
             case "card":
-                holder.typeRecord.setImageResource(R.drawable.ic_card);
+                holder.binding.iconTypeRecord.setImageResource(R.drawable.ic_card);
                 break;
             case "note":
-                holder.typeRecord.setImageResource(R.drawable.ic_note);
+                holder.binding.iconTypeRecord.setImageResource(R.drawable.ic_note);
+                break;
         }
-        holder.isFavRecord.setOnClickListener(new View.OnClickListener() {
+        holder.binding.favoriteToggle.setOnClickListener(new View.OnClickListener() {
             @Override
+            //TODO: Handle when changes favourite status of this item
             public void onClick(View view) {
-                currentRecord.setIsFav(!currentRecord.getIsFav());
+                currentRecord.setIsFavorite(!currentRecord.getIsFavorite());
             }
         });
     }
@@ -77,17 +91,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     public static class RecordViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView titleRecord;
-        private TextView descriptionRecord;
-        private ToggleButton isFavRecord;
-        private ImageView typeRecord;
+        private final ItemRecordBinding binding;
 
-        public RecordViewHolder(@NonNull View itemView) {
-            super(itemView);
-            titleRecord = itemView.findViewById(R.id.name_record_text_view);
-            descriptionRecord = itemView.findViewById(R.id.description_text_view);
-            isFavRecord = itemView.findViewById(R.id.fav_toggle);
-            typeRecord = itemView.findViewById(R.id.icon);
+        public RecordViewHolder(@NonNull ItemRecordBinding itemBinding) {
+            super(itemBinding.getRoot());
+            binding = itemBinding;
         }
     }
 }

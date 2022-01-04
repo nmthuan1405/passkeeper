@@ -7,7 +7,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/iconTypeRecord"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/ic_card"
@@ -19,7 +19,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/icon"
+        android:layout_toRightOf="@id/iconTypeRecord"
         android:orientation="vertical">
 
         <TextView
@@ -33,7 +33,7 @@
             tools:text="Name" />
 
         <TextView
-            android:id="@+id/description_text_view"
+            android:id="@+id/description_record_text_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -44,7 +44,7 @@
     </LinearLayout>
 
     <ToggleButton
-        android:id="@+id/fav_toggle"
+        android:id="@+id/favorite_toggle"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
@@ -52,7 +52,7 @@
         android:layout_margin="14dp"
         android:textOff=""
         android:textOn=""
-        android:background="@drawable/toggle_fav"/>
+        android:background="@drawable/toggle_favorite"/>
 
     <View
         android:layout_width="match_parent"
