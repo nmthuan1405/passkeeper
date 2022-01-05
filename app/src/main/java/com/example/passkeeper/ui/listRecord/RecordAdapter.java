@@ -1,6 +1,7 @@
 package com.example.passkeeper.ui.listRecord;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,8 @@ import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
 
-    final private LayoutInflater layoutInflater;
     private List<Record> mListRecord = null;
     private ItemRecordBinding binding;
-
-    public RecordAdapter(Context context) {
-        this.layoutInflater = LayoutInflater.from(context);
-    }
 
     @NonNull
     @Override
@@ -37,7 +33,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
         Record currentRecord = mListRecord.get(position);
         String recordName = currentRecord.getRecordFieldValue("name");
-        holder.binding.nameRecordTextView.setText(recordName==null ? "None":recordName);
+        holder.binding.nameRecordTextView.setText(recordName==null ? "":recordName);
         String recordType = currentRecord.getRecordType();
         String recordDescription = null;
         switch (recordType){
@@ -47,12 +43,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             case "card":
                 recordDescription = currentRecord.getRecordFieldValue("cardholdername");
             break;
+            default: {
+                holder.binding.descriptionRecordTextView.setVisibility(View.GONE);
+                holder.binding.nameRecordTextView.setGravity(Gravity.CENTER_VERTICAL);
+            }
+            break;
         }
-        holder.binding.descriptionRecordTextView.setText(recordDescription==null ? "None":recordDescription);
-        if (currentRecord.getIsFavorite()){
-            holder.binding.favoriteToggle.setChecked(true);
-        } else {
-            holder.binding.favoriteToggle.setChecked(false);
+        if (recordDescription != null){
+            holder.binding.descriptionRecordTextView.setVisibility(View.VISIBLE);
+            holder.binding.descriptionRecordTextView.setText(recordDescription);
         }
         switch (currentRecord.getRecordType()){
             case "password":
@@ -65,6 +64,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 holder.binding.iconTypeRecord.setImageResource(R.drawable.ic_note);
                 break;
         }
+        holder.binding.favoriteToggle.setChecked(currentRecord.getIsFavorite());
         holder.binding.favoriteToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             //TODO: Handle when changes favourite status of this item
@@ -80,7 +80,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             return mListRecord.size();
         return 0;
     }
-
 
     public void setListRecord(List<Record> listRecord) {
         if (listRecord != null) {

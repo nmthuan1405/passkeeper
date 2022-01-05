@@ -52,7 +52,7 @@
         android:layout_margin="14dp"
         android:textOff=""
         android:textOn=""
-        android:background="@drawable/toggle_favorite"/>
+        android:background="@drawable/favorite_toggle"/>
 
     <View
         android:layout_width="match_parent"

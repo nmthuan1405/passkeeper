@@ -56,7 +56,7 @@ public class ListRecordFragment extends Fragment {
     }
 
     private void initRecycleView() {
-        mAdapter = new RecordAdapter(this.getContext());
+        mAdapter = new RecordAdapter();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);

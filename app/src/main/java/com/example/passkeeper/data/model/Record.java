@@ -55,9 +55,9 @@ public class Record {
     }
 
     public String getRecordFieldValue(String name){
-        for (RecordField tmp: recordFields){
-            if (tmp.getName().equals(name)){
-                return tmp.getValue();
+        for (RecordField recordField: recordFields){
+            if (recordField.getName().equals(name)){
+                return recordField.getValue();
             }
         }
         return null;

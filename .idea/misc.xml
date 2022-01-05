@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/favorite_toggle.xml" value="0.1" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_card.xml" value="0.1" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/nav_header_main.xml" value="0.13360507246376813" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/verify_code_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_record.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.31521739130434784" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.35260416666666666" />
