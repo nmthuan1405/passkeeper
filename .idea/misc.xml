@@ -3,49 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/bg_button.xml" value="0.30833333333333335" />
-        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/bg_gray_button.xml" value="0.30833333333333335" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_add.xml" value="0.3490740740740741" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_eye.xml" value="0.3490740740740741" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_generate_password.xml" value="0.25" />
-        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/number_picker_custom_layout.xml" value="0.67" />
-        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Passkeeper/app/src/main/res/drawable/bg_button.xml" value="0.2375" />
-        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Passkeeper/app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Passkeeper/app/src/main/res/layout/item_record.xml" value="0.10144927536231885" />
-        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Passkeeper/app/src/main/res/layout/item_record_password.xml" value="0.10764944275582573" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/bg_button.xml" value="0.2375" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_card.xml" value="0.12395833333333334" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_note.xml" value="0.12395833333333334" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_password.xml" value="0.12395833333333334" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_add_record.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_enter_email.xml" value="0.10572916666666667" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_login.xml" value="0.10764944275582573" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/content_main.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_record.xml" value="0.10833333333333334" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_record_card.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_record_note.xml" value="0.22" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_record_password.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/list_record_fragment.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/nav_header_main.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/set_password_fragment.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/verify_code_fragment.xml" value="0.1" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/number_picker_custom_layout.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_fill_start.xml" value="0.12395833333333334" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_search_bar.xml" value="0.12395833333333334" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_star.xml" value="0.12395833333333334" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/menu/nav.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.31521739130434784" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.35260416666666666" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
-  </component>
-  <component name="ProjectType">
-    <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.1" />
-      </ProjectState>
-    </option>
-  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
