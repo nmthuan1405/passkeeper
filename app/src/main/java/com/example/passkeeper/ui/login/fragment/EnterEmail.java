@@ -19,7 +19,7 @@ import com.example.passkeeper.data.model.MessageResponse;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.EnterEmailFragmentBinding;
 import com.example.passkeeper.ui.login.AccountViewModel;
-import com.example.passkeeper.ui.utils.ActivityObserver;
+import com.example.passkeeper.ui.utils.EventObserver;
 
 public class EnterEmail extends Fragment implements View.OnClickListener {
 
@@ -46,10 +46,10 @@ public class EnterEmail extends Fragment implements View.OnClickListener {
         mViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
         binding.nextBtn.setOnClickListener(this);
-        mViewModel.getEmailStatus().observe(getViewLifecycleOwner(), new ActivityObserver<MessageResponse>(getActivity()) {
+        mViewModel.getEmailStatus().observe(getViewLifecycleOwner(), new EventObserver<MessageResponse>(getActivity()) {
             @Override
-            public void onSuccess(Resource<MessageResponse> data) {
-               navController.navigate(R.id.action_enterEmail_to_verifyCode);
+            public void onHandle(Resource<MessageResponse> data) {
+                navController.navigate(R.id.action_enterEmail_to_verifyCode);
             }
         });
     }

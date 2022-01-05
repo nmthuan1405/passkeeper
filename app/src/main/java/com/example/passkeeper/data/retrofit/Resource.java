@@ -3,17 +3,27 @@ package com.example.passkeeper.data.retrofit;
 public class Resource<T> {
     public enum Status { SUCCESS, ERROR, WAITING, NONE}
 
-    T data;
-    Status dataStatus;
-    String errorText;
+    private final T data;
+    private final Status dataStatus;
+    private final String errorText;
+    private boolean isHandled;
 
     public Resource(T data, Status dataStatus, String errorText) {
         this.data = data;
         this.dataStatus = dataStatus;
         this.errorText = errorText;
+        this.isHandled = false;
+    }
+
+    public T getDataNotHandled() {
+        if (!isHandled) {
+            return getData();
+        }
+        return null;
     }
 
     public T getData() {
+        setHandled();
         return data;
     }
 
@@ -25,6 +35,13 @@ public class Resource<T> {
         return errorText;
     }
 
+    public boolean isHandled() {
+        return isHandled;
+    }
+
+    public void setHandled() {
+        isHandled = true;
+    }
 
     public static<T> Resource<T> WAITING() {
         return new Resource<>(null, Status.WAITING, null);

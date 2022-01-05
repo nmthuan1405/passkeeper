@@ -18,7 +18,7 @@ import com.example.passkeeper.data.model.MessageResponse;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.SetPasswordFragmentBinding;
 import com.example.passkeeper.ui.login.AccountViewModel;
-import com.example.passkeeper.ui.utils.ActivityObserver;
+import com.example.passkeeper.ui.utils.EventObserver;
 
 public class SetPassword extends Fragment implements View.OnClickListener {
 
@@ -45,9 +45,9 @@ public class SetPassword extends Fragment implements View.OnClickListener {
         mViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
         binding.savePassBtn.setOnClickListener(this);
-        mViewModel.getRegisterStatus().observe(getViewLifecycleOwner(), new ActivityObserver<MessageResponse>(getActivity()) {
+        mViewModel.getRegisterStatus().observe(getViewLifecycleOwner(), new EventObserver<MessageResponse>(getActivity()) {
             @Override
-            public void onSuccess(Resource<MessageResponse> data) {
+            public void onHandle(Resource<MessageResponse> data) {
                 getActivity().finish();
             }
         });
@@ -56,10 +56,13 @@ public class SetPassword extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         String password = binding.newPasswordInput.getText().toString();
+        String reEnterPassword = binding.reEnterPasswordInput.getText().toString();
         String email = mViewModel.getEmail().getValue();
         String code = mViewModel.getVerifyCode().getValue();
 
-        mViewModel.setPassword(password);
-        mViewModel.register(email, password, code);
+        if (password.equals(reEnterPassword)) {
+            mViewModel.setPassword(password);
+            mViewModel.register(email, password, code);
+        }
     }
 }

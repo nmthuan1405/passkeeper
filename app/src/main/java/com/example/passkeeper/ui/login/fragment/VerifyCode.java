@@ -19,7 +19,7 @@ import com.example.passkeeper.data.model.MessageResponse;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.VerifyCodeFragmentBinding;
 import com.example.passkeeper.ui.login.AccountViewModel;
-import com.example.passkeeper.ui.utils.ActivityObserver;
+import com.example.passkeeper.ui.utils.EventObserver;
 
 public class VerifyCode extends Fragment implements View.OnClickListener {
 
@@ -46,9 +46,9 @@ public class VerifyCode extends Fragment implements View.OnClickListener {
         mViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
         binding.nextBtn.setOnClickListener(this);
-        mViewModel.getCodeStatus().observe(getViewLifecycleOwner(), new ActivityObserver<MessageResponse>(getActivity()) {
+        mViewModel.getCodeStatus().observe(getViewLifecycleOwner(), new EventObserver<MessageResponse>(getActivity()) {
             @Override
-            public void onSuccess(Resource<MessageResponse> data) {
+            public void onHandle(Resource<MessageResponse> data) {
                 navController.navigate(R.id.action_verifyCode_to_setPassword);
             }
         });
