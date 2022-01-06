@@ -2,13 +2,19 @@ package com.example.passkeeper.ui.generatePass;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.example.passkeeper.R;
+import com.example.passkeeper.data.model.PasswordGenerator;
 import com.example.passkeeper.databinding.ActivityGeneratePasswordBinding;
 import com.travijuu.numberpicker.library.Enums.ActionEnum;
 import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
@@ -16,6 +22,7 @@ import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 public class GeneratePasswordActivity extends AppCompatActivity {
 
     ActivityGeneratePasswordBinding binding;
+    PasswordGenerator passwordGenerator = new PasswordGenerator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,7 @@ public class GeneratePasswordActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        binding.txvPassword.setSelected(true);
         binding.txvLengthValue.setText(String.valueOf(binding.sbrLength.getProgress()));
 
         binding.sbrLength.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -81,7 +89,6 @@ public class GeneratePasswordActivity extends AppCompatActivity {
                     buttonView.setChecked(false);
                 else if (binding.sbrLength.getProgress() == getMinValidValueOfSeekbar() - 1)
                     binding.sbrLength.incrementProgressBy(1);
-
             }
         });
 
@@ -176,6 +183,31 @@ public class GeneratePasswordActivity extends AppCompatActivity {
                         binding.sbrLength.incrementProgressBy(1);
                     }
                 }
+            }
+        });
+
+        binding.btnGenPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passwordGenerator.setmLength(binding.sbrLength.getProgress());
+                passwordGenerator.setmHaveUpper(binding.swtUppercase.isChecked());
+                passwordGenerator.setmHaveLower(binding.swtLowercase.isChecked());
+                passwordGenerator.setmHaveNumber(binding.swtNumber.isChecked());
+                passwordGenerator.setmHaveSpecial(binding.swtSpecial.isChecked());
+                passwordGenerator.setmMinNumber(binding.npkMinNumber.getValue());
+                passwordGenerator.setmMinSpecial(binding.npkMinSpecial.getValue());
+                String password = passwordGenerator.GeneratePassword();
+                binding.txvPassword.setText(password);
+            }
+        });
+
+        binding.btnCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Copied Password", binding.txvPassword.getText());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(GeneratePasswordActivity.this, "Copied Password!", Toast.LENGTH_SHORT).show();
             }
         });
     }
