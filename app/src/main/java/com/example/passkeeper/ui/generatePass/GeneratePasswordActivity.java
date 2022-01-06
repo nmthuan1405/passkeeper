@@ -59,6 +59,8 @@ public class GeneratePasswordActivity extends AppCompatActivity {
                     if(!binding.swtLowercase.isChecked() && !binding.swtNumber.isChecked() && !binding.swtSpecial.isChecked())
                         buttonView.setChecked(true);
                 }
+                else if (getMinValidValueOfSeekbar() - 1 == binding.sbrLength.getMax())
+                    buttonView.setChecked(false);
                 else if (binding.sbrLength.getProgress() == getMinValidValueOfSeekbar() - 1)
                     binding.sbrLength.incrementProgressBy(1);
             }
@@ -75,8 +77,11 @@ public class GeneratePasswordActivity extends AppCompatActivity {
                     if(!binding.swtUppercase.isChecked() && !binding.swtNumber.isChecked() && !binding.swtSpecial.isChecked())
                         buttonView.setChecked(true);
                 }
+                else if (getMinValidValueOfSeekbar() - 1 == binding.sbrLength.getMax())
+                    buttonView.setChecked(false);
                 else if (binding.sbrLength.getProgress() == getMinValidValueOfSeekbar() - 1)
-                        binding.sbrLength.incrementProgressBy(1);
+                    binding.sbrLength.incrementProgressBy(1);
+
             }
         });
 
@@ -92,6 +97,10 @@ public class GeneratePasswordActivity extends AppCompatActivity {
                         binding.npkMinNumber.setMin(0);
                         binding.npkMinNumber.setValue(0);
                     }
+                }
+                else if (getMinValidValueOfSeekbar() == binding.sbrLength.getMax())
+                {
+                    buttonView.setChecked(false);
                 }
                 else
                 {
@@ -118,9 +127,13 @@ public class GeneratePasswordActivity extends AppCompatActivity {
                         binding.npkMinSpecial.setValue(0);
                     }
                 }
+                else if (getMinValidValueOfSeekbar() == binding.sbrLength.getMax())
+                {
+                    buttonView.setChecked(false);
+                }
                 else
                 {
-                    binding.npkMinSpecial.setMin(0);
+                    binding.npkMinSpecial.setMin(1);
                     binding.npkMinSpecial.setValue(1);
                     Log.v("Progress",String.valueOf(binding.sbrLength.getProgress()));
                     Log.v("Min Progress",String.valueOf(getMinValidValueOfSeekbar()));
@@ -138,7 +151,9 @@ public class GeneratePasswordActivity extends AppCompatActivity {
                     binding.swtNumber.setChecked(true);
                     Log.v("Progress",String.valueOf(binding.sbrLength.getProgress()));
                     Log.v("Min Progress",String.valueOf(getMinValidValueOfSeekbar()));
-                    if(binding.sbrLength.getProgress() == getMinValidValueOfSeekbar() - 1)
+                    if(getMinValidValueOfSeekbar() - 1 == binding.sbrLength.getMax())
+                        binding.npkMinNumber.decrement(1);
+                    else if(binding.sbrLength.getProgress() == getMinValidValueOfSeekbar() - 1)
                     {
                         binding.sbrLength.incrementProgressBy(1);
                     }
@@ -154,7 +169,9 @@ public class GeneratePasswordActivity extends AppCompatActivity {
                     binding.swtSpecial.setChecked(true);
                     Log.v("Progress",String.valueOf(binding.sbrLength.getProgress()));
                     Log.v("Min Progress",String.valueOf(getMinValidValueOfSeekbar()));
-                    if(binding.sbrLength.getProgress() == getMinValidValueOfSeekbar() - 1)
+                    if(getMinValidValueOfSeekbar() - 1 == binding.sbrLength.getMax())
+                        binding.npkMinSpecial.decrement(1);
+                    else if(binding.sbrLength.getProgress() == getMinValidValueOfSeekbar() - 1)
                     {
                         binding.sbrLength.incrementProgressBy(1);
                     }
