@@ -15,5 +15,16 @@
     <string name="password">Password</string>
     <string name="all">All</string>
     <string name="card">Card</string>
-    <string name="note">Note</string>W
+    <string name="note">Note</string>
+    <string name="generate_password">Generate Password</string>
+    <string name="copy">Copy</string>
+    <string name="options">OPTIONS</string>
+    <string name="length">Length</string>
+    <string name="value">value</string>
+    <string name="A_Z">A-Z</string>
+    <string name="_0_9">0-9</string>
+    <string name="a_z">a-z</string>
+    <string name="specialChar">!@#</string>
+    <string name="minimum_number">Minimum Number</string>
+    <string name="minimum_special">Minimum Special</string>W
 </resources>

@@ -24,42 +24,42 @@ public class PasswordGenerator {
         this.mMinSpecial = 5;
     }
 
-    public PasswordGenerator(Integer mLength, Boolean mHaveUpper, Boolean mHaveLower, Boolean mHaveNumber, Boolean mHaveSpecial, Integer mMinNumber, Integer mMinSpecial) {
-        this.mLength = mLength;
-        this.mHaveUpper = mHaveUpper;
-        this.mHaveLower = mHaveLower;
-        this.mHaveNumber = mHaveNumber;
-        this.mHaveSpecial = mHaveSpecial;
-        this.mMinNumber = mMinNumber;
-        this.mMinSpecial = mMinSpecial;
+    public PasswordGenerator(Integer length, Boolean haveUpper, Boolean haveLower, Boolean haveNumber, Boolean haveSpecial, Integer minNumber, Integer minSpecial) {
+        this.mLength = length;
+        this.mHaveUpper = haveUpper;
+        this.mHaveLower = haveLower;
+        this.mHaveNumber = haveNumber;
+        this.mHaveSpecial = haveSpecial;
+        this.mMinNumber = minNumber;
+        this.mMinSpecial = minSpecial;
     }
 
-    public void setmLength(Integer mLength) {
-        this.mLength = mLength;
+    public void setLength(Integer length) {
+        this.mLength = length;
     }
 
-    public void setmHaveUpper(Boolean mHaveUpper) {
-        this.mHaveUpper = mHaveUpper;
+    public void setHaveUpper(Boolean haveUpper) {
+        this.mHaveUpper = haveUpper;
     }
 
-    public void setmHaveLower(Boolean mHaveLower) {
-        this.mHaveLower = mHaveLower;
+    public void setHaveLower(Boolean haveLower) {
+        this.mHaveLower = haveLower;
     }
 
-    public void setmHaveNumber(Boolean mHaveNumber) {
-        this.mHaveNumber = mHaveNumber;
+    public void setHaveNumber(Boolean haveNumber) {
+        this.mHaveNumber = haveNumber;
     }
 
-    public void setmHaveSpecial(Boolean mHaveSpecial) {
-        this.mHaveSpecial = mHaveSpecial;
+    public void setHaveSpecial(Boolean haveSpecial) {
+        this.mHaveSpecial = haveSpecial;
     }
 
-    public void setmMinNumber(Integer mMinNumber) {
-        this.mMinNumber = mMinNumber;
+    public void setMinNumber(Integer minNumber) {
+        this.mMinNumber = minNumber;
     }
 
-    public void setmMinSpecial(Integer mMinSpecial) {
-        this.mMinSpecial = mMinSpecial;
+    public void setMinSpecial(Integer minSpecial) {
+        this.mMinSpecial = minSpecial;
     }
 
     public String GeneratePassword()
@@ -99,12 +99,12 @@ public class PasswordGenerator {
 
         List<String> characters = Arrays.asList(password.toString().split(""));
         Collections.shuffle(characters);
-        String shuffled = "";
+        StringBuilder shuffled = new StringBuilder();
         for (String character : characters) {
-            shuffled += character;
+            shuffled.append(character);
         }
 
-        return shuffled;
+        return shuffled.toString();
     }
 
 }
