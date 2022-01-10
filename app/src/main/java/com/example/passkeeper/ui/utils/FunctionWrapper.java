@@ -22,5 +22,5 @@ public abstract class FunctionWrapper<I, O> implements Function<Resource<I>, Res
 
     public abstract Resource<O> onSuccess(Resource<I> input);
     public abstract Resource<O> onError(Resource<I> input);
-    protected abstract Resource<O> onWaiting(Resource<I> input);
+    public abstract Resource<O> onWaiting(Resource<I> input);
 }

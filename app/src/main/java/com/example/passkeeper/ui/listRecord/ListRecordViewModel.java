@@ -41,7 +41,7 @@ public class ListRecordViewModel extends ViewModel {
                 }
 
                 @Override
-                protected Resource<List<Record>> onWaiting(Resource<ListRecord> input) {
+                public Resource<List<Record>> onWaiting(Resource<ListRecord> input) {
                     return Resource.WAITING();
                 }
             });

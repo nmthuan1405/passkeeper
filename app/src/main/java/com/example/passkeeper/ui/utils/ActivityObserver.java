@@ -2,6 +2,7 @@ package com.example.passkeeper.ui.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.retrofit.Resource;
@@ -22,12 +23,21 @@ public abstract class ActivityObserver<T> extends BaseObserver<T> {
 
     @Override
     public void onError(Resource<T> data) {
-        if (activity != null && data.getError().equals(ERROR_401)) {
-            SessionManager.getInstance().setToken(null);
-            Intent intent = new Intent(activity, LoginActivity.class);
-            activity.startActivity(intent);
-            activity.finishAffinity();
+        if (activity != null) {
+            if (data.getError().equals(ERROR_401)) {
+                SessionManager.getInstance().setToken(null);
+                Intent intent = new Intent(activity, LoginActivity.class);
+                activity.startActivity(intent);
+                activity.finishAffinity();
+            }
+            else {
+                onCommonError(data);
+            }
         }
+    }
+
+    public void onCommonError(Resource<T> data) {
+        Toast.makeText(activity, data.getError(), Toast.LENGTH_SHORT).show();
     }
 }
 
