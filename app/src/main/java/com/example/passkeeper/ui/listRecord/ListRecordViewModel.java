@@ -59,7 +59,7 @@ public class ListRecordViewModel extends ViewModel {
                 List<Record> records = input.getData();
                 List<Record> result = new ArrayList<>();
                 for (Record record : records) {
-                    if (record.getRecordType().equals(type)) {
+                    if (record.getType().equals(type)) {
                         result.add(record);
                     }
                 }

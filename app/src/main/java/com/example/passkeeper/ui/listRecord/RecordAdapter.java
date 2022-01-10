@@ -1,20 +1,17 @@
 package com.example.passkeeper.ui.listRecord;
 
-import android.content.Context;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewbinding.ViewBinding;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
-import com.example.passkeeper.data.model.RecordField;
 import com.example.passkeeper.databinding.ItemRecordBinding;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
@@ -31,47 +28,38 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
-        Record currentRecord = mListRecord.get(position);
-        String recordName = currentRecord.getRecordFieldValue("name");
-        holder.binding.nameRecordTextView.setText(recordName==null ? "":recordName);
-        String recordType = currentRecord.getRecordType();
-        String recordDescription = null;
-        switch (recordType){
-            case "password":
-                recordDescription = currentRecord.getRecordFieldValue("username");
-            break;
-            case "card":
-                recordDescription = currentRecord.getRecordFieldValue("cardholdername");
-            break;
-            default: {
-                holder.binding.descriptionRecordTextView.setVisibility(View.GONE);
-                holder.binding.nameRecordTextView.setGravity(Gravity.CENTER_VERTICAL);
-            }
-            break;
+        Record record = mListRecord.get(position);
+
+        String name = record.getFieldValue("name");
+        if (name != null) {
+            holder.binding.nameRecordTextView.setText(name);
         }
-        if (recordDescription != null){
-            holder.binding.descriptionRecordTextView.setVisibility(View.VISIBLE);
-            holder.binding.descriptionRecordTextView.setText(recordDescription);
+
+        String description = record.getDescription();
+        if (description != null) {
+            holder.binding.descriptionRecordTextView.setText(description);
+        } else {
+            holder.binding.descriptionRecordTextView.setVisibility(View.GONE);
         }
-        switch (currentRecord.getRecordType()){
-            case "password":
-                holder.binding.iconTypeRecord.setImageResource(R.drawable.ic_password);
-                break;
-            case "card":
-                holder.binding.iconTypeRecord.setImageResource(R.drawable.ic_card);
-                break;
-            case "note":
-                holder.binding.iconTypeRecord.setImageResource(R.drawable.ic_note);
-                break;
+
+        Integer icon = getIconMap().get(record.getType());
+        if (icon != null) {
+            holder.binding.iconTypeRecord.setImageResource(icon);
         }
-        holder.binding.favoriteToggle.setChecked(currentRecord.getIsFavorite());
-        holder.binding.favoriteToggle.setOnClickListener(new View.OnClickListener() {
-            @Override
+
+        holder.binding.favoriteToggle.setChecked(record.isFavorite());
+        holder.binding.favoriteToggle.setOnClickListener(view -> {
             //TODO: Handle when changes favourite status of this item
-            public void onClick(View view) {
-                currentRecord.setIsFavorite(!currentRecord.getIsFavorite());
-            }
+            record.setFavoriteStatus(!record.isFavorite());
         });
+    }
+
+    private HashMap<String, Integer> getIconMap() {
+        HashMap<String, Integer> iconMap = new HashMap<>();
+        iconMap.put("password", R.drawable.ic_password);
+        iconMap.put("card", R.drawable.ic_card);
+        iconMap.put("note", R.drawable.ic_note);
+        return iconMap;
     }
 
     @Override

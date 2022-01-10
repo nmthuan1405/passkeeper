@@ -30,37 +30,28 @@ public class Record {
         this.owner = owner;
     }
 
-    public Boolean getIsFavorite() {
+    public Boolean isFavorite() {
         return isFavorite;
     }
 
-    public void setIsFavorite(Boolean isFav) {
+    public void setFavoriteStatus(Boolean isFav) {
         this.isFavorite = isFav;
     }
 
-    public String getRecordType() {
+    public String getType() {
         return recordType;
     }
 
-    public void setRecordType(String recordType) {
+    public void setType(String recordType) {
         this.recordType = recordType;
     }
 
-    public List<RecordField> getRecordFields() {
+    public List<RecordField> getFields() {
         return recordFields;
     }
 
-    public void setRecordFields(List<RecordField> recordFields) {
+    public void setFields(List<RecordField> recordFields) {
         this.recordFields = recordFields;
-    }
-
-    public String getRecordFieldValue(String name){
-        for (RecordField recordField: recordFields){
-            if (recordField.getName().equals(name)){
-                return recordField.getValue();
-            }
-        }
-        return null;
     }
 
     public Integer getId() {
@@ -71,4 +62,23 @@ public class Record {
         this.id = id;
     }
 
+    public String getFieldValue(String name) {
+        for (RecordField recordField : recordFields) {
+            if (recordField.getName().equals(name)) {
+                return recordField.getValue();
+            }
+        }
+        return null;
+    }
+
+    public String getDescription() {
+        switch (getType()) {
+            case "password":
+                return getFieldValue("username");
+            case "card":
+                return getFieldValue("cardHolderName");
+            default:
+                return null;
+        }
+    }
 }
