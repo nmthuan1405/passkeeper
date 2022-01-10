@@ -12,8 +12,8 @@
         tools:layout="@layout/list_record_fragment" >
         <argument
             android:name="type"
-            app:argType="integer"
-            android:defaultValue="0" />
+            app:argType="string"
+            android:defaultValue="@null" />
     </fragment>
 
     <fragment
@@ -23,8 +23,8 @@
         tools:layout="@layout/list_record_fragment">
         <argument
             android:name="type"
-            app:argType="integer"
-            android:defaultValue="1" />
+            app:argType="string"
+            android:defaultValue="password" />
     </fragment>
 
     <fragment
@@ -34,8 +34,8 @@
         tools:layout="@layout/list_record_fragment">
         <argument
             android:name="type"
-            app:argType="integer"
-            android:defaultValue="2" />
+            app:argType="string"
+            android:defaultValue="card" />
     </fragment>
 
     <fragment
@@ -45,7 +45,7 @@
         tools:layout="@layout/list_record_fragment">
         <argument
             android:name="type"
-            app:argType="integer"
-            android:defaultValue="3" />
+            app:argType="string"
+            android:defaultValue="note" />
     </fragment>
 </navigation>

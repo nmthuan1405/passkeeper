@@ -49,10 +49,6 @@ public class ListRecordFragment extends Fragment {
 
         initRecycleView();
         initSpeedDialFloatingButton(savedInstanceState == null);
-
-        // get type of list record
-        Bundle bundle = getArguments();
-        int type = bundle.getInt("type");
     }
 
     private void initRecycleView() {
@@ -61,7 +57,7 @@ public class ListRecordFragment extends Fragment {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);
 
-        mViewModel.getAllRecords().observe(getViewLifecycleOwner(), new ActivityObserver<List<Record>>(getActivity()) {
+        mViewModel.getRecords(getType()).observe(getViewLifecycleOwner(), new ActivityObserver<List<Record>>(getActivity()) {
             @Override
             public void onSuccess(Resource<List<Record>> data) {
                 List<Record> records = data.getData();
@@ -91,5 +87,10 @@ public class ListRecordFragment extends Fragment {
             Toast.makeText(getActivity(), actionItem.getLabel(getActivity())+" clicked", Toast.LENGTH_LONG).show();
             return false;
         });
+    }
+
+    private String getType() {
+        Bundle bundle = getArguments();
+        return bundle.getString("type");
     }
 }

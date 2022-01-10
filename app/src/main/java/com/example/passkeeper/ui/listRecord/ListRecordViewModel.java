@@ -1,7 +1,6 @@
 package com.example.passkeeper.ui.listRecord;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
@@ -9,14 +8,15 @@ import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.repository.ListRecordRepository;
 import com.example.passkeeper.data.retrofit.Resource;
+import com.example.passkeeper.ui.utils.CompleteFunctionWrapper;
 import com.example.passkeeper.ui.utils.FunctionWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListRecordViewModel extends ViewModel {
     private final ListRecordRepository repository;
     private final LiveData<Resource<ListRecord>> rawListRecord;
-    private LiveData<Resource<List<Record>>> listRecord = null;
 
     public ListRecordViewModel() {
         repository = new ListRecordRepository();
@@ -28,8 +28,7 @@ public class ListRecordViewModel extends ViewModel {
     }
 
     public LiveData<Resource<List<Record>>> getAllRecords() {
-        if (listRecord == null) {
-            listRecord = Transformations.map(rawListRecord, new FunctionWrapper<ListRecord, List<Record>>() {
+        LiveData<Resource<List<Record>>> listRecord = Transformations.map(rawListRecord, new FunctionWrapper<ListRecord, List<Record>>() {
                 @Override
                 public Resource<List<Record>> onSuccess(Resource<ListRecord> input) {
                     return Resource.SUCCESS(input.getData().getResults());
@@ -46,7 +45,26 @@ public class ListRecordViewModel extends ViewModel {
                 }
             });
             fetchListRecord();
-        }
         return listRecord;
+    }
+
+    public LiveData<Resource<List<Record>>> getRecords(String type) {
+        if (type == null) {
+            return getAllRecords();
+        }
+
+        return Transformations.map(getAllRecords(), new CompleteFunctionWrapper<List<Record>>() {
+            @Override
+            public Resource<List<Record>> onSuccess(Resource<List<Record>> input) {
+                List<Record> records = input.getData();
+                List<Record> result = new ArrayList<>();
+                for (Record record : records) {
+                    if (record.getRecordType().equals(type)) {
+                        result.add(record);
+                    }
+                }
+                return Resource.SUCCESS(result);
+            }
+        });
     }
 }
