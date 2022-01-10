@@ -18,6 +18,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     private List<Record> mListRecord = null;
     private ItemRecordBinding binding;
+    private HashMap<String, Integer> iconMap;
 
     @NonNull
     @Override
@@ -55,10 +56,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     }
 
     private HashMap<String, Integer> getIconMap() {
-        HashMap<String, Integer> iconMap = new HashMap<>();
-        iconMap.put("password", R.drawable.ic_password);
-        iconMap.put("card", R.drawable.ic_card);
-        iconMap.put("note", R.drawable.ic_note);
+        if (iconMap == null) {
+            iconMap = new HashMap<>();
+            iconMap.put("password", R.drawable.ic_password);
+            iconMap.put("card", R.drawable.ic_card);
+            iconMap.put("note", R.drawable.ic_note);
+        }
         return iconMap;
     }
 
