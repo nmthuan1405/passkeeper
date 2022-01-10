@@ -20,5 +20,6 @@
     <string name="verify">Verify</string>
     <string name="new_password">New password</string>
     <string name="re_enter_password">Re-enter password</string>
-    <string name="save_password">Save password</string>W
+    <string name="save_password">Save password</string>
+    <string name="icon">icon</string>W
 </resources>
