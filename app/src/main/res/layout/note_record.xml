@@ -59,6 +59,13 @@
             android:textColor="#9A9A9A"
             android:textStyle="bold">
         </TextView>
+        <!--https://www.youtube.com/watch?v=xJnXSdctEZM-->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/tagsGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+        </com.google.android.material.chip.ChipGroup>
         <EditText
             android:id="@+id/tags"
             android:layout_width="match_parent"
