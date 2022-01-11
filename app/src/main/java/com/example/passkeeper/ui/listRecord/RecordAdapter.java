@@ -1,41 +1,68 @@
 package com.example.passkeeper.ui.listRecord;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.databinding.ItemRecordBinding;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
 
-    final private LayoutInflater layoutInflater;
     private List<Record> mListRecord = null;
-
-    public RecordAdapter(Context context) {
-        this.layoutInflater = LayoutInflater.from(context);
-    }
+    private ItemRecordBinding binding;
+    private HashMap<String, Integer> iconMap;
 
     @NonNull
     @Override
     public RecordAdapter.RecordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.item_record_card, parent, false);
-        return new RecordViewHolder(itemView);
+        binding = ItemRecordBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new RecordViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
-        Record currentRecord = mListRecord.get(position);
-        //holder.titleRecord.setText("");
-        //holder.titleRecord.setText("");
+        Record record = mListRecord.get(position);
+
+        String name = record.getFieldValue("name");
+        if (name != null) {
+            holder.binding.nameRecordTextView.setText(name);
+        }
+
+        String description = record.getDescription();
+        if (description != null) {
+            holder.binding.descriptionRecordTextView.setText(description);
+        } else {
+            holder.binding.descriptionRecordTextView.setVisibility(View.GONE);
+        }
+
+        Integer icon = getIconMap().get(record.getType());
+        if (icon != null) {
+            holder.binding.iconTypeRecord.setImageResource(icon);
+        }
+
+        holder.binding.favoriteToggle.setChecked(record.isFavorite());
+        holder.binding.favoriteToggle.setOnClickListener(view -> {
+            //TODO: Handle when changes favourite status of this item
+            record.setFavoriteStatus(!record.isFavorite());
+        });
+    }
+
+    private HashMap<String, Integer> getIconMap() {
+        if (iconMap == null) {
+            iconMap = new HashMap<>();
+            iconMap.put("password", R.drawable.ic_password);
+            iconMap.put("card", R.drawable.ic_card);
+            iconMap.put("note", R.drawable.ic_note);
+        }
+        return iconMap;
     }
 
     @Override
@@ -44,7 +71,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             return mListRecord.size();
         return 0;
     }
-
 
     public void setListRecord(List<Record> listRecord) {
         if (listRecord != null) {
@@ -55,15 +81,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     public static class RecordViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView titleRecord;
-        private TextView descriptionRecord;
-        private ImageView isLikeRecord;
+        private final ItemRecordBinding binding;
 
-        public RecordViewHolder(@NonNull View itemView) {
-            super(itemView);
-            titleRecord = itemView.findViewById(R.id.name_record_text_view);
-            descriptionRecord = itemView.findViewById(R.id.description_text_view);
-            isLikeRecord = itemView.findViewById(R.id.icon);
+        public RecordViewHolder(@NonNull ItemRecordBinding itemBinding) {
+            super(itemBinding.getRoot());
+            binding = itemBinding;
         }
     }
 }

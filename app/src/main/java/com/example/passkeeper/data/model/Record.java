@@ -11,7 +11,7 @@ public class Record {
     private Owner owner;
     @SerializedName("is_fav")
     @Expose
-    private Boolean isFav;
+    private Boolean isFavorite;
     @SerializedName("record_type")
     @Expose
     private String recordType;
@@ -30,27 +30,27 @@ public class Record {
         this.owner = owner;
     }
 
-    public Boolean getIsFav() {
-        return isFav;
+    public Boolean isFavorite() {
+        return isFavorite;
     }
 
-    public void setIsFav(Boolean isFav) {
-        this.isFav = isFav;
+    public void setFavoriteStatus(Boolean isFav) {
+        this.isFavorite = isFav;
     }
 
-    public String getRecordType() {
+    public String getType() {
         return recordType;
     }
 
-    public void setRecordType(String recordType) {
+    public void setType(String recordType) {
         this.recordType = recordType;
     }
 
-    public List<RecordField> getRecordFields() {
+    public List<RecordField> getFields() {
         return recordFields;
     }
 
-    public void setRecordFields(List<RecordField> recordFields) {
+    public void setFields(List<RecordField> recordFields) {
         this.recordFields = recordFields;
     }
 
@@ -62,4 +62,23 @@ public class Record {
         this.id = id;
     }
 
+    public String getFieldValue(String name) {
+        for (RecordField recordField : recordFields) {
+            if (recordField.getName().equals(name)) {
+                return recordField.getValue();
+            }
+        }
+        return null;
+    }
+
+    public String getDescription() {
+        switch (getType()) {
+            case "password":
+                return getFieldValue("username");
+            case "card":
+                return getFieldValue("cardHolderName");
+            default:
+                return null;
+        }
+    }
 }
