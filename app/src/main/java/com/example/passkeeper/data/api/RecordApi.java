@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 
-public interface ListRecordApi {
+public interface RecordApi {
     @GET("records/")
     Call<ListRecord> getListRecord(@Header("Authorization") String token);
 }
