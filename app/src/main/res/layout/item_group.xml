@@ -10,7 +10,7 @@
         android:id="@+id/name_group_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:gravity="center_horizontal"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -23,5 +23,5 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/default_padding"
-        android:background="@drawable/favorite_toggle"/>
+        android:background="@drawable/ic_delete"/>
 </RelativeLayout>
