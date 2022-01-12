@@ -3,9 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_list_group.xml" value="0.1" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_manage_group.xml" value="0.1078125" />
-        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_group.xml" value="0.1078125" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/favorite_toggle.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_card.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_crown.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_delete.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_fill_crown.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_fill_start.xml" value="0.2375" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_password.xml" value="0.2375" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_star.xml" value="0.2375" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/owner_toggle.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_list_group.xml" value="0.22" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_manage_group.xml" value="0.6" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_group.xml" value="0.1" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_manage_group.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_member_group.xml" value="0.1078125" />
         <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_record.xml" value="0.16802536231884058" />
         <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/nav_header_main.xml" value="0.16802536231884058" />

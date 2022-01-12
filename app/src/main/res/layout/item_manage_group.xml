@@ -16,6 +16,17 @@
         android:textSize="18sp"
         tools:text="Name" />
 
+    <ToggleButton
+        android:id="@+id/favorite_toggle"
+        android:layout_width="@dimen/fav_size"
+        android:layout_height="@dimen/fav_size"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="55dp"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/owner_toggle"/>
+
     <Button
         android:id="@+id/delete_button"
         android:layout_width="@dimen/fav_size"
