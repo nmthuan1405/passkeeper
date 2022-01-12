@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_list_group.xml" value="0.1" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/activity_manage_group.xml" value="0.1078125" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_group.xml" value="0.1078125" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_member_group.xml" value="0.1078125" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/item_record.xml" value="0.16802536231884058" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/layout/nav_header_main.xml" value="0.16802536231884058" />
+        <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/menu/activity_main_drawer.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.36875" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.36875" />
         <entry key="app/src/main/res/drawable/favorite_toggle.xml" value="0.36875" />
