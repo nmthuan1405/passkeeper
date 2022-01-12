@@ -3,13 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/check_eye_copy_list.xml" value="0.3509259259259259" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_card.xml" value="0.23703703703703705" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_copy_blue.xml" value="0.3509259259259259" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_copy_white.xml" value="0.23703703703703705" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/openlink_copy_list.xml" value="0.3509259259259259" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/card_record_edit.xml" value="0.36666666666666664" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/card_record_view.xml" value="0.36666666666666664" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/custom_edt.xml" value="0.17831813576494426" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/note_record.xml" value="0.22" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/note_record_edit.xml" value="0.2259963768115942" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/note_record_view.xml" value="0.25" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/password_record_view.xml" value="0.33" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.36875" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.36875" />
         <entry key="app/src/main/res/drawable/favorite_toggle.xml" value="0.36875" />
