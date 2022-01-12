@@ -24,9 +24,11 @@
         </activity>
         <activity
             android:name=".ui.group.GroupActivity"
+            android:theme="@style/Theme.Passkeeper.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ui.listGroup.ListGroupActivity"
+            android:theme="@style/Theme.Passkeeper.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ui.record.EditRecordActivity"
