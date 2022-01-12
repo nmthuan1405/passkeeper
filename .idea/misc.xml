@@ -5,7 +5,10 @@
       <map>
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_card.xml" value="0.23703703703703705" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_copy_white.xml" value="0.23703703703703705" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/card_record_edit.xml" value="0.36666666666666664" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/card_record_view.xml" value="0.36666666666666664" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/note_record.xml" value="0.22" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/note_record_edit.xml" value="0.2259963768115942" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/note_record_view.xml" value="0.25" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.36875" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.36875" />
