@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/note_record.xml" value="0.2957427536231884" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_card.xml" value="0.23703703703703705" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_copy_white.xml" value="0.23703703703703705" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/note_record.xml" value="0.22" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/note_record_view.xml" value="0.25" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.36875" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.36875" />
         <entry key="app/src/main/res/drawable/favorite_toggle.xml" value="0.36875" />

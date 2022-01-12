@@ -24,8 +24,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="70dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,11 +32,17 @@
             android:textColor="#9A9A9A"
             android:textStyle="bold">
         </TextView>
-        <EditText
+        <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </EditText>
+        </TextView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:layout_marginTop="5dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,38 +51,24 @@
             android:textColor="#9A9A9A"
             android:textStyle="bold">
         </TextView>
-        <EditText
+        <TextView
             android:id="@+id/note"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-        <TextView
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Tags"
-            android:textColor="#9A9A9A"
-            android:textStyle="bold">
+            android:drawableEnd="@drawable/ic_copy_blue">
         </TextView>
-        <!--https://www.youtube.com/watch?v=xJnXSdctEZM-->
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/tagsGroup"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-        </com.google.android.material.chip.ChipGroup>
-        <EditText
-            android:id="@+id/tags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </EditText>
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_edit"
+        android:src="@drawable/ic_edit_white"
         android:layout_margin="50dp">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
