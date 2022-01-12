@@ -11,9 +11,9 @@ import com.example.passkeeper.data.repository.AccountRepository;
 
 public class AccountViewModel extends ViewModel {
     private final AccountRepository accountRepository;
-    private final MutableLiveData<String> email;
-    private final MutableLiveData<String> verifyCode;
-    private final MutableLiveData<String> password;
+    private String email;
+    private String verifyCode;
+    private String password;
 
     private LiveData<Resource<AuthResponse>> loginStatus = null;
     private LiveData<Resource<MessageResponse>> emailStatus = null;
@@ -23,9 +23,6 @@ public class AccountViewModel extends ViewModel {
     public AccountViewModel() {
         accountRepository = new AccountRepository();
 
-        email = new MutableLiveData<>();
-        verifyCode = new MutableLiveData<>();
-        password = new MutableLiveData<>();
     }
 
     public void login(String email, String password) {
@@ -72,27 +69,32 @@ public class AccountViewModel extends ViewModel {
         return registerStatus;
     }
 
-    public LiveData<String> getEmail() {
-        return email;
+    public String getEmail() {
+        return this.email;
     }
+
+
+    public String getVerifyCode() {
+        return this.verifyCode;
+    }
+
+
+    public String getPassword() {
+        return this.password;
+    }
+
 
     public void setEmail(String email) {
-        this.email.setValue(email);
+        this.email = email;
     }
 
-    public LiveData<String> getVerifyCode() {
-        return verifyCode;
-    }
 
     public void setVerifyCode(String verifyCode) {
-        this.verifyCode.setValue(verifyCode);
+        this.verifyCode = verifyCode;
     }
 
-    public LiveData<String> getPassword() {
-        return password;
-    }
 
     public void setPassword(String password) {
-        this.password.setValue(password);
+        this.password = password;
     }
 }

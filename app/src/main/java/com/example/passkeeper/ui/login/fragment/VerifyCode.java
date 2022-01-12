@@ -56,7 +56,7 @@ public class VerifyCode extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        String email = mViewModel.getEmail().getValue();
+        String email = mViewModel.getEmail();
         String code = binding.verifyCodeInput.getText().toString();
 
         mViewModel.setVerifyCode(code);

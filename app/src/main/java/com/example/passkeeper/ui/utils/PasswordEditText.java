@@ -137,7 +137,6 @@ public class PasswordEditText extends androidx.appcompat.widget.AppCompatEditTex
             isShowIcon = true;
             setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
         } else {
-
             setCompoundDrawables(null, null, null, null);
             isShowIcon = false;
         }
@@ -156,10 +155,7 @@ public class PasswordEditText extends androidx.appcompat.widget.AppCompatEditTex
             setTransformationMethod(null);
         } else {
             setTransformationMethod(PasswordTransformationMethod.getInstance());
-
         }
         setSelection(selectionStart, selectionEnd);
-
     }
-
 }
