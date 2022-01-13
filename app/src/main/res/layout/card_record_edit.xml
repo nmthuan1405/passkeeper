@@ -12,7 +12,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.Passkeeper.PopupOverlay"
-            app:title="Details"
+            app:title="Edit"
             app:titleMarginStart="30dp"
             app:logo="@drawable/ic_arrow_back">
         </androidx.appcompat.widget.Toolbar>
@@ -24,8 +24,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="70dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,6 +37,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </EditText>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cardholder Name"
+            android:textColor="#9A9A9A"
+            android:textStyle="bold">
+        </TextView>
+        <EditText
+            android:id="@+id/cardholderName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Card Number"
+            android:textColor="#9A9A9A"
+            android:textStyle="bold">
+        </TextView>
+        <EditText
+            android:id="@+id/cardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Expiration day"
+            android:textColor="#9A9A9A"
+            android:textStyle="bold">
+        </TextView>
+        <EditText
+            android:id="@+id/expirationDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +98,6 @@
             android:textColor="#9A9A9A"
             android:textStyle="bold">
         </TextView>
-        <!--https://www.youtube.com/watch?v=xJnXSdctEZM-->
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/tagsGroup"
             android:layout_width="match_parent"
@@ -77,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_edit"
+        android:src="@drawable/ic_save_white"
         android:layout_margin="50dp">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
