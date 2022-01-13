@@ -46,9 +46,11 @@
         <entry key="app/src/main/res/layout/note_record.xml" value="0.25" />
         <entry key="app/src/main/res/layout/note_record_edit.xml" value="0.19166666666666668" />
         <entry key="app/src/main/res/layout/note_record_view.xml" value="0.19166666666666668" />
+        <entry key="app/src/main/res/layout/password_record_edit.xml" value="0.171875" />
         <entry key="app/src/main/res/layout/password_record_view.xml" value="0.5" />
         <entry key="app/src/main/res/layout/set_password_fragment.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/verify_code_fragment.xml" value="0.35260416666666666" />
+        <entry key="app/src/main/res/layout/view_card_fragment.xml" value="0.171875" />
         <entry key="app/src/main/res/layout/view_note_fragment.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/layout/view_password_fragment.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/layout/view_record_fragment.xml" value="0.23958333333333334" />

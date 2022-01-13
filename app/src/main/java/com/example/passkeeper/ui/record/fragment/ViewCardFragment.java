@@ -41,7 +41,7 @@ public class ViewCardFragment extends Fragment {
                 Record record = data.getData();
 
                 binding.name.setText(record.getFieldValue("name"));
-                binding.cardholderName.setText(record.getFieldValue("cardHolderName"));
+                binding.cardholderName.setText(record.getFieldValue("cardholderName"));
                 binding.cardNumber.setText(record.getFieldValue("cardNumber"));
                 binding.expirationDay.setText(record.getFieldValue("expirationDay"));
                 binding.note.setText(record.getFieldValue("note"));
