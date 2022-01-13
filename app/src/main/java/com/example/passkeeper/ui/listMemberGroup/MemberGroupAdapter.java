@@ -30,6 +30,8 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
     @Override
     public void onBindViewHolder(@NonNull MemberGroupViewHolder holder, int position) {
         MemberGroup memberGroup = mListMemberGroup.get(position);
+
+        // TODO: Set member group data to UI
     }
 
     @Override
@@ -46,7 +48,6 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
         }
     }
 
-
     public static class MemberGroupViewHolder extends RecyclerView.ViewHolder{
         private ItemMemberGroupBinding binding;
 
@@ -55,5 +56,4 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
             binding = itemBinding;
         }
     }
-
 }

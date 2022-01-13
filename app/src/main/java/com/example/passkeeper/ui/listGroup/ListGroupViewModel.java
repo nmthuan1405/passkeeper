@@ -1,4 +1,6 @@
 package com.example.passkeeper.ui.listGroup;
 
-public class ListGroupViewModel {
+import androidx.lifecycle.ViewModel;
+
+public class ListGroupViewModel extends ViewModel {
 }

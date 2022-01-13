@@ -19,8 +19,7 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.Passkeeper.PopupOverlay"
             app:title="Group"
-            app:titleMarginStart="30dp"
-            app:logo="@drawable/ic_arrow_back">
+            app:titleMarginStart="30dp">
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
