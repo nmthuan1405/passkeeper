@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.group.GroupActivity"
+            android:name=".ui.listMemberGroup.ListMemberGroupActivity"
             android:theme="@style/Theme.Passkeeper.NoActionBar"
             android:exported="false" />
         <activity
