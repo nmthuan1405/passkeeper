@@ -58,6 +58,8 @@ public class ViewRecordActivity extends AppCompatActivity {
                         finish();
                         break;
                 }
+
+                viewModel.getRecord().removeObserver(this);
             }
         });
     }
