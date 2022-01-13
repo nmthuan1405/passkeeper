@@ -16,7 +16,7 @@ public class password_field_edt extends AppCompatEditText {
 
     private void init() {
         mCheckBtnImg = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_check_opaque, null);
-        mEyeBtnImg = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_eye_opaque, null);
+        mEyeBtnImg = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_eye, null);
         mCopyBtnImg = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_copy_opaque, null);
 
         // TODO: If these buttons is tapped, do something.

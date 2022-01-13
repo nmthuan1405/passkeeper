@@ -9,12 +9,19 @@ import com.example.passkeeper.data.retrofit.Resource;
 
 public class RecordViewModel extends ViewModel {
     private final RecordRepository recordRepository;
+    private LiveData<Resource<Record>> record;
 
     public RecordViewModel() {
         recordRepository = new RecordRepository();
+        record = null;
     }
 
-    public LiveData<Resource<Record>> getRecord(int id) {
-        return recordRepository.getRecord(id);
+    public LiveData<Resource<Record>> fetchRecord(int id) {
+        record = recordRepository.getRecord(id);
+        return record;
+    }
+
+    public LiveData<Resource<Record>> getRecord() {
+        return record;
     }
 }
