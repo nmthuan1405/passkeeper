@@ -13,9 +13,13 @@
         android:theme="@style/Theme.Passkeeper"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.record.ViewRecordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Passkeeper.NoActionBar" />
+        <activity
             android:name=".EntranceActivity"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

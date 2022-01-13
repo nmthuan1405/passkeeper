@@ -18,6 +18,12 @@ public class Record {
     @SerializedName("record_fields")
     @Expose
     private List<RecordField> recordFields = null;
+    @SerializedName("tags")
+    @Expose
+    private List<String> tags = null;
+    @SerializedName("groups")
+    @Expose
+    private List<String> groups = null;
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -52,6 +58,22 @@ public class Record {
 
     public void setFields(List<RecordField> recordFields) {
         this.recordFields = recordFields;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
     }
 
     public Integer getId() {
