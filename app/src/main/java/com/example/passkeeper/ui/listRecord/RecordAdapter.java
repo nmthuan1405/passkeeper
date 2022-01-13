@@ -1,5 +1,6 @@
 package com.example.passkeeper.ui.listRecord;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.databinding.ItemRecordBinding;
+import com.example.passkeeper.ui.record.ViewRecordActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,8 +52,16 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
         holder.binding.favoriteToggle.setChecked(record.isFavorite());
         holder.binding.favoriteToggle.setOnClickListener(view -> {
-            //TODO: Handle when changes favourite status of this item
+            // TODO: Handle when changes favourite status of this item
             record.setFavoriteStatus(!record.isFavorite());
+        });
+
+        // It's temporary
+        // TODO: need further discussion
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ViewRecordActivity.class);
+            intent.putExtra("id", record.getId());
+            view.getContext().startActivity(intent);
         });
     }
 

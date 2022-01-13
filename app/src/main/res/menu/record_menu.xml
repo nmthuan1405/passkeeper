@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="@string/favorite"
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_star_white"
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:title="@string/delete_record"
+        android:id="@+id/delete_record">
+    </item>
+
+    <item
+        android:title="@string/share_to_group"
+        android:id="@+id/share_group">
+    </item>
+</menu>
