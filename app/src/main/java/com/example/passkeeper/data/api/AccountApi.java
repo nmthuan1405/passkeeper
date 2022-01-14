@@ -26,9 +26,9 @@ public interface AccountApi {
     @POST("auth/regist/")
     Call<MessageResponse> register(@Body RegisterRequest request);
 
-    @POST("auth/forgot_password")
+    @POST("auth/forgot_password/")
     Call<MessageResponse> forgotPassword(@Body ForgotPasswordRequest request);
 
-    @POST("auth/reset_password")
+    @POST("auth/reset_password/")
     Call<MessageResponse> resetPassword(@Body ResetPasswordRequest request);
 }

@@ -27,5 +27,5 @@
         android:layout_marginRight="@dimen/default_margin"
 
         app:defaultNavHost="true"
-        app:navGraph="@navigation/login_navigation"/>
+        app:navGraph="@navigation/register_navigation"/>
 </LinearLayout>
