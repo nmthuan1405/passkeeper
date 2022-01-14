@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.passkeeper.data.model.CodeRequest;
 import com.example.passkeeper.data.model.EmailRequest;
+import com.example.passkeeper.data.model.ForgotPasswordRequest;
 import com.example.passkeeper.data.model.MessageResponse;
 import com.example.passkeeper.data.model.RegisterRequest;
+import com.example.passkeeper.data.model.ResetPasswordRequest;
 import com.example.passkeeper.data.retrofit.CompleteCallback;
 import com.example.passkeeper.data.retrofit.RetrofitService;
 import com.example.passkeeper.data.api.AccountApi;
@@ -20,6 +22,9 @@ public class AccountRepository {
     private final MutableLiveData<Resource<MessageResponse>> emailStatus;
     private final MutableLiveData<Resource<MessageResponse>> codeStatus;
     private final MutableLiveData<Resource<MessageResponse>> registerStatus;
+    private final MutableLiveData<Resource<MessageResponse>> forgotPasswordStatus;
+    private final MutableLiveData<Resource<MessageResponse>> resetPasswordStatus;
+
     private final AccountApi accountApi;
 
     public AccountRepository() {
@@ -27,6 +32,8 @@ public class AccountRepository {
         emailStatus = new MutableLiveData<>(Resource.NONE());
         codeStatus = new MutableLiveData<>(Resource.NONE());
         registerStatus = new MutableLiveData<>(Resource.NONE());
+        forgotPasswordStatus = new MutableLiveData<>(Resource.NONE());
+        resetPasswordStatus = new MutableLiveData<>(Resource.NONE());
 
         accountApi = RetrofitService.createService(AccountApi.class);
     }
@@ -47,6 +54,15 @@ public class AccountRepository {
         accountApi.register(new RegisterRequest(email, password, code)).enqueue(new CompleteCallback<>(registerStatus));
     }
 
+    public void forgotPassword(String email) {
+        accountApi.forgotPassword(new ForgotPasswordRequest(email)).enqueue(new CompleteCallback<>(forgotPasswordStatus));
+    }
+
+    public void resetPassword(String email, String password, String code){
+        accountApi.resetPassword(new ResetPasswordRequest(email, password, code)).enqueue(new CompleteCallback<>(resetPasswordStatus));
+
+    }
+
     public LiveData<Resource<AuthResponse>> getLoginStatus() {
         return loginStatus;
     }
@@ -62,4 +78,8 @@ public class AccountRepository {
     public LiveData<Resource<MessageResponse>> getRegisterStatus() {
         return registerStatus;
     }
+
+    public LiveData<Resource<MessageResponse>> getForgotPasswordStatus(){ return forgotPasswordStatus; }
+
+    public LiveData<Resource<MessageResponse>> getResetPasswordStatus(){ return resetPasswordStatus; }
 }

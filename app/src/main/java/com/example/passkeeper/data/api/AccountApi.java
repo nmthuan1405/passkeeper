@@ -4,8 +4,10 @@ import com.example.passkeeper.data.model.AuthRequest;
 import com.example.passkeeper.data.model.AuthResponse;
 import com.example.passkeeper.data.model.CodeRequest;
 import com.example.passkeeper.data.model.EmailRequest;
+import com.example.passkeeper.data.model.ForgotPasswordRequest;
 import com.example.passkeeper.data.model.MessageResponse;
 import com.example.passkeeper.data.model.RegisterRequest;
+import com.example.passkeeper.data.model.ResetPasswordRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,4 +25,10 @@ public interface AccountApi {
 
     @POST("auth/regist/")
     Call<MessageResponse> register(@Body RegisterRequest request);
+
+    @POST("auth/forgot_password")
+    Call<MessageResponse> forgotPassword(@Body ForgotPasswordRequest request);
+
+    @POST("auth/reset_password")
+    Call<MessageResponse> resetPassword(@Body ResetPasswordRequest request);
 }
