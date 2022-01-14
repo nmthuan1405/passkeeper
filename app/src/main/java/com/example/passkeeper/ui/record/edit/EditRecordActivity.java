@@ -16,7 +16,6 @@ import com.example.passkeeper.data.model.EditRecordRequest;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityEditRecordBinding;
-import com.example.passkeeper.ui.record.RecordViewModel;
 import com.example.passkeeper.ui.record.edit.fragment.EditCardFragment;
 import com.example.passkeeper.ui.record.edit.fragment.EditNoteFragment;
 import com.example.passkeeper.ui.record.edit.fragment.EditPasswordFragment;
@@ -26,7 +25,7 @@ import com.example.passkeeper.ui.utils.ActivityObserver;
 public class EditRecordActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "@@ER_Act";
 
-    private RecordViewModel viewModel;
+    private EditRecordViewModel viewModel;
     private ActivityEditRecordBinding binding;
     private EditRecordFragment fragment = null;
 
@@ -42,7 +41,7 @@ public class EditRecordActivity extends AppCompatActivity implements View.OnClic
 
         binding.saveBtn.setOnClickListener(this);
 
-        viewModel = new ViewModelProvider(this).get(RecordViewModel.class);
+        viewModel = new ViewModelProvider(this).get(EditRecordViewModel.class);
 
         int id = getIntent().getIntExtra("id", -1);
         Log.i(TAG, "Edit record, id = " + id);
@@ -65,8 +64,6 @@ public class EditRecordActivity extends AppCompatActivity implements View.OnClic
                         finish();
                         break;
                 }
-
-                viewModel.getRecord().removeObserver(this);
                 loadFragment(fragment);
             }
         });
