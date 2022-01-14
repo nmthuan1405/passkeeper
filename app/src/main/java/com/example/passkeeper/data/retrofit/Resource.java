@@ -43,6 +43,10 @@ public class Resource<T> {
         isHandled = true;
     }
 
+    public boolean isComplete() {
+        return (dataStatus == Status.SUCCESS) || (dataStatus == Status.ERROR);
+    }
+
     public static<T> Resource<T> WAITING() {
         return new Resource<>(null, Status.WAITING, null);
     }

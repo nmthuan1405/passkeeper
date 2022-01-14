@@ -30,10 +30,10 @@ public class ViewRecordViewModel extends ViewModel {
 
     public void fetchRecord() {
         LiveData<Resource<Record>> newRecord = repository.getRecord(id);
-        record.addSource(newRecord, new Observer<Resource<Record>>() {
-            @Override
-            public void onChanged(Resource<Record> recordResource) {
-                record.setValue(recordResource);
+        record.addSource(newRecord, recordResource -> {
+            record.setValue(recordResource);
+            if (recordResource.isComplete()) {
+                record.removeSource(newRecord);
             }
         });
     }
