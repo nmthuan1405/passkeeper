@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.databinding.ItemRecordBinding;
-import com.example.passkeeper.ui.record.ViewRecordActivity;
+import com.example.passkeeper.ui.record.view.ViewRecordActivity;
 
 import java.util.HashMap;
 import java.util.List;

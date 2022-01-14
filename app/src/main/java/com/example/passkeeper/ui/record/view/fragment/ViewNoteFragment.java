@@ -1,4 +1,4 @@
-package com.example.passkeeper.ui.record.fragment;
+package com.example.passkeeper.ui.record.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,21 +12,21 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
-import com.example.passkeeper.databinding.ViewPasswordFragmentBinding;
+import com.example.passkeeper.databinding.ViewNoteFragmentBinding;
 import com.example.passkeeper.ui.record.RecordViewModel;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 
-public class ViewPasswordFragment extends Fragment {
+public class ViewNoteFragment extends Fragment {
     private RecordViewModel viewModel;
-    private ViewPasswordFragmentBinding binding;
+    private ViewNoteFragmentBinding binding;
 
-    public static ViewPasswordFragment newInstance() {
-        return new ViewPasswordFragment();
+    public static ViewNoteFragment newInstance() {
+        return new ViewNoteFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = ViewPasswordFragmentBinding.inflate(inflater, container, false);
+        binding = ViewNoteFragmentBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -41,9 +41,7 @@ public class ViewPasswordFragment extends Fragment {
                 Record record = data.getData();
 
                 binding.name.setText(record.getFieldValue("name"));
-                binding.username.setText(record.getFieldValue("username"));
-                binding.password.setText(record.getFieldValue("password"));
-                binding.urls.setText(record.getFieldValue("urls"));
+                binding.note.setText(record.getFieldValue("note"));
             }
         });
     }

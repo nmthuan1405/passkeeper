@@ -1,4 +1,4 @@
-package com.example.passkeeper.ui.record.fragment;
+package com.example.passkeeper.ui.record.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

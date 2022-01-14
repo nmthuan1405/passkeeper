@@ -1,25 +1,29 @@
-package com.example.passkeeper.ui.record;
+package com.example.passkeeper.ui.record.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityViewRecordBinding;
-import com.example.passkeeper.ui.record.fragment.ViewCardFragment;
-import com.example.passkeeper.ui.record.fragment.ViewNoteFragment;
-import com.example.passkeeper.ui.record.fragment.ViewPasswordFragment;
+import com.example.passkeeper.ui.record.RecordViewModel;
+import com.example.passkeeper.ui.record.edit.EditRecordActivity;
+import com.example.passkeeper.ui.record.view.fragment.ViewCardFragment;
+import com.example.passkeeper.ui.record.view.fragment.ViewNoteFragment;
+import com.example.passkeeper.ui.record.view.fragment.ViewPasswordFragment;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 
-public class ViewRecordActivity extends AppCompatActivity {
+public class ViewRecordActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "@@VR_Act";
 
     private RecordViewModel viewModel;
@@ -34,6 +38,8 @@ public class ViewRecordActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        binding.editBtn.setOnClickListener(this);
 
         viewModel = new ViewModelProvider(this).get(RecordViewModel.class);
 
@@ -85,5 +91,15 @@ public class ViewRecordActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        Record record = viewModel.getRecord().getValue().getData();
+        if (record != null) {
+            Intent intent = new Intent(this, EditRecordActivity.class);
+            intent.putExtra("id", record.getId());
+            startActivity(intent);
+        }
     }
 }
