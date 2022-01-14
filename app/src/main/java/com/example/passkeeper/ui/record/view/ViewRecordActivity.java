@@ -16,7 +16,6 @@ import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityViewRecordBinding;
-import com.example.passkeeper.ui.record.RecordViewModel;
 import com.example.passkeeper.ui.record.edit.EditRecordActivity;
 import com.example.passkeeper.ui.record.view.fragment.ViewCardFragment;
 import com.example.passkeeper.ui.record.view.fragment.ViewNoteFragment;
@@ -26,7 +25,7 @@ import com.example.passkeeper.ui.utils.ActivityObserver;
 public class ViewRecordActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "@@VR_Act";
 
-    private RecordViewModel viewModel;
+    private ViewRecordViewModel viewModel;
     private ActivityViewRecordBinding binding;
 
     @Override
@@ -41,12 +40,13 @@ public class ViewRecordActivity extends AppCompatActivity implements View.OnClic
 
         binding.editBtn.setOnClickListener(this);
 
-        viewModel = new ViewModelProvider(this).get(RecordViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ViewRecordViewModel.class);
 
         int id = getIntent().getIntExtra("id", -1);
         Log.i(TAG, "View record, id = " + id);
+        viewModel.fetchRecord(id);
 
-        viewModel.fetchRecord(id).observe(this, new ActivityObserver<Record>(this) {
+        viewModel.getRecord().observe(this, new ActivityObserver<Record>(this) {
             @Override
             public void onSuccess(Resource<Record> data) {
                 Record record = data.getData();
@@ -94,12 +94,15 @@ public class ViewRecordActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.fetchRecord();
+    }
+
+    @Override
     public void onClick(View view) {
-        Record record = viewModel.getRecord().getValue().getData();
-        if (record != null) {
-            Intent intent = new Intent(this, EditRecordActivity.class);
-            intent.putExtra("id", record.getId());
-            startActivity(intent);
-        }
+        Intent intent = new Intent(this, EditRecordActivity.class);
+        intent.putExtra("id", viewModel.getId());
+        startActivity(intent);
     }
 }

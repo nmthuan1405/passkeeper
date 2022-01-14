@@ -13,11 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ViewNoteFragmentBinding;
-import com.example.passkeeper.ui.record.RecordViewModel;
+import com.example.passkeeper.ui.record.view.ViewRecordViewModel;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 
 public class ViewNoteFragment extends Fragment {
-    private RecordViewModel viewModel;
+    private ViewRecordViewModel viewModel;
     private ViewNoteFragmentBinding binding;
 
     public static ViewNoteFragment newInstance() {
@@ -34,7 +34,7 @@ public class ViewNoteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(RecordViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ViewRecordViewModel.class);
         viewModel.getRecord().observe(getViewLifecycleOwner(), new ActivityObserver<Record>(getActivity()) {
             @Override
             public void onSuccess(Resource<Record> data) {
