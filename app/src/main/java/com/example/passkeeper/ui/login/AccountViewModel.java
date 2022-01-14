@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.passkeeper.data.model.AuthResponse;
 import com.example.passkeeper.data.model.MessageResponse;
+import com.example.passkeeper.data.model.ResetPasswordRequest;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.data.repository.AccountRepository;
 import com.example.passkeeper.databinding.ActivityLoginBinding;
@@ -22,10 +23,11 @@ public class AccountViewModel extends ViewModel {
     private LiveData<Resource<MessageResponse>> emailStatus = null;
     private LiveData<Resource<MessageResponse>> codeStatus = null;
     private LiveData<Resource<MessageResponse>> registerStatus = null;
+    private LiveData<Resource<MessageResponse>> forgotPasswordStatus = null;
+    private LiveData<Resource<MessageResponse>> resetPasswordStatus = null;
 
     public AccountViewModel() {
         accountRepository = new AccountRepository();
-
     }
 
     public void login(String email, String password) {
@@ -42,6 +44,14 @@ public class AccountViewModel extends ViewModel {
 
     public void register(String email, String password, String code) {
         accountRepository.register(email, password, code);
+    }
+
+    public void forgotPassword(String email){
+        accountRepository.forgotPassword(email);
+    }
+
+    public void resetPassword(String email, String password, String code){
+        accountRepository.resetPassword(email, password, code);
     }
 
     public LiveData<Resource<AuthResponse>> getLoginStatus() {
@@ -70,6 +80,20 @@ public class AccountViewModel extends ViewModel {
             registerStatus = accountRepository.getRegisterStatus();
         }
         return registerStatus;
+    }
+
+    public LiveData<Resource<MessageResponse>> getForgotPasswordStatus() {
+        if (forgotPasswordStatus == null){
+            forgotPasswordStatus = accountRepository.getForgotPasswordStatus();
+        }
+        return forgotPasswordStatus;
+    }
+
+    public LiveData<Resource<MessageResponse>> getResetPasswordStatus() {
+        if (resetPasswordStatus == null){
+            resetPasswordStatus = accountRepository.getResetPasswordStatus();
+        }
+        return resetPasswordStatus;
     }
 
     public String getEmail() {
