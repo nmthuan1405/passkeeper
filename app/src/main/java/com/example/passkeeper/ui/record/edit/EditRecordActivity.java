@@ -12,14 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.passkeeper.R;
-import com.example.passkeeper.data.model.EditRecordRequest;
+import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityEditRecordBinding;
+import com.example.passkeeper.ui.record.add.fragment.AddRecordFragment;
 import com.example.passkeeper.ui.record.edit.fragment.EditCardFragment;
 import com.example.passkeeper.ui.record.edit.fragment.EditNoteFragment;
 import com.example.passkeeper.ui.record.edit.fragment.EditPasswordFragment;
-import com.example.passkeeper.ui.record.edit.fragment.EditRecordFragment;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 
 public class EditRecordActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,7 +27,7 @@ public class EditRecordActivity extends AppCompatActivity implements View.OnClic
 
     private EditRecordViewModel viewModel;
     private ActivityEditRecordBinding binding;
-    private EditRecordFragment fragment = null;
+    private AddRecordFragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class EditRecordActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         if (fragment != null) {
-            EditRecordRequest request = fragment.getEditRequest();
+            RecordFieldList request = fragment.getFieldList();
 
             viewModel.editRecord(request).observe(this, new ActivityObserver<Record>(this) {
                 @Override

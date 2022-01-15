@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.RecordApi;
-import com.example.passkeeper.data.model.EditRecordRequest;
+import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.CompleteCallback;
 import com.example.passkeeper.data.retrofit.Resource;
@@ -26,11 +26,20 @@ public class RecordRepository {
         return record;
     }
 
-    public LiveData<Resource<Record>> editRecord(int id, EditRecordRequest request) {
+    public LiveData<Resource<Record>> editRecord(int id, RecordFieldList request) {
         MutableLiveData<Resource<Record>> record = new MutableLiveData<>(Resource.NONE());
 
         String token = SessionManager.getInstance().getAccessToken();
         recordApi.editRecord(token, id, request).enqueue(new CompleteCallback<>(record));
         return record;
+    }
+
+    public LiveData<Resource<Record>> addRecord(Record record) {
+        MutableLiveData<Resource<Record>> resultRecord = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        recordApi.addRecord(token, record).enqueue(new CompleteCallback<>(resultRecord));
+        return resultRecord;
+
     }
 }

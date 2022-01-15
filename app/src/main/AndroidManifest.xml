@@ -37,7 +37,7 @@
             android:exported="false"
             android:theme="@style/Theme.Passkeeper.NoActionBar" />
         <activity
-            android:name=".ui.record.AddRecordActivity"
+            android:name=".ui.record.add.AddRecordActivity"
             android:exported="false"
             android:theme="@style/Theme.Passkeeper.NoActionBar" />
         <activity

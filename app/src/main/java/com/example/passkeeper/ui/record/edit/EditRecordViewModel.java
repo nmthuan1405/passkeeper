@@ -3,7 +3,7 @@ package com.example.passkeeper.ui.record.edit;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.passkeeper.data.model.EditRecordRequest;
+import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.repository.RecordRepository;
 import com.example.passkeeper.data.retrofit.Resource;
@@ -29,7 +29,7 @@ public class EditRecordViewModel extends ViewModel {
         return record;
     }
 
-    public LiveData<Resource<Record>> editRecord(EditRecordRequest request) {
+    public LiveData<Resource<Record>> editRecord(RecordFieldList request) {
         return repository.editRecord(id, request);
     }
 }

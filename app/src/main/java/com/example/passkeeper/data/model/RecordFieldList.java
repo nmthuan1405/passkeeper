@@ -6,12 +6,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditRecordRequest {
+public class RecordFieldList {
     @SerializedName("record_fields")
     @Expose
     private List<RecordField> recordFields = null;
 
-    public EditRecordRequest() {
+    public RecordFieldList() {
         recordFields = new ArrayList<>();
     }
 

@@ -1,6 +1,6 @@
 package com.example.passkeeper.data.api;
 
-import com.example.passkeeper.data.model.EditRecordRequest;
+import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
 
@@ -10,6 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface RecordApi {
@@ -20,5 +21,8 @@ public interface RecordApi {
     Call<Record> getRecord(@Header("Authorization") String token, @Path(value = "id") int id);
 
     @PATCH("records/{id}/")
-    Call<Record> editRecord(@Header("Authorization") String token, @Path(value = "id") int id, @Body EditRecordRequest request);
+    Call<Record> editRecord(@Header("Authorization") String token, @Path(value = "id") int id, @Body RecordFieldList request);
+
+    @POST("records/")
+    Call<Record> addRecord(@Header("Authorization") String token, @Body Record record);
 }
