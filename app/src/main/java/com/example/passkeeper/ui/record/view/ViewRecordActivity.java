@@ -44,7 +44,7 @@ public class ViewRecordActivity extends AppCompatActivity implements View.OnClic
 
         int id = getIntent().getIntExtra("id", -1);
         Log.i(TAG, "View record, id = " + id);
-        viewModel.fetchRecord(id);
+        viewModel.setId(id);
 
         viewModel.getRecord().observe(this, new ActivityObserver<Record>(this) {
             @Override
@@ -70,6 +70,12 @@ public class ViewRecordActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.fetchRecord();
+    }
+
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.view_record_fragment, fragment)
@@ -91,12 +97,6 @@ public class ViewRecordActivity extends AppCompatActivity implements View.OnClic
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        viewModel.fetchRecord();
     }
 
     @Override

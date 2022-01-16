@@ -23,9 +23,8 @@ public class ViewRecordViewModel extends ViewModel {
         return id;
     }
 
-    public void fetchRecord(int id) {
+    public void setId(int id) {
         this.id = id;
-        fetchRecord();
     }
 
     public void fetchRecord() {
