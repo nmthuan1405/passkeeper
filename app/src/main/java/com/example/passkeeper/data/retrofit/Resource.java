@@ -51,6 +51,10 @@ public class Resource<T> {
         return new Resource<>(null, Status.WAITING, null);
     }
 
+    public static<T> Resource<T> WAITING(T data) {
+        return new Resource<>(data, Status.WAITING, null);
+    }
+
     public static<T> Resource<T> NONE() {
         return new Resource<>(null, Status.NONE, null);
     }

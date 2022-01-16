@@ -17,27 +17,27 @@ public abstract class ActivityObserver<T> extends BaseObserver<T> {
     }
 
     @Override
-    public void onWaiting(Resource<T> data) {
+    public void onWaiting(Resource<T> resource) {
 
     }
 
     @Override
-    public void onError(Resource<T> data) {
+    public void onError(Resource<T> resource) {
         if (activity != null) {
-            if (data.getError().equals(ERROR_401)) {
+            if (resource.getError().equals(ERROR_401)) {
                 SessionManager.getInstance().setToken(null);
                 Intent intent = new Intent(activity, LoginActivity.class);
                 activity.startActivity(intent);
                 activity.finishAffinity();
             }
             else {
-                onCommonError(data);
+                onCommonError(resource);
             }
         }
     }
 
-    public void onCommonError(Resource<T> data) {
-        Toast.makeText(activity, data.getError(), Toast.LENGTH_SHORT).show();
+    public void onCommonError(Resource<T> resource) {
+        Toast.makeText(activity, resource.getError(), Toast.LENGTH_SHORT).show();
     }
 }
 

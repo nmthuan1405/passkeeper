@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,6 +51,12 @@ public class ListRecordFragment extends Fragment {
 
         initRecycleView();
         initSpeedDialFloatingButton(savedInstanceState == null);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.fetchAllRecords();
     }
 
     private void initRecycleView() {

@@ -12,10 +12,11 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RecordApi {
     @GET("records/")
-    Call<ListRecord> getListRecord(@Header("Authorization") String token);
+    Call<ListRecord> getListRecord(@Header("Authorization") String token, @Query("page") int page);
 
     @GET("records/{id}/")
     Call<Record> getRecord(@Header("Authorization") String token, @Path(value = "id") int id);
