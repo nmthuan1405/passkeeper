@@ -23,6 +23,7 @@ public class ListRecordViewModel extends ViewModel {
     private final ListRecordRepository repository;
     private final MediatorLiveData<Resource<List<Record>>> listRecord;
     private final int firstPage = 1;
+    private boolean fetchingData = false;
 
     public ListRecordViewModel() {
         repository = new ListRecordRepository();
@@ -58,6 +59,7 @@ public class ListRecordViewModel extends ViewModel {
                 if (data.getNext() == null) {
                     Log.i(TAG, "Load record list done !!!");
                     listRecord.setValue(Resource.SUCCESS(currentData));
+                    fetchingData = false;
                 } else {
                     listRecord.setValue(Resource.WAITING(currentData));
                     addPageToListRecord(page + 1);
@@ -75,8 +77,12 @@ public class ListRecordViewModel extends ViewModel {
     }
 
     public void fetchAllRecords() {
-        listRecord.setValue(Resource.WAITING(new ArrayList<>()));
-        addPageToListRecord(firstPage);
+        if (!fetchingData) {
+            fetchingData = true;
+
+            listRecord.setValue(Resource.WAITING(new ArrayList<>()));
+            addPageToListRecord(firstPage);
+        }
     }
 
     public LiveData<Resource<List<Record>>> getRecords(String type) {
