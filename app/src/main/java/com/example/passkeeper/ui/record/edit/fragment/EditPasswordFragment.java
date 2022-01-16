@@ -8,21 +8,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.databinding.AddPasswordFragmentBinding;
-import com.example.passkeeper.ui.record.add.fragment.AddCardFragment;
-import com.example.passkeeper.ui.record.add.fragment.AddPasswordFragment;
+import com.example.passkeeper.ui.record.utils.PasswordRecordFieldData;
 
-public class EditPasswordFragment extends AddPasswordFragment implements EditRecordFragment{
+public class EditPasswordFragment extends EditRecordFragment implements PasswordRecordFieldData {
+     private AddPasswordFragmentBinding binding;
+
     public static EditPasswordFragment newInstance() {
         return new EditPasswordFragment();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initViewModel(requireActivity());
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = AddPasswordFragmentBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -31,5 +32,10 @@ public class EditPasswordFragment extends AddPasswordFragment implements EditRec
         binding.username.setText(record.getFieldValue("username"));
         binding.password.setText(record.getFieldValue("password"));
         binding.urls.setText(record.getFieldValue("urls"));
+    }
+
+    @Override
+    public RecordFieldList getFieldList() {
+        return getFieldList(binding);
     }
 }

@@ -10,9 +10,10 @@ import androidx.annotation.Nullable;
 
 import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.databinding.AddCardFragmentBinding;
+import com.example.passkeeper.ui.record.utils.CardRecordFieldData;
 
-public class AddCardFragment extends AddRecordFragment {
-    protected AddCardFragmentBinding binding;
+public class AddCardFragment extends AddRecordFragment implements CardRecordFieldData {
+    private AddCardFragmentBinding binding;
 
     public static AddCardFragment newInstance() {
         return new AddCardFragment();
@@ -26,12 +27,6 @@ public class AddCardFragment extends AddRecordFragment {
 
     @Override
     public RecordFieldList getFieldList() {
-        RecordFieldList fieldList = new RecordFieldList();
-        fieldList.addField("name", binding.name.getText().toString());
-        fieldList.addField("cardholderName", binding.cardholderName.getText().toString());
-        fieldList.addField("cardNumber", binding.cardNumber.getText().toString());
-        fieldList.addField("expirationDay", binding.expirationDay.getText().toString());
-        fieldList.addField("note", binding.note.getText().toString());
-        return fieldList;
+        return getFieldList(binding);
     }
 }

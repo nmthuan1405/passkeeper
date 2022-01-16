@@ -16,10 +16,10 @@ import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityEditRecordBinding;
-import com.example.passkeeper.ui.record.add.fragment.AddRecordFragment;
 import com.example.passkeeper.ui.record.edit.fragment.EditCardFragment;
 import com.example.passkeeper.ui.record.edit.fragment.EditNoteFragment;
 import com.example.passkeeper.ui.record.edit.fragment.EditPasswordFragment;
+import com.example.passkeeper.ui.record.edit.fragment.EditRecordFragment;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 
 public class EditRecordActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,7 +27,7 @@ public class EditRecordActivity extends AppCompatActivity implements View.OnClic
 
     private EditRecordViewModel viewModel;
     private ActivityEditRecordBinding binding;
-    private AddRecordFragment fragment = null;
+    private EditRecordFragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

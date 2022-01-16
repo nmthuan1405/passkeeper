@@ -10,9 +10,10 @@ import androidx.annotation.Nullable;
 
 import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.databinding.AddPasswordFragmentBinding;
+import com.example.passkeeper.ui.record.utils.PasswordRecordFieldData;
 
-public class AddPasswordFragment extends AddRecordFragment {
-    protected AddPasswordFragmentBinding binding;
+public class AddPasswordFragment extends AddRecordFragment implements PasswordRecordFieldData {
+    private AddPasswordFragmentBinding binding;
 
     public static AddPasswordFragment newInstance() {
         return new AddPasswordFragment();
@@ -26,11 +27,6 @@ public class AddPasswordFragment extends AddRecordFragment {
 
     @Override
     public RecordFieldList getFieldList() {
-        RecordFieldList fieldList = new RecordFieldList();
-        fieldList.addField("name", binding.name.getText().toString());
-        fieldList.addField("username", binding.username.getText().toString());
-        fieldList.addField("password", binding.password.getText().toString());
-        fieldList.addField("urls", binding.urls.getText().toString());
-        return fieldList;
+        return getFieldList(binding);
     }
 }
