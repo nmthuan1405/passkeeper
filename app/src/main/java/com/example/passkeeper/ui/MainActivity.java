@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.manage_group:
                 Intent groupIntent = new Intent(this, ListGroupActivity.class);
                 startActivity(groupIntent);
-                finish();
                 break;
         }
 
