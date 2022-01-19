@@ -1,11 +1,12 @@
 package com.example.passkeeper.ui.listRecord;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.passkeeper.R;
+import com.example.passkeeper.ui.record.add.AddRecordActivity;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
@@ -51,6 +53,12 @@ public class ListRecordFragment extends Fragment {
         initSpeedDialFloatingButton(savedInstanceState == null);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.fetchAllRecords();
+    }
+
     private void initRecycleView() {
         mAdapter = new RecordAdapter();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -69,6 +77,7 @@ public class ListRecordFragment extends Fragment {
         });
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void initSpeedDialFloatingButton(boolean isAddActionItems) {
         SpeedDialView speedDialView = binding.speedDial;
         if (isAddActionItems){
@@ -84,7 +93,24 @@ public class ListRecordFragment extends Fragment {
         }
 
         speedDialView.setOnActionSelectedListener(actionItem -> {
-            Toast.makeText(getActivity(), actionItem.getLabel(getActivity())+" clicked", Toast.LENGTH_LONG).show();
+            String type;
+            switch (actionItem.getId()) {
+                case R.id.fab_add_card:
+                    type = "card";
+                    break;
+                case R.id.fab_add_password:
+                    type = "password";
+                    break;
+                case R.id.fab_add_secure_note:
+                    type = "note";
+                    break;
+                default:
+                    return false;
+            }
+
+            Intent intent = new Intent(requireContext(), AddRecordActivity.class);
+            intent.putExtra("type", type);
+            startActivity(intent);
             return false;
         });
     }

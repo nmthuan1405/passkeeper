@@ -11,20 +11,18 @@ import com.example.passkeeper.data.api.RecordApi;
 import com.example.passkeeper.data.model.ListRecord;
 
 public class ListRecordRepository {
-    private final MutableLiveData<Resource<ListRecord>> listRecord;
     private final RecordApi recordApi;
 
     public ListRecordRepository() {
         recordApi = RetrofitService.createService(RecordApi.class);
-        listRecord = new MutableLiveData<>(Resource.NONE());
     }
 
-    public void fetchRawListRecord() {
+    public LiveData<Resource<ListRecord>> fetchListRecord(int page) {
+        MutableLiveData<Resource<ListRecord>> listRecord = new MutableLiveData<>(Resource.NONE());
+
         String token = SessionManager.getInstance().getAccessToken();
-        recordApi.getListRecord(token).enqueue(new CompleteCallback<>(listRecord));
-    }
+        recordApi.getListRecord(token, page).enqueue(new CompleteCallback<>(listRecord));
 
-    public LiveData<Resource<ListRecord>> getRawListRecord() {
         return listRecord;
     }
 }

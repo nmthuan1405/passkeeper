@@ -18,6 +18,18 @@ public class RecordField {
     @Expose
     private Integer id;
 
+    public RecordField(String name, String value, boolean isHidden) {
+        this.name = name;
+        this.value = value;
+        this.hidden = isHidden;
+    }
+
+    public RecordField(String name, String value) {
+        this.name = name;
+        this.value = value;
+        this.hidden = false;
+    }
+
     public String getName() {
         return name;
     }
