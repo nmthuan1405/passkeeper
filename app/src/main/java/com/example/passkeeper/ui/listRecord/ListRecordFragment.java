@@ -74,11 +74,11 @@ public class ListRecordFragment extends Fragment {
     private void initRecycleView() {
         mAdapter = new RecordAdapter();
 
-        mAdapter.setOnFavoriteCheckedListener((holder, record, isChecked) -> {
+        mAdapter.setOnFavoriteCheckedListener((record, position, isChecked) -> {
             mViewModel.changeFavoriteStatus(record.getId(), isChecked).observe(getViewLifecycleOwner(), new ActivityObserver<Record>(getActivity()) {
                 @Override
                 public void onSuccess(Resource<Record> resource) {
-                    holder.binding.favoriteToggle.setChecked(resource.getData().isFavorite());
+                    mAdapter.patchRecord(resource.getData(), position);
                 }
             });
         });

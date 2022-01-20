@@ -14,14 +14,13 @@ import com.example.passkeeper.databinding.ItemRecordBinding;
 import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
-
     private List<Record> mListRecord = null;
     private OnCheckedListener onFavoriteCheckedListener;
     private OnItemClickListener onItemClickListener;
     private OnItemClickListener onItemLongClickListener;
 
     public interface OnCheckedListener {
-        void onChecked(RecordViewHolder holder, Record record, boolean isChecked);
+        void onChecked(Record record, int position, boolean isChecked);
     }
     public interface OnItemClickListener {
         void onItemClick(RecordViewHolder holder, Record record);
@@ -38,31 +37,17 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
         Record record = mListRecord.get(position);
 
-        String name = record.getFieldValue("name");
-        if (name != null) {
-            holder.binding.nameRecordTextView.setText(name);
-        }
-
-        String description = record.getDescription();
-        if (description != null) {
-            holder.binding.descriptionRecordTextView.setText(description);
-        } else {
-            holder.binding.descriptionRecordTextView.setVisibility(View.GONE);
-        }
-
-        Integer icon = getIconId(record.getType());
-        if (icon != null) {
-            holder.binding.iconTypeRecord.setImageResource(icon);
-        }
-
-        holder.binding.favoriteToggle.setChecked(record.isFavorite());
-
-        holder.binding.favoriteToggle.setOnCheckedChangeListener((compoundButton, b) -> onFavoriteCheckedListener.onChecked(holder, record, b));
+        holder.binding.favoriteToggle.setOnClickListener(view -> {
+            boolean isChecked = holder.binding.favoriteToggle.isChecked();
+            onFavoriteCheckedListener.onChecked(record, position, isChecked);
+        });
         holder.itemView.setOnClickListener(view -> onItemClickListener.onItemClick(holder, record));
         holder.itemView.setOnLongClickListener(view -> {
             onItemLongClickListener.onItemClick(holder, record);
             return false;
         });
+
+        holder.bind(record);
     }
 
     @Override
@@ -79,6 +64,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         }
     }
 
+    public void patchRecord(Record record, int position) {
+        if (record != null) {
+            mListRecord.set(position, record);
+            notifyItemChanged(position, record);
+        }
+    }
+
     public void setOnFavoriteCheckedListener(OnCheckedListener onFavoriteClickListener) {
         this.onFavoriteCheckedListener = onFavoriteClickListener;
     }
@@ -91,25 +83,49 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
-    private Integer getIconId(String type) {
-        switch (type) {
-            case "password":
-                return R.drawable.ic_password;
-            case "card":
-                return R.drawable.ic_card;
-            case "note":
-                return R.drawable.ic_note;
-            default:
-                return null;
-        }
-    }
-
     public static class RecordViewHolder extends RecyclerView.ViewHolder {
         public final ItemRecordBinding binding;
 
         public RecordViewHolder(@NonNull ItemRecordBinding itemBinding) {
             super(itemBinding.getRoot());
             binding = itemBinding;
+        }
+
+        public void bind(Record record) {
+            String name = record.getFieldValue("name");
+            if (name != null) {
+                binding.nameRecordTextView.setText(name);
+            } else {
+                binding.nameRecordTextView.setText("");
+            }
+
+            String description = record.getDescription();
+            if (description != null) {
+                binding.descriptionRecordTextView.setText(description);
+                binding.descriptionRecordTextView.setVisibility(View.VISIBLE);
+            } else {
+                binding.descriptionRecordTextView.setVisibility(View.GONE);
+            }
+
+            Integer icon = getIconId(record.getType());
+            if (icon != null) {
+                binding.iconTypeRecord.setImageResource(icon);
+            }
+
+            binding.favoriteToggle.setChecked(record.isFavorite());
+        }
+
+        private Integer getIconId(String type) {
+            switch (type) {
+                case "password":
+                    return R.drawable.ic_password;
+                case "card":
+                    return R.drawable.ic_card;
+                case "note":
+                    return R.drawable.ic_note;
+                default:
+                    return null;
+            }
         }
     }
 }
