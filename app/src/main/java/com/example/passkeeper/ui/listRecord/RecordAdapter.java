@@ -1,6 +1,5 @@
 package com.example.passkeeper.ui.listRecord;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +10,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.databinding.ItemRecordBinding;
-import com.example.passkeeper.ui.record.view.ViewRecordActivity;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
 
     private List<Record> mListRecord = null;
-    private ItemRecordBinding binding;
-    private HashMap<String, Integer> iconMap;
+    private OnCheckedListener onFavoriteCheckedListener;
+    private OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemLongClickListener;
+
+    public interface OnCheckedListener {
+        void onChecked(RecordViewHolder holder, Record record, boolean isChecked);
+    }
+    public interface OnItemClickListener {
+        void onItemClick(RecordViewHolder holder, Record record);
+    }
 
     @NonNull
     @Override
     public RecordAdapter.RecordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = ItemRecordBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        ItemRecordBinding binding = ItemRecordBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new RecordViewHolder(binding);
     }
 
@@ -45,34 +50,19 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             holder.binding.descriptionRecordTextView.setVisibility(View.GONE);
         }
 
-        Integer icon = getIconMap().get(record.getType());
+        Integer icon = getIconId(record.getType());
         if (icon != null) {
             holder.binding.iconTypeRecord.setImageResource(icon);
         }
 
         holder.binding.favoriteToggle.setChecked(record.isFavorite());
-        holder.binding.favoriteToggle.setOnClickListener(view -> {
-            // TODO: Handle when changes favourite status of this item
-            record.setFavoriteStatus(!record.isFavorite());
-        });
 
-        // It's temporary
-        // TODO: need further discussion
-        holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), ViewRecordActivity.class);
-            intent.putExtra("id", record.getId());
-            view.getContext().startActivity(intent);
+        holder.binding.favoriteToggle.setOnCheckedChangeListener((compoundButton, b) -> onFavoriteCheckedListener.onChecked(holder, record, b));
+        holder.itemView.setOnClickListener(view -> onItemClickListener.onItemClick(holder, record));
+        holder.itemView.setOnLongClickListener(view -> {
+            onItemLongClickListener.onItemClick(holder, record);
+            return false;
         });
-    }
-
-    private HashMap<String, Integer> getIconMap() {
-        if (iconMap == null) {
-            iconMap = new HashMap<>();
-            iconMap.put("password", R.drawable.ic_password);
-            iconMap.put("card", R.drawable.ic_card);
-            iconMap.put("note", R.drawable.ic_note);
-        }
-        return iconMap;
     }
 
     @Override
@@ -89,9 +79,33 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         }
     }
 
-    public static class RecordViewHolder extends RecyclerView.ViewHolder {
+    public void setOnFavoriteCheckedListener(OnCheckedListener onFavoriteClickListener) {
+        this.onFavoriteCheckedListener = onFavoriteClickListener;
+    }
 
-        private final ItemRecordBinding binding;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
+
+    private Integer getIconId(String type) {
+        switch (type) {
+            case "password":
+                return R.drawable.ic_password;
+            case "card":
+                return R.drawable.ic_card;
+            case "note":
+                return R.drawable.ic_note;
+            default:
+                return null;
+        }
+    }
+
+    public static class RecordViewHolder extends RecyclerView.ViewHolder {
+        public final ItemRecordBinding binding;
 
         public RecordViewHolder(@NonNull ItemRecordBinding itemBinding) {
             super(itemBinding.getRoot());

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.ui.record.add.AddRecordActivity;
+import com.example.passkeeper.ui.record.view.ViewRecordActivity;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
@@ -51,19 +52,6 @@ public class ListRecordFragment extends Fragment {
 
         initRecycleView();
         initSpeedDialFloatingButton(savedInstanceState == null);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mViewModel.fetchAllRecords();
-    }
-
-    private void initRecycleView() {
-        mAdapter = new RecordAdapter();
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerView.setHasFixedSize(true);
-        binding.recyclerView.setAdapter(mAdapter);
 
         mViewModel.getRecords(getType()).observe(getViewLifecycleOwner(), new ActivityObserver<List<Record>>(getActivity()) {
             @Override
@@ -75,6 +63,38 @@ public class ListRecordFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.fetchAllRecords();
+    }
+
+    private void initRecycleView() {
+        mAdapter = new RecordAdapter();
+
+        mAdapter.setOnFavoriteCheckedListener((holder, record, isChecked) -> {
+            mViewModel.changeFavoriteStatus(record.getId(), isChecked).observe(getViewLifecycleOwner(), new ActivityObserver<Record>(getActivity()) {
+                @Override
+                public void onSuccess(Resource<Record> resource) {
+                    holder.binding.favoriteToggle.setChecked(resource.getData().isFavorite());
+                }
+            });
+        });
+
+        mAdapter.setOnItemClickListener((holder, record) -> {
+            Intent intent = new Intent(getContext(), ViewRecordActivity.class);
+            intent.putExtra("id", record.getId());
+            startActivity(intent);
+        });
+        mAdapter.setOnItemLongClickListener((holder, record) -> {
+
+        });
+
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setAdapter(mAdapter);
     }
 
     @SuppressLint("NonConstantResourceId")

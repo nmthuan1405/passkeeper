@@ -103,8 +103,4 @@ public class Record {
                 return null;
         }
     }
-
-    public FavoriteStatus getChangeFavoriteStatusRequest() {
-        return new FavoriteStatus(!isFavorite());
-    }
 }
