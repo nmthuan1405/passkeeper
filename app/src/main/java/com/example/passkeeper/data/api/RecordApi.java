@@ -1,5 +1,6 @@
 package com.example.passkeeper.data.api;
 
+import com.example.passkeeper.data.model.FavoriteStatus;
 import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
@@ -26,4 +27,7 @@ public interface RecordApi {
 
     @POST("records/")
     Call<Record> addRecord(@Header("Authorization") String token, @Body Record record);
+
+    @PATCH("records/{id}/")
+    Call<Record> setFavoriteStatus(@Header("Authorization") String token, @Path(value = "id") int id, @Body FavoriteStatus status);
 }
