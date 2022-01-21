@@ -33,4 +33,6 @@
     <string name="expiration_day">Expiration Day</string>
     <string name="edit">Edit</string>
     <string name="tags">Tags</string>
+    <string name="view">View</string>
+    <string name="delete">Delete</string>
 </resources>

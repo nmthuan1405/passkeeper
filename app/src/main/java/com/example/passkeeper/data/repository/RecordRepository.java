@@ -61,4 +61,12 @@ public class RecordRepository {
         recordApi.setFavoriteStatus(token, id, status).enqueue(new CompleteCallback<>(resultRecord));
         return resultRecord;
     }
+
+    public LiveData<Resource<Void>> deleteRecord(int id) {
+        MutableLiveData<Resource<Void>> result = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        recordApi.deleteRecord(token, id).enqueue(new CompleteCallback<>(result));
+        return result;
+    }
 }

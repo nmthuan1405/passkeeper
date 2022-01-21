@@ -1,6 +1,8 @@
 package com.example.passkeeper.ui.listRecord;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,12 +12,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.passkeeper.R;
+import com.example.passkeeper.ui.dialog.DeleteRecordDialog;
 import com.example.passkeeper.ui.record.add.AddRecordActivity;
+import com.example.passkeeper.ui.record.edit.EditRecordActivity;
 import com.example.passkeeper.ui.record.view.ViewRecordActivity;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.example.passkeeper.data.model.Record;
@@ -71,6 +76,42 @@ public class ListRecordFragment extends Fragment {
         mViewModel.fetchAllRecords();
     }
 
+    private void startRecordActivity(Class<? extends Activity> activityClass, Record record) {
+        Intent intent = new Intent(requireActivity(), activityClass);
+        intent.putExtra("id", record.getId());
+        startActivity(intent);
+    }
+
+    private Dialog createRecordOptionDialog(Record record, int recordPosition) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        builder.setTitle("Choose option")
+                .setItems(R.array.list_record_dialog, (dialogInterface, position) -> {
+                    switch (position) {
+                        case 0: {
+                            // View record
+                            startRecordActivity(ViewRecordActivity.class, record);
+                            break;
+                        }
+                        case 1: {
+                            // Edit record
+                            startRecordActivity(EditRecordActivity.class, record);
+                            break;
+                        }
+                        case 2: {
+                            // Delete record
+                            DeleteRecordDialog dialog = new DeleteRecordDialog();
+                            dialog.setOnDeleteRecordListener(() -> {
+                                mViewModel.deleteRecord(record.getId());
+                                mAdapter.deleteRecord(recordPosition);
+                            });
+                            dialog.show(getChildFragmentManager(), null);
+                            break;
+                        }
+                    }
+                });
+        return builder.create();
+    }
+
     private void initRecycleView() {
         mAdapter = new RecordAdapter();
 
@@ -78,19 +119,16 @@ public class ListRecordFragment extends Fragment {
             mViewModel.changeFavoriteStatus(record.getId(), isChecked).observe(getViewLifecycleOwner(), new ActivityObserver<Record>(getActivity()) {
                 @Override
                 public void onSuccess(Resource<Record> resource) {
-                    mAdapter.patchRecord(resource.getData(), position);
+                    mAdapter.editRecord(resource.getData(), position);
                 }
             });
         });
-
-        mAdapter.setOnItemClickListener((holder, record) -> {
+        mAdapter.setOnItemClickListener((record, position) -> {
             Intent intent = new Intent(getContext(), ViewRecordActivity.class);
             intent.putExtra("id", record.getId());
             startActivity(intent);
         });
-        mAdapter.setOnItemLongClickListener((holder, record) -> {
-
-        });
+        mAdapter.setOnItemLongClickListener((record, position) -> createRecordOptionDialog(record, position).show());
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setHasFixedSize(true);

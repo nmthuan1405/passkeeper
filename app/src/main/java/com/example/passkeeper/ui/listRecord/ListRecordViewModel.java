@@ -109,4 +109,8 @@ public class ListRecordViewModel extends ViewModel {
     public LiveData<Resource<Record>> changeFavoriteStatus(int id, boolean status) {
         return repository.setFavoriteStatus(id, new FavoriteStatus(status));
     }
+
+    public LiveData<Resource<Void>> deleteRecord(int id) {
+        return repository.deleteRecord(id);
+    }
 }

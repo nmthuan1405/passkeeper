@@ -23,7 +23,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         void onChecked(Record record, int position, boolean isChecked);
     }
     public interface OnItemClickListener {
-        void onItemClick(RecordViewHolder holder, Record record);
+        void onItemClick(Record record, int position);
     }
 
     @NonNull
@@ -41,10 +41,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             boolean isChecked = holder.binding.favoriteToggle.isChecked();
             onFavoriteCheckedListener.onChecked(record, position, isChecked);
         });
-        holder.itemView.setOnClickListener(view -> onItemClickListener.onItemClick(holder, record));
+        holder.itemView.setOnClickListener(view -> onItemClickListener.onItemClick(record, position));
         holder.itemView.setOnLongClickListener(view -> {
-            onItemLongClickListener.onItemClick(holder, record);
-            return false;
+            onItemLongClickListener.onItemClick(record, position);
+            return true;
         });
 
         holder.bind(record);
@@ -64,11 +64,16 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         }
     }
 
-    public void patchRecord(Record record, int position) {
+    public void editRecord(Record record, int position) {
         if (record != null) {
             mListRecord.set(position, record);
             notifyItemChanged(position, record);
         }
+    }
+
+    public void deleteRecord(int position) {
+        mListRecord.remove(position);
+        notifyItemRemoved(position);
     }
 
     public void setOnFavoriteCheckedListener(OnCheckedListener onFavoriteClickListener) {
