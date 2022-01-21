@@ -11,10 +11,13 @@ import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.databinding.ItemRecordBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
-    private List<Record> mListRecord = null;
+    private List<Record> listRecord = null;
+    private List<Record> storedListRecord = null;
+    private String currentKeyword = "";
     private OnCheckedListener onFavoriteCheckedListener;
     private OnItemClickListener onItemClickListener;
     private OnItemClickListener onItemLongClickListener;
@@ -35,7 +38,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
-        Record record = mListRecord.get(position);
+        Record record = listRecord.get(position);
 
         holder.binding.favoriteToggle.setOnClickListener(view -> {
             boolean isChecked = holder.binding.favoriteToggle.isChecked();
@@ -52,28 +55,48 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     @Override
     public int getItemCount() {
-        if (mListRecord != null)
-            return mListRecord.size();
+        if (listRecord != null)
+            return listRecord.size();
         return 0;
     }
 
     public void setListRecord(List<Record> listRecord) {
         if (listRecord != null) {
-            mListRecord = listRecord;
-            notifyDataSetChanged();
+            this.storedListRecord = listRecord;
+            applyFilter();
         }
     }
 
     public void editRecord(Record record, int position) {
         if (record != null) {
-            mListRecord.set(position, record);
+            listRecord.set(position, record);
             notifyItemChanged(position, record);
         }
     }
 
     public void deleteRecord(int position) {
-        mListRecord.remove(position);
+        listRecord.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void setFilter(String keyword) {
+        currentKeyword = keyword.toLowerCase();
+        applyFilter();
+    }
+
+    public void applyFilter() {
+        if (currentKeyword.equals("")) {
+            listRecord = storedListRecord;
+        } else {
+            listRecord = new ArrayList<>();
+            for (Record record : storedListRecord) {
+                String name = record.getFieldValue("name");
+                if (name != null && name.toLowerCase().contains(currentKeyword)) {
+                    listRecord.add(record);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     public void setOnFavoriteCheckedListener(OnCheckedListener onFavoriteClickListener) {

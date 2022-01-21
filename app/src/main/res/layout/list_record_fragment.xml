@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,7 +18,7 @@
         android:id="@+id/overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="Hello"
+        android:contentDescription="@string/add"
         app:clickable_overlay="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="50dp"
+        android:layout_margin="@dimen/fab_padding"
         app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
         app:sdExpansionMode="top"
         app:sdMainFabAnimationRotateAngle="90"
@@ -36,4 +36,4 @@
         app:sdOverlayLayout="@id/overlay">
     </com.leinardi.android.speeddial.SpeedDialView>
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
