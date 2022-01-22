@@ -31,8 +31,8 @@ public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
         Group group = mListGroup.get(position);
-
-        // TODO: Set group data to UI
+        String name = group.getName();
+        holder.binding.nameGroupTextView.setText(name);
     }
 
     @Override

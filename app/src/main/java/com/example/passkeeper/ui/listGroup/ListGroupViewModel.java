@@ -76,7 +76,7 @@ public class ListGroupViewModel extends ViewModel {
         addPageToListGroup(firstPage);
     }
 
-    public LiveData<Resource<List<Group>>> getGroup() {
+    public LiveData<Resource<List<Group>>> getGroups() {
         return listGroup;
     }
 }

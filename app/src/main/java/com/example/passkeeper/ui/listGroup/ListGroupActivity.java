@@ -1,6 +1,7 @@
 package com.example.passkeeper.ui.listGroup;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +9,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.passkeeper.data.model.Group;
+import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityListGroupBinding;
+import com.example.passkeeper.ui.listRecord.RecordAdapter;
+import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -16,7 +21,8 @@ import java.util.List;
 
 public class ListGroupActivity extends AppCompatActivity {
 
-    private ListGroupViewModel viewModel;
+    private final String TAG = "@@LG_Frag";
+    private ListGroupViewModel mViewModel;
     private ActivityListGroupBinding binding;
     private GroupAdapter mAdapter;
 
@@ -30,7 +36,7 @@ public class ListGroupActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewModel = new ViewModelProvider(this).get(ListGroupViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(ListGroupViewModel.class);
 
         initRecyclerView();
         initFloatingActionButton();
@@ -39,7 +45,7 @@ public class ListGroupActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        viewModel.fetchAllGroups();
+        mViewModel.fetchAllGroups();
     }
 
     private void initRecyclerView() {
@@ -48,11 +54,16 @@ public class ListGroupActivity extends AppCompatActivity {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);
 
-        List<Group> groupList = new ArrayList<>();
-        groupList.add(new Group());
-        groupList.add(new Group());
-
-        mAdapter.setListGroup(groupList);
+        mViewModel.getGroups().observe(this, new ActivityObserver<List<Group>>(this) {
+            @Override
+            public void onSuccess(Resource<List<Group>> data) {
+                List<Group> groups = data.getData();
+                if (groups != null) {
+                    Log.i(TAG, "List group data changed, size = " + groups.size());
+                    mAdapter.setListGroup(groups);
+                }
+            }
+        });
     }
 
 
