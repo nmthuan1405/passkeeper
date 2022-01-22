@@ -27,6 +27,7 @@
     <group>
         <item
             android:id="@+id/manage_group"
+            android:icon="@drawable/ic_baseline_group"
             android:title="Manage Group" />
     </group>
 

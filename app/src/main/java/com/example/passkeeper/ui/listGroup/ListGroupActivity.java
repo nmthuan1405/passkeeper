@@ -1,23 +1,24 @@
 package com.example.passkeeper.ui.listGroup;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.os.Bundle;
-import android.view.View;
-
-import com.example.passkeeper.R;
+import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.databinding.ActivityListGroupBinding;
-import com.example.passkeeper.ui.listMemberGroup.ListMemberGroupViewModel;
-import com.example.passkeeper.ui.listMemberGroup.MemberGroupAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListGroupActivity extends AppCompatActivity {
 
     private ListGroupViewModel viewModel;
     private ActivityListGroupBinding binding;
-    private MemberGroupAdapter mAdapter;
+    private GroupAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +36,23 @@ public class ListGroupActivity extends AppCompatActivity {
         initFloatingActionButton();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.fetchAllGroups();
+    }
+
     private void initRecyclerView() {
-        mAdapter = new MemberGroupAdapter();
+        mAdapter = new GroupAdapter();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);
+
+        List<Group> groupList = new ArrayList<>();
+        groupList.add(new Group());
+        groupList.add(new Group());
+
+        mAdapter.setListGroup(groupList);
     }
 
 
