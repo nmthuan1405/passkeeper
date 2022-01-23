@@ -26,6 +26,8 @@ public class ListGroupActivity extends AppCompatActivity implements NewGroupDial
     private ActivityListGroupBinding binding;
     private GroupAdapter mAdapter;
 
+    private boolean firstInit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +42,17 @@ public class ListGroupActivity extends AppCompatActivity implements NewGroupDial
 
         initRecyclerView();
         initFloatingActionButton();
+
+        firstInit = true;
     }
 
-    /*@Override
+    @Override
     protected void onResume() {
         super.onResume();
-        mViewModel.fetchAllGroups();
+        if (!firstInit) updateRecycleView();
+        firstInit = false;
     }
 
-     */
 
     private void initRecyclerView() {
         mAdapter = new GroupAdapter(this);

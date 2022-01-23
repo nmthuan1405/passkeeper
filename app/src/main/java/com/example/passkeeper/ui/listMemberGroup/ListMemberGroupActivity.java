@@ -1,20 +1,18 @@
 package com.example.passkeeper.ui.listMemberGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityListMemberGroupBinding;
-import com.example.passkeeper.ui.dialog.NewGroupDialog;
 import com.example.passkeeper.ui.dialog.NewMemberDialog;
+import com.example.passkeeper.ui.listGroup.ListGroupViewModel;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -45,10 +43,19 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
     }
 
     private void initDeleteGroup() {
+        AppCompatActivity activity = this;
         binding.deleteGroupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: Delete group in Member List Group
+                System.out.println("Delete group");
+                ListGroupViewModel listGroupViewModel = new ListGroupViewModel();
+                listGroupViewModel.deleteGroup(mViewModel.getId()).observe(activity, new ActivityObserver<List<Group>>(activity) {
+                    @Override
+                    public void onSuccess(Resource<List<Group>> data) {
+                        finish();
+                    }
+                });
             }
         });
     }
