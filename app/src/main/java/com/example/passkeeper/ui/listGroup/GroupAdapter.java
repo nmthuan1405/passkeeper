@@ -1,12 +1,10 @@
 package com.example.passkeeper.ui.listGroup;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passkeeper.data.model.Group;
@@ -24,9 +22,9 @@ public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui
     private List<Group> mListGroup = null;
     private ItemGroupBinding binding;
     private final ListGroupViewModel listGroupViewModel;
-    private final Activity activity;
+    private final ListGroupActivity activity;
 
-    public GroupAdapter(Activity activity) {
+    public GroupAdapter(ListGroupActivity activity) {
         this.activity = activity;
         listGroupViewModel = new ListGroupViewModel();
     }
@@ -51,12 +49,10 @@ public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui
         holder.binding.deleteButton.setOnClickListener(view -> {
             Integer groupId = group.getId();
 
-            listGroupViewModel.deleteGroup(groupId).observe((LifecycleOwner) activity, new ActivityObserver<List<Group>>(this.activity) {
+            listGroupViewModel.deleteGroup(groupId).observe(activity, new ActivityObserver<List<Group>>(this.activity) {
                 @Override
                 public void onSuccess(Resource<List<Group>> data) {
-                    List<Group> groups = data.getData();
-                    // listGroupViewModel.fetchAllGroups();
-                    notifyDataSetChanged();
+                    activity.updateRecycleView();
                 }
             });
         });

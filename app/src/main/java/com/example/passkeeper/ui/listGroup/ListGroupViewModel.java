@@ -19,7 +19,7 @@ import java.util.List;
 public class ListGroupViewModel extends ViewModel {
     private final ListGroupRepository repository;
     private final GroupRepository groupRepository;
-    private final MediatorLiveData<Resource<List<Group>>> listGroup;
+    private MediatorLiveData<Resource<List<Group>>> listGroup;
     private final int firstPage = 1;
     private final String TAG = "";
 
@@ -75,11 +75,13 @@ public class ListGroupViewModel extends ViewModel {
     }
 
     public void fetchAllGroups() {
+        listGroup = new MediatorLiveData<>();
         listGroup.setValue(Resource.WAITING(new ArrayList<>()));
         addPageToListGroup(firstPage);
     }
 
     public LiveData<Resource<List<Group>>> getGroups() {
+        fetchAllGroups();
         return listGroup;
     }
 

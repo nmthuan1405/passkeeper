@@ -60,6 +60,20 @@ public class ListGroupActivity extends AppCompatActivity {
                 if (groups != null) {
                     Log.i(TAG, "List group data changed, size = " + groups.size());
                     mAdapter.setListGroup(groups);
+
+                }
+            }
+        });
+    }
+
+    public void updateRecycleView() {
+        mViewModel.getGroups().observe(this, new ActivityObserver<List<Group>>(this) {
+            @Override
+            public void onSuccess(Resource<List<Group>> data) {
+                List<Group> groups = data.getData();
+                if (groups != null) {
+                    Log.i(TAG, "List group data changed, size = " + groups.size());
+                    mAdapter.setListGroup(groups);
                 }
             }
         });
@@ -76,7 +90,7 @@ public class ListGroupActivity extends AppCompatActivity {
                 mViewModel.createGroup("create group").observe((LifecycleOwner) activity, new ActivityObserver<List<Group>>(activity) {
                     @Override
                     public void onSuccess(Resource<List<Group>> data) {
-                        List<Group> groups = data.getData();
+                        updateRecycleView();
                     }
                 });
             }
