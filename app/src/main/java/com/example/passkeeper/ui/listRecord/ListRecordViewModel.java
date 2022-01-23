@@ -7,9 +7,10 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.example.passkeeper.data.model.FavoriteStatus;
 import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
-import com.example.passkeeper.data.repository.ListRecordRepository;
+import com.example.passkeeper.data.repository.RecordRepository;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.ui.utils.BaseObserver;
 import com.example.passkeeper.ui.utils.CompleteFunctionWrapper;
@@ -20,12 +21,13 @@ import java.util.List;
 public class ListRecordViewModel extends ViewModel {
     private final String TAG = "@@LR_VM";
 
-    private final ListRecordRepository repository;
+    private final RecordRepository repository;
     private final MediatorLiveData<Resource<List<Record>>> listRecord;
     private final int firstPage = 1;
+    private boolean fetchingData = false;
 
     public ListRecordViewModel() {
-        repository = new ListRecordRepository();
+        repository = new RecordRepository();
         listRecord = new MediatorLiveData<>();
     }
 
@@ -58,6 +60,7 @@ public class ListRecordViewModel extends ViewModel {
                 if (data.getNext() == null) {
                     Log.i(TAG, "Load record list done !!!");
                     listRecord.setValue(Resource.SUCCESS(currentData));
+                    fetchingData = false;
                 } else {
                     listRecord.setValue(Resource.WAITING(currentData));
                     addPageToListRecord(page + 1);
@@ -75,8 +78,12 @@ public class ListRecordViewModel extends ViewModel {
     }
 
     public void fetchAllRecords() {
-        listRecord.setValue(Resource.WAITING(new ArrayList<>()));
-        addPageToListRecord(firstPage);
+        if (!fetchingData) {
+            fetchingData = true;
+
+            listRecord.setValue(Resource.WAITING(new ArrayList<>()));
+            addPageToListRecord(firstPage);
+        }
     }
 
     public LiveData<Resource<List<Record>>> getRecords(String type) {
@@ -97,5 +104,13 @@ public class ListRecordViewModel extends ViewModel {
                 return Resource.SUCCESS(result);
             }
         });
+    }
+
+    public LiveData<Resource<Record>> changeFavoriteStatus(int id, boolean status) {
+        return repository.setFavoriteStatus(id, new FavoriteStatus(status));
+    }
+
+    public LiveData<Resource<Void>> deleteRecord(int id) {
+        return repository.deleteRecord(id);
     }
 }
