@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Enter email"
+        android:text="@string/enter_email"
         android:textSize="24sp"
         android:textColor="#0077B6"/>
 
@@ -19,7 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Email"
+        android:autofillHints="emailAddress"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="#D38F8E8E"
@@ -31,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
         android:background="@drawable/bg_button"
-        android:text="Confirm"
+        android:text="@string/confirm"
         android:textColor="@color/white"/>
 
 </LinearLayout>

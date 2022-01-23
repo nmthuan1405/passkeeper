@@ -7,20 +7,25 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.passkeeper.R;
-import com.example.passkeeper.ui.login.SignUpViewModel;
+import com.example.passkeeper.data.model.MessageResponse;
+import com.example.passkeeper.data.retrofit.Resource;
+import com.example.passkeeper.databinding.EnterEmailFragmentBinding;
+import com.example.passkeeper.ui.login.AccountViewModel;
+import com.example.passkeeper.ui.utils.EventObserver;
 
 public class EnterEmail extends Fragment implements View.OnClickListener {
 
-    private SignUpViewModel mViewModel;
-    private Button nextBtn;
+    private AccountViewModel mViewModel;
+    private NavController navController;
+    private EnterEmailFragmentBinding binding;
 
     public static EnterEmail newInstance() {
         return new EnterEmail();
@@ -29,22 +34,31 @@ public class EnterEmail extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.enter_email_fragment, container, false);
+        binding = EnterEmailFragmentBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
+        navController =  Navigation.findNavController(view);
+        mViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
-        nextBtn = view.findViewById(R.id.next_btn);
-        nextBtn.setOnClickListener(this);
+        binding.nextBtn.setOnClickListener(this);
+        mViewModel.getEmailStatus().observe(getViewLifecycleOwner(), new EventObserver<MessageResponse>(getActivity()) {
+            @Override
+            public void onHandle(Resource<MessageResponse> data) {
+                navController.navigate(R.id.action_enterEmail_to_verifyCode);
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
-        mViewModel.setEmail("");
-        Navigation.findNavController(view).navigate(R.id.action_enterEmail_to_verifyCode);
+        String email = binding.emailInput.getText().toString();
+
+        mViewModel.setEmail(email);
+        mViewModel.checkEmail(email);
     }
 }
