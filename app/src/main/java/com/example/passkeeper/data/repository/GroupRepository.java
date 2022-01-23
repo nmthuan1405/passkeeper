@@ -34,4 +34,13 @@ public class GroupRepository {
         groupApi.deleteGroup(token, groupId).enqueue(new CompleteCallback<>(resultGroup));
         return resultGroup;
     }
+
+    public LiveData<Resource<Group>> getGroup(Integer groupId) {
+        MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        groupApi.getGroup(token, groupId).enqueue(new CompleteCallback<>(group));
+
+        return group;
+    }
 }
