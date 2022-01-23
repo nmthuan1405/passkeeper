@@ -42,11 +42,13 @@ public class ListGroupActivity extends AppCompatActivity implements NewGroupDial
         initFloatingActionButton();
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
         mViewModel.fetchAllGroups();
     }
+
+     */
 
     private void initRecyclerView() {
         mAdapter = new GroupAdapter(this);
