@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityListGroupBinding;
+import com.example.passkeeper.ui.dialog.NewGroupDialog;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class ListGroupActivity extends AppCompatActivity {
+public class ListGroupActivity extends AppCompatActivity implements NewGroupDialog.NewGroupDialogListener {
 
     private final String TAG = "@@LG_Frag";
     private ListGroupViewModel mViewModel;
@@ -81,18 +82,12 @@ public class ListGroupActivity extends AppCompatActivity {
 
 
     private void initFloatingActionButton() {
-        Activity activity = this;
         FloatingActionButton floatingButton = binding.floatingActionButton;
 
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mViewModel.createGroup("create group").observe((LifecycleOwner) activity, new ActivityObserver<List<Group>>(activity) {
-                    @Override
-                    public void onSuccess(Resource<List<Group>> data) {
-                        updateRecycleView();
-                    }
-                });
+                openDialog();
             }
         });
     }
@@ -101,5 +96,21 @@ public class ListGroupActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void openDialog() {
+        NewGroupDialog newGroupDialog = new NewGroupDialog();
+        newGroupDialog.show(getSupportFragmentManager(), "new group dialog");
+    }
+
+    @Override
+    public void applyResult(String groupName) {
+        Activity activity = this;
+        mViewModel.createGroup(groupName).observe((LifecycleOwner) activity, new ActivityObserver<List<Group>>(activity) {
+            @Override
+            public void onSuccess(Resource<List<Group>> data) {
+                updateRecycleView();
+            }
+        });
     }
 }

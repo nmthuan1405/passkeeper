@@ -1,5 +1,6 @@
 package com.example.passkeeper.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,7 +17,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.SessionManager;
-import com.example.passkeeper.data.SharedPref;
 import com.example.passkeeper.databinding.ActivityMainBinding;
 import com.example.passkeeper.ui.listGroup.ListGroupActivity;
 import com.example.passkeeper.ui.login.LoginActivity;
@@ -52,18 +52,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.nav, menu);
-        return true;
-    }
-
-    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
