@@ -24,7 +24,7 @@ public class NewGroupDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.new_add_dialog, null);
+        View view = inflater.inflate(R.layout.new_group_dialog, null);
 
         builder.setView(view)
                 .setTitle("New Group")

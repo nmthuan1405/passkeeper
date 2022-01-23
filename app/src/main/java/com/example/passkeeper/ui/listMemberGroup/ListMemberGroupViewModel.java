@@ -88,7 +88,8 @@ public class ListMemberGroupViewModel extends ViewModel {
         return group;
     }
 
-    /*public LiveData<Resource<List<String>>> createMember(String name) {
+
+    public LiveData<Resource<List<String>>> createMember(String name) {
         repository.createMember(name);
         fetchGroup();
         return getGroup();
@@ -98,6 +99,6 @@ public class ListMemberGroupViewModel extends ViewModel {
         repository.deleteMember(id);
         fetchGroup();
         return getGroup();
-    }*/
+    }
 
 }

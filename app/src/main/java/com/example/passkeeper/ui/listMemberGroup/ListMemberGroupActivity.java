@@ -13,13 +13,14 @@ import android.view.View;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityListMemberGroupBinding;
+import com.example.passkeeper.ui.dialog.NewGroupDialog;
 import com.example.passkeeper.ui.dialog.NewMemberDialog;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class ListMemberGroupActivity extends AppCompatActivity {
+public class ListMemberGroupActivity extends AppCompatActivity implements NewMemberDialog.NewMemberDialogListener {
 
     private ListMemberGroupViewModel mViewModel;
     private ActivityListMemberGroupBinding binding;
@@ -75,6 +76,19 @@ public class ListMemberGroupActivity extends AppCompatActivity {
         });
     }
 
+    public void updateRecycleView() {
+        mViewModel.getGroup().observe(this, new ActivityObserver<List<String>>(this) {
+            @Override
+            public void onSuccess(Resource<List<String>> data) {
+                List<String> allMembers = data.getData();
+                if (allMembers != null) {
+                    Log.i(TAG, "List member data changed, size = " + allMembers.size());
+                    mAdapter.setListMember(allMembers);
+                }
+            }
+        });
+    }
+
 
     private void initFloatingActionButton() {
         FloatingActionButton floatingButton = binding.floatingActionButton;
@@ -98,5 +112,8 @@ public class ListMemberGroupActivity extends AppCompatActivity {
         newMemberDialog.show(getSupportFragmentManager(), "new member dialog");
     }
 
-
+    @Override
+    public void applyResult(String memberName) {
+        //TODO: implement method
+    }
 }
