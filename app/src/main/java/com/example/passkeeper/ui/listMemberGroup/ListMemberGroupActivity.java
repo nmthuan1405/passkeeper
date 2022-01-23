@@ -1,17 +1,19 @@
 package com.example.passkeeper.ui.listMemberGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.retrofit.Resource;
-import com.example.passkeeper.databinding.ActivityListGroupBinding;
 import com.example.passkeeper.databinding.ActivityListMemberGroupBinding;
+import com.example.passkeeper.ui.dialog.NewMemberDialog;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -46,12 +48,16 @@ public class ListMemberGroupActivity extends AppCompatActivity {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);
 
+        int id = getIntent().getIntExtra("id", -1);
+        Log.i(TAG, "List member group, id = " + id);
+        mViewModel.setId(id);
+
         mViewModel.getGroup().observe(this, new ActivityObserver<List<String>>(this) {
             @Override
             public void onSuccess(Resource<List<String>> data) {
                 List<String> allMembers = data.getData();
                 if (allMembers != null) {
-                    Log.i(TAG, "List group data changed, size = " + allMembers.size());
+                    Log.i(TAG, "List member data changed, size = " + allMembers.size());
                     mAdapter.setListMember(allMembers);
 
                 }
@@ -66,7 +72,7 @@ public class ListMemberGroupActivity extends AppCompatActivity {
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: set event on click Floating Button
+                openDialog();
             }
         });
     }
@@ -76,4 +82,11 @@ public class ListMemberGroupActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+    public void openDialog() {
+        NewMemberDialog newMemberDialog = new NewMemberDialog();
+        newMemberDialog.show(getSupportFragmentManager(), "new member dialog");
+    }
+    
+
 }

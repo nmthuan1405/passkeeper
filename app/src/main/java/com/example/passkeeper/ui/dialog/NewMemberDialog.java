@@ -14,10 +14,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.passkeeper.R;
+import com.example.passkeeper.databinding.NewAddDialogBinding;
 
-public class NewGroupDialog extends AppCompatDialogFragment {
-    private EditText edtGroupName;
-    private NewGroupDialogListener listener;
+public class NewMemberDialog extends AppCompatDialogFragment {
+    private EditText edtMemberName;
+    private NewMemberDialogListener listener;
+    private NewAddDialogBinding binding;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -26,8 +28,11 @@ public class NewGroupDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_add_dialog, null);
 
+        binding.name.setText("Member name");
+
+
         builder.setView(view)
-                .setTitle("New Group")
+                .setTitle("New Member")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -37,12 +42,12 @@ public class NewGroupDialog extends AppCompatDialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String groupName = edtGroupName.getText().toString();
-                        listener.applyResult(groupName);
+                        String memberName = edtMemberName.getText().toString();
+                        listener.applyResult(memberName);
                     }
                 });
 
-        edtGroupName = view.findViewById(R.id.edtName);
+        edtMemberName = view.findViewById(R.id.edtName);
 
         return builder.create();
     }
@@ -52,13 +57,14 @@ public class NewGroupDialog extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (NewGroupDialogListener) context;
+            listener = (NewMemberDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement NewGroupDialogListener");
+            throw new ClassCastException(context.toString() + "must implement NewMemberDialogListener");
         }
     }
 
-    public interface NewGroupDialogListener{
-        void applyResult(String groupName);
+    public interface NewMemberDialogListener{
+        void applyResult(String memberName);
     }
 }
+
