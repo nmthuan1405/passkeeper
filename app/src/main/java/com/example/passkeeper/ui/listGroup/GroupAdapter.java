@@ -1,6 +1,7 @@
 package com.example.passkeeper.ui.listGroup;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ItemGroupBinding;
+import com.example.passkeeper.ui.listMemberGroup.ListMemberGroupActivity;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +43,11 @@ public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui
         Group group = mListGroup.get(position);
         String name = group.getName();
         holder.binding.nameGroupTextView.setText(name);
+        holder.binding.nameGroupTextView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ListMemberGroupActivity.class);
+            intent.putExtra("id", group.getId());
+            view.getContext().startActivity(intent);
+        });
         holder.binding.deleteButton.setOnClickListener(view -> {
             Integer groupId = group.getId();
 

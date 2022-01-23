@@ -21,4 +21,9 @@ public interface GroupApi {
 
     @DELETE("groups/{id}/")
     Call<Group> deleteGroup(@Header("Authorization") String token, @Path(value = "id") int id);
+
+    @GET("groups/{id}/")
+    Call<Group> getGroup(@Header("Authorization") String token, @Path(value = "id") int id);
+
+
 }
