@@ -1,17 +1,16 @@
 package com.example.passkeeper.ui.listMemberGroup;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.os.Bundle;
-import android.view.View;
-
-import com.example.passkeeper.databinding.ActivityListGroupBinding;
 import com.example.passkeeper.databinding.ActivityListMemberGroupBinding;
+import com.example.passkeeper.ui.dialog.AddGroupMemberDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ListMemberGroupActivity extends AppCompatActivity {
+public class ListMemberGroupActivity extends AppCompatActivity implements AddGroupMemberDialog.AddGroupMemberDialogListener {
 
     private ListMemberGroupViewModel viewModel;
     private ActivityListMemberGroupBinding binding;
@@ -44,17 +43,22 @@ public class ListMemberGroupActivity extends AppCompatActivity {
     private void initFloatingActionButton() {
         FloatingActionButton floatingButton = binding.floatingActionButton;
 
-        floatingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: set event on click Floating Button
-            }
-        });
+        floatingButton.setOnClickListener(view -> openDialog());
+    }
+
+    private void openDialog() {
+        AddGroupMemberDialog addGroupMemberDialog = new AddGroupMemberDialog();
+        addGroupMemberDialog.show(getSupportFragmentManager(), "add group member dialog");
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void applyResult(String memberEmail) {
+        //TODO: implement method
     }
 }

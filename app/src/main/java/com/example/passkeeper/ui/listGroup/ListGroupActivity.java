@@ -3,7 +3,6 @@ package com.example.passkeeper.ui.listGroup;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
@@ -86,12 +85,7 @@ public class ListGroupActivity extends AppCompatActivity implements NewGroupDial
     private void initFloatingActionButton() {
         FloatingActionButton floatingButton = binding.floatingActionButton;
 
-        floatingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog();
-            }
-        });
+        floatingButton.setOnClickListener(view -> openDialog());
     }
 
     @Override
