@@ -33,6 +33,13 @@
 
     <group>
         <item
+            android:id="@+id/password_generator"
+            android:icon="@drawable/ic_baseline_security"
+            android:title="Password Generator" />
+    </group>
+
+    <group>
+        <item
             android:id="@+id/log_out"
             android:title="Log out" />
     </group>
