@@ -40,6 +40,16 @@ public class ListMemberGroupActivity extends AppCompatActivity {
 
         initRecyclerView();
         initFloatingActionButton();
+        initDeleteGroup();
+    }
+
+    private void initDeleteGroup() {
+        binding.deleteGroupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Delete group in Member List Group
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -87,6 +97,6 @@ public class ListMemberGroupActivity extends AppCompatActivity {
         NewMemberDialog newMemberDialog = new NewMemberDialog();
         newMemberDialog.show(getSupportFragmentManager(), "new member dialog");
     }
-    
+
 
 }
