@@ -35,12 +35,18 @@ public class GroupRepository {
         return resultGroup;
     }
 
-    public LiveData<Resource<Group>> getGroup(Integer groupId) {
+    public LiveData<Resource<Group>> getGroup(int id) {
         MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
 
         String token = SessionManager.getInstance().getAccessToken();
-        groupApi.getGroup(token, groupId).enqueue(new CompleteCallback<>(group));
+        groupApi.getGroup(token, id).enqueue(new CompleteCallback<>(group));
 
         return group;
+    }
+
+    public void createMember(String name) {
+    }
+
+    public void deleteMember(Integer id) {
     }
 }

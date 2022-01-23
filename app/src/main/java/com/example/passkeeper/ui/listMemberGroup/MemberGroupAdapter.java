@@ -6,18 +6,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.passkeeper.data.model.MemberGroup;
-import com.example.passkeeper.databinding.ItemGroupBinding;
+import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.databinding.ItemMemberGroupBinding;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Member;
 import java.util.List;
 
 public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.MemberGroupViewHolder> {
 
-    private List<MemberGroup> mListMemberGroup = null;
+    private List<String> mListMemberGroup = null;
     private ItemMemberGroupBinding binding;
 
     @NonNull
@@ -29,9 +27,8 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MemberGroupViewHolder holder, int position) {
-        MemberGroup memberGroup = mListMemberGroup.get(position);
-
-        // TODO: Set member group data to UI
+        String memberGroup = mListMemberGroup.get(position);
+        holder.binding.nameMemberTextView.setText(memberGroup);
     }
 
     @Override
@@ -41,9 +38,10 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
         return 0;
     }
 
-    public void setListMemberGroup(List<MemberGroup> listMemberGroup){
-        if (listMemberGroup != null){
-            mListMemberGroup = listMemberGroup;
+
+    public void setListMember(List<String> allMembers) {
+        if (allMembers != null){
+            mListMemberGroup = allMembers;
             notifyDataSetChanged();
         }
     }

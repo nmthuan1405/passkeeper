@@ -21,7 +21,7 @@ public class ListGroupViewModel extends ViewModel {
     private final GroupRepository groupRepository;
     private MediatorLiveData<Resource<List<Group>>> listGroup;
     private final int firstPage = 1;
-    private final String TAG = "";
+    private final String TAG = "@LG_flag";
 
     public ListGroupViewModel() {
         repository = new ListGroupRepository();
@@ -43,20 +43,20 @@ public class ListGroupViewModel extends ViewModel {
 
             @Override
             public void onError(Resource<ListGroup> resource) {
-                Log.e(TAG, "Load record list error, page = " + page);
+                Log.e(TAG, "Load group list error, page = " + page);
                 listGroup.setValue(Resource.ERROR(resource.getError()));
             }
 
             @Override
             public void onSuccess(Resource<ListGroup> resource) {
-                Log.i(TAG, "Load record list success, page = " + page);
+                Log.i(TAG, "Load group list success, page = " + page);
 
                 List<Group> currentData = listGroup.getValue().getData();
                 ListGroup data = resource.getData();
                 currentData.addAll(data.getResults());
 
                 if (data.getNext() == null) {
-                    Log.i(TAG, "Load record list done !!!");
+                    Log.i(TAG, "Load group list done !!!");
                     listGroup.setValue(Resource.SUCCESS(currentData));
                 } else {
                     listGroup.setValue(Resource.WAITING(currentData));
