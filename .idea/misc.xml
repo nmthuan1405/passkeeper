@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_add_record.xml" value="0.17831813576494426" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_generate_password.xml" value="0.17831813576494426" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_view_record.xml" value="0.28940217391304346" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/nav_header_main.xml" value="0.2957427536231884" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/view_card_fragment.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/favorite_toggle.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_arrow_back.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/ADMIN/Documents/GitHub/passkeeper/app/src/main/res/drawable/ic_card.xml" value="0.23055555555555557" />

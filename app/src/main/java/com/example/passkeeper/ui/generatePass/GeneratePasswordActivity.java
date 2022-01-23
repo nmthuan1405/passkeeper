@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.passkeeper.data.model.PasswordGenerator;
 import com.example.passkeeper.databinding.ActivityGeneratePasswordBinding;
@@ -27,6 +28,10 @@ public class GeneratePasswordActivity extends AppCompatActivity {
         binding = ActivityGeneratePasswordBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding.txvPassword.setSelected(true);
         binding.txvLengthValue.setText(String.valueOf(binding.sbrLength.getProgress()));
@@ -199,5 +204,11 @@ public class GeneratePasswordActivity extends AppCompatActivity {
             minValue -= 1;
 
         return minValue;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
