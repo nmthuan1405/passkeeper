@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.RecordApi;
-import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.retrofit.CompleteCallback;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.data.retrofit.RetrofitService;
@@ -40,6 +40,5 @@ public class RecordRepository {
         String token = SessionManager.getInstance().getAccessToken();
         recordApi.addRecord(token, record).enqueue(new CompleteCallback<>(resultRecord));
         return resultRecord;
-
     }
 }

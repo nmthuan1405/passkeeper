@@ -1,22 +1,21 @@
 package com.example.passkeeper.ui.listGroup;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.passkeeper.data.model.Group;
-import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityListGroupBinding;
-import com.example.passkeeper.ui.listRecord.RecordAdapter;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListGroupActivity extends AppCompatActivity {
@@ -49,7 +48,7 @@ public class ListGroupActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        mAdapter = new GroupAdapter();
+        mAdapter = new GroupAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);
@@ -68,12 +67,18 @@ public class ListGroupActivity extends AppCompatActivity {
 
 
     private void initFloatingActionButton() {
+        Activity activity = this;
         FloatingActionButton floatingButton = binding.floatingActionButton;
 
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: set event on click Floating Button
+                mViewModel.createGroup("create group").observe((LifecycleOwner) activity, new ActivityObserver<List<Group>>(activity) {
+                    @Override
+                    public void onSuccess(Resource<List<Group>> data) {
+                        List<Group> groups = data.getData();
+                    }
+                });
             }
         });
     }

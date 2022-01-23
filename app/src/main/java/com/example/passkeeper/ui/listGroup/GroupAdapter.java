@@ -1,25 +1,33 @@
 package com.example.passkeeper.ui.listGroup;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.passkeeper.data.model.Group;
-import com.example.passkeeper.data.model.MemberGroup;
+import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ItemGroupBinding;
-import com.example.passkeeper.databinding.ItemMemberGroupBinding;
+import com.example.passkeeper.ui.utils.ActivityObserver;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Member;
 import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui.listGroup.GroupAdapter.GroupViewHolder> {
 
     private List<Group> mListGroup = null;
     private ItemGroupBinding binding;
+    private final ListGroupViewModel listGroupViewModel;
+    private final Activity activity;
+
+    public GroupAdapter(Activity activity) {
+        this.activity = activity;
+        listGroupViewModel = new ListGroupViewModel();
+    }
 
     @NonNull
     @Override
@@ -33,6 +41,18 @@ public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui
         Group group = mListGroup.get(position);
         String name = group.getName();
         holder.binding.nameGroupTextView.setText(name);
+        holder.binding.deleteButton.setOnClickListener(view -> {
+            Integer groupId = group.getId();
+
+            listGroupViewModel.deleteGroup(groupId).observe((LifecycleOwner) activity, new ActivityObserver<List<Group>>(this.activity) {
+                @Override
+                public void onSuccess(Resource<List<Group>> data) {
+                    List<Group> groups = data.getData();
+                    // listGroupViewModel.fetchAllGroups();
+                    notifyDataSetChanged();
+                }
+            });
+        });
     }
 
     @Override
@@ -50,7 +70,7 @@ public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui
     }
 
     public static class GroupViewHolder extends RecyclerView.ViewHolder{
-        private ItemGroupBinding binding;
+        private final ItemGroupBinding binding;
 
         public GroupViewHolder(@NotNull ItemGroupBinding itemBinding){
             super(itemBinding.getRoot());
