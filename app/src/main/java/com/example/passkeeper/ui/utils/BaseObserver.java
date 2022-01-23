@@ -5,23 +5,23 @@ import androidx.lifecycle.Observer;
 import com.example.passkeeper.data.retrofit.Resource;
 
 public abstract class BaseObserver<T> implements Observer<Resource<T>> {
-    public abstract void onWaiting(Resource<T> data);
-    public abstract void onError(Resource<T> data);
-    public abstract void onSuccess(Resource<T> data);
+    public abstract void onWaiting(Resource<T> resource);
+    public abstract void onError(Resource<T> resource);
+    public abstract void onSuccess(Resource<T> resource);
 
     @Override
-    public void onChanged(Resource<T> data) {
-        switch (data.getStatus()) {
+    public void onChanged(Resource<T> resource) {
+        switch (resource.getStatus()) {
             case WAITING:
-                onWaiting(data);
+                onWaiting(resource);
                 break;
 
             case SUCCESS:
-                onSuccess(data);
+                onSuccess(resource);
                 break;
 
             case ERROR:
-                onError(data);
+                onError(resource);
                 break;
         }
     }

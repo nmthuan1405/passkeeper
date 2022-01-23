@@ -1,28 +1,31 @@
-package com.example.passkeeper.ui.record;
+package com.example.passkeeper.ui.record.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityViewRecordBinding;
-import com.example.passkeeper.ui.record.fragment.ViewCardFragment;
-import com.example.passkeeper.ui.record.fragment.ViewNoteFragment;
-import com.example.passkeeper.ui.record.fragment.ViewPasswordFragment;
+import com.example.passkeeper.ui.record.edit.EditRecordActivity;
+import com.example.passkeeper.ui.record.view.fragment.ViewCardFragment;
+import com.example.passkeeper.ui.record.view.fragment.ViewNoteFragment;
+import com.example.passkeeper.ui.record.view.fragment.ViewPasswordFragment;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 
-public class ViewRecordActivity extends AppCompatActivity {
+public class ViewRecordActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "@@VR_Act";
 
-    private RecordViewModel viewModel;
+    private ViewRecordViewModel viewModel;
     private ActivityViewRecordBinding binding;
 
     @Override
@@ -35,12 +38,15 @@ public class ViewRecordActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewModel = new ViewModelProvider(this).get(RecordViewModel.class);
+        binding.editBtn.setOnClickListener(this);
+
+        viewModel = new ViewModelProvider(this).get(ViewRecordViewModel.class);
 
         int id = getIntent().getIntExtra("id", -1);
         Log.i(TAG, "View record, id = " + id);
+        viewModel.setId(id);
 
-        viewModel.fetchRecord(id).observe(this, new ActivityObserver<Record>(this) {
+        viewModel.getRecord().observe(this, new ActivityObserver<Record>(this) {
             @Override
             public void onSuccess(Resource<Record> data) {
                 Record record = data.getData();
@@ -64,6 +70,12 @@ public class ViewRecordActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.fetchRecord();
+    }
+
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.view_record_fragment, fragment)
@@ -85,5 +97,12 @@ public class ViewRecordActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, EditRecordActivity.class);
+        intent.putExtra("id", viewModel.getId());
+        startActivity(intent);
     }
 }

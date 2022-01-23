@@ -1,59 +1,97 @@
 package com.example.passkeeper.ui.listRecord;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.example.passkeeper.data.model.FavoriteStatus;
 import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
-import com.example.passkeeper.data.repository.ListRecordRepository;
+import com.example.passkeeper.data.repository.RecordRepository;
 import com.example.passkeeper.data.retrofit.Resource;
+import com.example.passkeeper.ui.utils.BaseObserver;
 import com.example.passkeeper.ui.utils.CompleteFunctionWrapper;
-import com.example.passkeeper.ui.utils.FunctionWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListRecordViewModel extends ViewModel {
-    private final ListRecordRepository repository;
-    private final LiveData<Resource<ListRecord>> rawListRecord;
+    private final String TAG = "@@LR_VM";
+
+    private final RecordRepository repository;
+    private final MediatorLiveData<Resource<List<Record>>> listRecord;
+    private final int firstPage = 1;
+    private boolean fetchingData = false;
 
     public ListRecordViewModel() {
-        repository = new ListRecordRepository();
-        rawListRecord = repository.getRawListRecord();
+        repository = new RecordRepository();
+        listRecord = new MediatorLiveData<>();
     }
 
-    public void fetchListRecord() {
-        repository.fetchRawListRecord();
+    public LiveData<Resource<ListRecord>> fetchListRecord(int page) {
+        return repository.fetchListRecord(page);
     }
 
-    public LiveData<Resource<List<Record>>> getAllRecords() {
-        LiveData<Resource<List<Record>>> listRecord = Transformations.map(rawListRecord, new FunctionWrapper<ListRecord, List<Record>>() {
-                @Override
-                public Resource<List<Record>> onSuccess(Resource<ListRecord> input) {
-                    return Resource.SUCCESS(input.getData().getResults());
-                }
+    private void addPageToListRecord(int page) {
+        LiveData<Resource<ListRecord>> fetchListRecord = fetchListRecord(page);
+        listRecord.addSource(fetchListRecord, new BaseObserver<ListRecord>() {
+            @Override
+            public void onWaiting(Resource<ListRecord> resource) {
 
-                @Override
-                public Resource<List<Record>> onError(Resource<ListRecord> input) {
-                    return Resource.ERROR(input.getError());
-                }
+            }
 
-                @Override
-                public Resource<List<Record>> onWaiting(Resource<ListRecord> input) {
-                    return Resource.WAITING();
+            @Override
+            public void onError(Resource<ListRecord> resource) {
+                Log.e(TAG, "Load record list error, page = " + page);
+                listRecord.setValue(Resource.ERROR(resource.getError()));
+            }
+
+            @Override
+            public void onSuccess(Resource<ListRecord> resource) {
+                Log.i(TAG, "Load record list success, page = " + page);
+
+                List<Record> currentData = listRecord.getValue().getData();
+                ListRecord data = resource.getData();
+                currentData.addAll(data.getResults());
+
+                if (data.getNext() == null) {
+                    Log.i(TAG, "Load record list done !!!");
+                    listRecord.setValue(Resource.SUCCESS(currentData));
+                    fetchingData = false;
+                } else {
+                    listRecord.setValue(Resource.WAITING(currentData));
+                    addPageToListRecord(page + 1);
                 }
-            });
-            fetchListRecord();
-        return listRecord;
+            }
+
+            @Override
+            public void onChanged(Resource<ListRecord> resource) {
+                super.onChanged(resource);
+                if (resource.isComplete()) {
+                    listRecord.removeSource(fetchListRecord);
+                }
+            }
+        });
+    }
+
+    public void fetchAllRecords() {
+        if (!fetchingData) {
+            fetchingData = true;
+
+            listRecord.setValue(Resource.WAITING(new ArrayList<>()));
+            addPageToListRecord(firstPage);
+        }
     }
 
     public LiveData<Resource<List<Record>>> getRecords(String type) {
         if (type == null) {
-            return getAllRecords();
+            return listRecord;
         }
 
-        return Transformations.map(getAllRecords(), new CompleteFunctionWrapper<List<Record>>() {
+        return Transformations.map(listRecord,  new CompleteFunctionWrapper<List<Record>>() {
             @Override
             public Resource<List<Record>> onSuccess(Resource<List<Record>> input) {
                 List<Record> records = input.getData();
@@ -66,5 +104,13 @@ public class ListRecordViewModel extends ViewModel {
                 return Resource.SUCCESS(result);
             }
         });
+    }
+
+    public LiveData<Resource<Record>> changeFavoriteStatus(int id, boolean status) {
+        return repository.setFavoriteStatus(id, new FavoriteStatus(status));
+    }
+
+    public LiveData<Resource<Void>> deleteRecord(int id) {
+        return repository.deleteRecord(id);
     }
 }
