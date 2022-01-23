@@ -54,6 +54,9 @@
             android:name=".ui.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.Passkeeper.NoActionBar" />
+        <activity
+            android:name=".ui.generatePass.GeneratePasswordActivity"
+            android:theme="@style/Theme.Passkeeper.NoActionBar" />
     </application>
 
 </manifest>
