@@ -48,7 +48,8 @@
         android:hint="@string/password"
         android:textSize="18sp"
         android:textColorHint="#D38F8E8E"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:singleLine="true"/>
 
     <Button
         android:id="@+id/login"
