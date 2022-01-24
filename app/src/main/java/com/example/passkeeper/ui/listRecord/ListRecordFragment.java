@@ -37,9 +37,9 @@ import java.util.List;
 public class ListRecordFragment extends Fragment {
     private final String TAG = "@@LR_Frag";
 
-    private ListRecordViewModel mViewModel;
-    private ListRecordFragmentBinding binding;
-    private RecordAdapter mAdapter;
+    protected ListRecordViewModel mViewModel;
+    protected ListRecordFragmentBinding binding;
+    protected RecordAdapter mAdapter;
 
     public static ListRecordFragment newInstance() {
         return new ListRecordFragment();
@@ -105,7 +105,7 @@ public class ListRecordFragment extends Fragment {
         startActivity(intent);
     }
 
-    private Dialog createRecordOptionDialog(Record record, int recordPosition) {
+    private Dialog createRecordOptionDialog(Record record) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setTitle("Choose option")
                 .setItems(R.array.list_record_dialog, (dialogInterface, position) -> {
@@ -124,8 +124,12 @@ public class ListRecordFragment extends Fragment {
                             // Delete record
                             DeleteRecordDialog dialog = new DeleteRecordDialog();
                             dialog.setOnDeleteRecordListener(() -> {
-                                mViewModel.deleteRecord(record.getId());
-                                mAdapter.deleteRecord(recordPosition);
+                                mViewModel.deleteRecord(record.getId()).observe(getViewLifecycleOwner(), new ActivityObserver<Void>(requireActivity()) {
+                                    @Override
+                                    public void onSuccess(Resource<Void> resource) {
+                                        mAdapter.deleteRecord(record);
+                                    }
+                                });
                             });
                             dialog.show(getChildFragmentManager(), null);
                             break;
@@ -135,23 +139,27 @@ public class ListRecordFragment extends Fragment {
         return builder.create();
     }
 
+    protected void onFavoriteStatusChangeSuccess(Record originRecord, Record record) {
+        mAdapter.editRecord(originRecord, record);
+    }
+
     private void initRecycleView() {
         mAdapter = new RecordAdapter();
 
-        mAdapter.setOnFavoriteCheckedListener((record, position, isChecked) -> {
+        mAdapter.setOnFavoriteCheckedListener((record, isChecked) -> {
             mViewModel.changeFavoriteStatus(record.getId(), isChecked).observe(getViewLifecycleOwner(), new ActivityObserver<Record>(getActivity()) {
                 @Override
                 public void onSuccess(Resource<Record> resource) {
-                    mAdapter.editRecord(resource.getData(), position);
+                    onFavoriteStatusChangeSuccess(record, resource.getData());
                 }
             });
         });
-        mAdapter.setOnItemClickListener((record, position) -> {
+        mAdapter.setOnItemClickListener((record) -> {
             Intent intent = new Intent(getContext(), ViewRecordActivity.class);
             intent.putExtra("id", record.getId());
             startActivity(intent);
         });
-        mAdapter.setOnItemLongClickListener((record, position) -> createRecordOptionDialog(record, position).show());
+        mAdapter.setOnItemLongClickListener((record) -> createRecordOptionDialog(record).show());
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setHasFixedSize(true);
@@ -196,7 +204,7 @@ public class ListRecordFragment extends Fragment {
         });
     }
 
-    private String getType() {
+    protected String getType() {
         Bundle bundle = getArguments();
         return bundle.getString("type");
     }

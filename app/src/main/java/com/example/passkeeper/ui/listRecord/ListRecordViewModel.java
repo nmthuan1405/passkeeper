@@ -20,6 +20,7 @@ import java.util.List;
 
 public class ListRecordViewModel extends ViewModel {
     private final String TAG = "@@LR_VM";
+    public final String FAV = "fav";
 
     private final RecordRepository repository;
     private final MediatorLiveData<Resource<List<Record>>> listRecord;
@@ -86,12 +87,24 @@ public class ListRecordViewModel extends ViewModel {
         }
     }
 
-    public LiveData<Resource<List<Record>>> getRecords(String type) {
-        if (type == null) {
-            return listRecord;
-        }
+    LiveData<Resource<List<Record>>> getFavoriteRecords() {
+        return Transformations.map(listRecord, new CompleteFunctionWrapper<List<Record>>() {
+            @Override
+            public Resource<List<Record>> onSuccess(Resource<List<Record>> input) {
+                List<Record> records = input.getData();
+                List<Record> result = new ArrayList<>();
+                for (Record record : records) {
+                    if (record.isFavorite()) {
+                        result.add(record);
+                    }
+                }
+                return Resource.SUCCESS(result);
+            }
+        });
+    }
 
-        return Transformations.map(listRecord,  new CompleteFunctionWrapper<List<Record>>() {
+    LiveData<Resource<List<Record>>> getRecordsWithType(String type) {
+        return Transformations.map(listRecord, new CompleteFunctionWrapper<List<Record>>() {
             @Override
             public Resource<List<Record>> onSuccess(Resource<List<Record>> input) {
                 List<Record> records = input.getData();
@@ -104,6 +117,16 @@ public class ListRecordViewModel extends ViewModel {
                 return Resource.SUCCESS(result);
             }
         });
+    }
+
+    public LiveData<Resource<List<Record>>> getRecords(String type) {
+        if (type == null) {
+            return listRecord;
+        }
+        if (type.equals(FAV)) {
+            return getFavoriteRecords();
+        }
+        return getRecordsWithType(type);
     }
 
     public LiveData<Resource<Record>> changeFavoriteStatus(int id, boolean status) {
