@@ -1,6 +1,7 @@
 package com.example.passkeeper.data.api;
 
 import com.example.passkeeper.data.model.Group;
+import com.example.passkeeper.data.model.ListEmail;
 import com.example.passkeeper.data.model.ListGroup;
 
 import retrofit2.Call;
@@ -25,5 +26,6 @@ public interface GroupApi {
     @GET("groups/{id}/")
     Call<Group> getGroup(@Header("Authorization") String token, @Path(value = "id") int id);
 
-
+    @POST("/groups/{id}/add_members/")
+    Call<Group> addMember(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListEmail emails);
 }

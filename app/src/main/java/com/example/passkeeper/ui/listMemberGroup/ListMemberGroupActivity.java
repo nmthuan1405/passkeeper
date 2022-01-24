@@ -120,7 +120,12 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
     }
 
     @Override
-    public void applyResult(String memberName) {
-        //TODO: implement method
+    public void applyResult(String memberEmail) {
+        mViewModel.addMember(memberEmail).observe(this, new ActivityObserver<List<String>>(this) {
+            @Override
+            public void onSuccess(Resource<List<String>> data) {
+                updateRecycleView();
+            }
+        });
     }
 }

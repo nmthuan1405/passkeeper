@@ -4,15 +4,10 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.example.passkeeper.data.model.Group;
-import com.example.passkeeper.data.model.ListGroup;
-import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.repository.GroupRepository;
-import com.example.passkeeper.data.repository.ListGroupRepository;
-import com.example.passkeeper.data.repository.RecordRepository;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.ui.utils.BaseObserver;
 
@@ -89,8 +84,8 @@ public class ListMemberGroupViewModel extends ViewModel {
     }
 
 
-    public LiveData<Resource<List<String>>> createMember(String name) {
-        repository.createMember(name);
+    public LiveData<Resource<List<String>>> addMember(String email) {
+        repository.addMember(this.id, email);
         fetchGroup();
         return getGroup();
     }
