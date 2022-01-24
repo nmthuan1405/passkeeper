@@ -39,7 +39,7 @@ public interface GroupApi {
     @POST("/groups/{id}/remove_owners/")
     Call<Group> deleteOwner(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListEmail emails);
 
-    @GET("groups/{id}/records")
+    @GET("/groups/{id}/records/")
     Call<ListRecord> getListRecordGroup(@Header("Authorization") String token, @Path(value = "id") int id);
 
 }
