@@ -23,9 +23,9 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="55dp"
+        android:background="@drawable/owner_toggle"
         android:textOff=""
-        android:textOn=""
-        android:background="@drawable/owner_toggle"/>
+        android:textOn="" />
 
     <Button
         android:id="@+id/delete_button"

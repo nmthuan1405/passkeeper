@@ -1,13 +1,12 @@
 package com.example.passkeeper.data.api;
 
 import com.example.passkeeper.data.model.FavoriteStatus;
-import com.example.passkeeper.data.model.RecordFieldList;
+import com.example.passkeeper.data.model.ListID;
 import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.data.model.RecordFieldList;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -35,4 +34,10 @@ public interface RecordApi {
 
     @DELETE("records/{id}/")
     Call<Void> deleteRecord(@Header("Authorization") String token, @Path(value = "id") int id);
+
+    @POST("/records/{id}/share_to_groups/")
+    Call<Void> shareRecord(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListID list);
+
+    @POST("/records/{id}/unshare_to_groups/")
+    Call<Void> unshareRecord(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListID list);
 }
