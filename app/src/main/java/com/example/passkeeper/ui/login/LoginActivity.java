@@ -55,11 +55,17 @@ public class LoginActivity extends AppCompatActivity{
             startActivity(intent);
         });
 
+        binding.forgotPassword.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(intent);
+        });
+
         binding.login.setOnClickListener(view -> {
             String email = binding.emailInput.getText().toString();
             String password = binding.passwordInput.getText().toString();
 
             model.login(email, password);
         });
+
     }
 }

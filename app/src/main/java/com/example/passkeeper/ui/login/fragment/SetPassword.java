@@ -57,8 +57,8 @@ public class SetPassword extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         String password = binding.newPasswordInput.getText().toString();
         String reEnterPassword = binding.reEnterPasswordInput.getText().toString();
-        String email = mViewModel.getEmail().getValue();
-        String code = mViewModel.getVerifyCode().getValue();
+        String email = mViewModel.getEmail();
+        String code = mViewModel.getVerifyCode();
 
         if (password.equals(reEnterPassword)) {
             mViewModel.setPassword(password);
