@@ -7,7 +7,6 @@ import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.GroupApi;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.model.ListEmail;
-import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.CompleteCallback;
 import com.example.passkeeper.data.retrofit.Resource;
@@ -94,8 +93,8 @@ public class GroupRepository {
         return group;
     }
 
-    public LiveData<Resource<ListRecord>> fetchListRecordGroup(Integer groupId){
-        MutableLiveData<Resource<ListRecord>> listRecord = new MutableLiveData<>(Resource.NONE());
+    public LiveData<Resource<List<Record>>> fetchListRecordGroup(Integer groupId) {
+        MutableLiveData<Resource<List<Record>>> listRecord = new MutableLiveData<>(Resource.NONE());
 
         String token = SessionManager.getInstance().getAccessToken();
         groupApi.getListRecordGroup(token, groupId).enqueue(new CompleteCallback<>(listRecord));

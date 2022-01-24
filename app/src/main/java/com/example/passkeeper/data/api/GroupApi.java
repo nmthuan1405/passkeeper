@@ -3,7 +3,9 @@ package com.example.passkeeper.data.api;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.model.ListEmail;
 import com.example.passkeeper.data.model.ListGroup;
-import com.example.passkeeper.data.model.ListRecord;
+import com.example.passkeeper.data.model.Record;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -40,6 +42,6 @@ public interface GroupApi {
     Call<Group> deleteOwner(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListEmail emails);
 
     @GET("/groups/{id}/records/")
-    Call<ListRecord> getListRecordGroup(@Header("Authorization") String token, @Path(value = "id") int id);
+    Call<List<Record>> getListRecordGroup(@Header("Authorization") String token, @Path(value = "id") int id);
 
 }

@@ -53,7 +53,6 @@ public class ListRecordShareGroupActivity extends AppCompatActivity {
                 if (records != null) {
                     Log.i(TAG, "List record group data changed, size = " + records.size());
                     mAdapter.setListRecordGroup(records);
-
                 }
             }
         });

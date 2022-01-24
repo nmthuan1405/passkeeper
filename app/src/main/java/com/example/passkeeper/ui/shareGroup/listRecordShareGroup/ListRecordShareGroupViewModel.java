@@ -1,32 +1,28 @@
 package com.example.passkeeper.ui.shareGroup.listRecordShareGroup;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.passkeeper.data.model.Group;
-import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.data.repository.GroupRepository;
 import com.example.passkeeper.data.repository.RecordRepository;
 import com.example.passkeeper.data.retrofit.Resource;
-import com.example.passkeeper.ui.listMemberGroup.Members;
-import com.example.passkeeper.ui.utils.BaseObserver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListRecordShareGroupViewModel extends ViewModel {
 
     private final RecordRepository repository;
-    private MediatorLiveData<Resource<List<Record>>> records;
+    private final GroupRepository groupRepository;
+    private final MediatorLiveData<Resource<List<Record>>> records;
     private int id;
     private final String TAG = "@LMG_flag";
 
     public ListRecordShareGroupViewModel() {
         repository = new RecordRepository();
         records = new MediatorLiveData<>();
+        groupRepository = new GroupRepository();
     }
 
     public int getId() {
@@ -37,11 +33,12 @@ public class ListRecordShareGroupViewModel extends ViewModel {
         this.id = id;
     }
 
-    public LiveData<Resource<ListRecord>> fetchListRecordGroup() {
-        return repository.fetchListRecord(id);
+    public LiveData<Resource<List<Record>>> fetchListRecordGroup() {
+        return groupRepository.fetchListRecordGroup(id);
+        // return repository.fetchListRecord(id);
     }
 
-    public void getAllRecordsGroup() {
+    /*public void getAllRecordsGroup() {
         LiveData<Resource<ListRecord>> fetchAllMembers = fetchListRecordGroup();
         records.addSource(fetchAllMembers, new BaseObserver<ListRecord>() {
             @Override
@@ -76,14 +73,17 @@ public class ListRecordShareGroupViewModel extends ViewModel {
         });
     }
 
+
     public void fetchAllRecordsGroup() {
         records = new MediatorLiveData<>();
         records.setValue(Resource.WAITING(new ArrayList<>()));
         getAllRecordsGroup();
     }
 
+     */
+
     public LiveData<Resource<List<Record>>> getListRecordGroup() {
-        fetchAllRecordsGroup();
-        return records;
+        return fetchListRecordGroup();
+        // return records;
     }
 }

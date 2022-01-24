@@ -1,5 +1,6 @@
 package com.example.passkeeper.ui.shareGroup.listRecordShareGroup;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.databinding.ItemRecordGroupBinding;
+import com.example.passkeeper.ui.record.view.ViewRecordActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class RecordGroupAdapter extends RecyclerView.Adapter<RecordGroupAdapter.RecordGroupViewHolder>{
 
-    private ListRecordShareGroupActivity activity;
+    private final ListRecordShareGroupActivity activity;
     private ItemRecordGroupBinding binding;
     private List<Record> mListRecordGroup = null;
     private OnItemClickListener onItemClickListener;
@@ -38,7 +40,12 @@ public class RecordGroupAdapter extends RecyclerView.Adapter<RecordGroupAdapter.
     @Override
     public void onBindViewHolder(@NonNull RecordGroupViewHolder holder, int position) {
         Record record = mListRecordGroup.get(position);
-        holder.itemView.setOnClickListener(view -> onItemClickListener.onItemClick(record));
+        holder.itemView.setOnClickListener(view -> {
+            System.out.println("clicked");
+            Intent intent = new Intent(activity, ViewRecordActivity.class);
+            intent.putExtra("id", record.getId());
+            activity.startActivity(intent);
+        });
         holder.bind(record);
     }
 
