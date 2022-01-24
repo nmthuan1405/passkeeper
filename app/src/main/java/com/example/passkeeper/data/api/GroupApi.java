@@ -3,6 +3,7 @@ package com.example.passkeeper.data.api;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.model.ListEmail;
 import com.example.passkeeper.data.model.ListGroup;
+import com.example.passkeeper.data.model.ListRecord;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,4 +38,8 @@ public interface GroupApi {
 
     @POST("/groups/{id}/remove_owners/")
     Call<Group> deleteOwner(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListEmail emails);
+
+    @GET("groups/{id}/records")
+    Call<ListRecord> getListRecordGroup(@Header("Authorization") String token, @Path(value = "id") int id);
+
 }

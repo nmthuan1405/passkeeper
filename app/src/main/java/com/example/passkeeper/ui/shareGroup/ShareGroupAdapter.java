@@ -11,6 +11,7 @@ import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.databinding.ItemShareGroupBinding;
 
 import com.example.passkeeper.ui.listMemberGroup.ListMemberGroupActivity;
+import com.example.passkeeper.ui.shareGroup.listRecordShareGroup.ListRecordShareGroupActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,9 +42,9 @@ public class ShareGroupAdapter extends RecyclerView.Adapter<ShareGroupAdapter.Sh
         String name = group.getName();
         holder.binding.nameGroupTextView.setText(name);
         holder.binding.nameGroupTextView.setOnClickListener(view -> {
-            //Intent intent = new Intent(view.getContext(), ListMemberGroupActivity.class);
-            //intent.putExtra("id", group.getId());
-            //view.getContext().startActivity(intent);
+            Intent intent = new Intent(view.getContext(), ListRecordShareGroupActivity.class);
+            intent.putExtra("id", group.getId());
+            view.getContext().startActivity(intent);
         });
     }
 

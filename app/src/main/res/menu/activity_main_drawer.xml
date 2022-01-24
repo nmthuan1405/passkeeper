@@ -27,7 +27,7 @@
     <group>
         <item
             android:id="@+id/nav_fav"
-            android:icon="@drawable/ic_fill_start"
+            android:icon="@drawable/ic_fill_star"
             android:title="@string/favorite" />
     </group>
 
