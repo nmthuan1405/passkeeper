@@ -6,13 +6,15 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.RecordApi;
 import com.example.passkeeper.data.model.FavoriteStatus;
+import com.example.passkeeper.data.model.ListID;
 import com.example.passkeeper.data.model.ListRecord;
-import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.retrofit.CompleteCallback;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.data.retrofit.RetrofitService;
+
+import java.util.List;
 
 public class RecordRepository {
     private final RecordApi recordApi;
@@ -68,6 +70,22 @@ public class RecordRepository {
 
         String token = SessionManager.getInstance().getAccessToken();
         recordApi.deleteRecord(token, id).enqueue(new CompleteCallback<>(result));
+        return result;
+    }
+
+    public LiveData<Resource<Void>> shareRecord(int id, List<Integer> ids) {
+        MutableLiveData<Resource<Void>> result = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        recordApi.shareRecord(token, id, new ListID(ids)).enqueue(new CompleteCallback<>(result));
+        return result;
+    }
+
+    public LiveData<Resource<Void>> unshareRecord(int id, List<Integer> ids) {
+        MutableLiveData<Resource<Void>> result = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        recordApi.unshareRecord(token, id, new ListID(ids)).enqueue(new CompleteCallback<>(result));
         return result;
     }
 }

@@ -33,6 +33,10 @@ public class ListGroupViewModel extends ViewModel {
         return repository.fetchListGroup(page);
     }
 
+    public LiveData<Resource<List<Group>>> fetchOwnedGroups() {
+        return repository.fetchOwnedGroups();
+    }
+
     private void addPageToListGroup(int page) {
         LiveData<Resource<ListGroup>> fetchListGroup = fetchListGroup(page);
         listGroup.addSource(fetchListGroup, new BaseObserver<ListGroup>() {
