@@ -51,10 +51,16 @@ public class ListRecordShareGroupActivity extends AppCompatActivity {
             public void onSuccess(Resource<List<Record>> data) {
                 List<Record> records = data.getData();
                 if (records != null) {
-                    Log.i(TAG, "List record group data changed, size = " + records.size());
+                    Log.i(TAG, "List record group data changed: size = " + records.size());
                     mAdapter.setListRecordGroup(records);
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
