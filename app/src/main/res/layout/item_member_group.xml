@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Layout for a single list group item -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/item_height"
+    android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/name_member_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_height"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:layout_margin="19dp"
+        android:textSize="18sp"
+        tools:text="Name" />
+
+    <ToggleButton
+        android:id="@+id/owner_toggle"
+        android:layout_width="@dimen/fav_size"
+        android:layout_height="@dimen/fav_size"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="55dp"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/owner_toggle"/>
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="@dimen/fav_size"
+        android:layout_height="@dimen/fav_size"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/default_padding"
+        android:layout_marginTop="@dimen/default_padding"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_marginBottom="@dimen/default_padding"
+        android:background="@drawable/ic_delete" />
+</RelativeLayout>

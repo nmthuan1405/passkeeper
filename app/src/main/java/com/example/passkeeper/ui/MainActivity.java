@@ -3,7 +3,6 @@ package com.example.passkeeper.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -18,6 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.databinding.ActivityMainBinding;
+import com.example.passkeeper.ui.generatePass.GeneratePasswordActivity;
+import com.example.passkeeper.ui.listGroup.ListGroupActivity;
 import com.example.passkeeper.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -63,9 +64,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.log_out:
                 SessionManager.getInstance().setToken(null);
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
+                Intent loginIntent = new Intent(this, LoginActivity.class);
+                startActivity(loginIntent);
                 finish();
+                break;
+
+            case R.id.manage_group:
+                Intent groupIntent = new Intent(this, ListGroupActivity.class);
+                startActivity(groupIntent);
+                break;
+
+            case R.id.password_generator:
+                Intent passgenIntent = new Intent(this, GeneratePasswordActivity.class);
+                startActivity(passgenIntent);
                 break;
         }
 

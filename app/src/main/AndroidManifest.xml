@@ -27,10 +27,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.group.GroupActivity"
+            android:name=".ui.listMemberGroup.ListMemberGroupActivity"
+            android:theme="@style/Theme.Passkeeper.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ui.listGroup.ListGroupActivity"
+            android:theme="@style/Theme.Passkeeper.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ui.record.edit.EditRecordActivity"
@@ -55,6 +57,9 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"
+            android:theme="@style/Theme.Passkeeper.NoActionBar" />
+        <activity
+            android:name=".ui.generatePass.GeneratePasswordActivity"
             android:theme="@style/Theme.Passkeeper.NoActionBar" />
     </application>
 

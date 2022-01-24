@@ -9,6 +9,7 @@ import com.example.passkeeper.data.model.FavoriteStatus;
 import com.example.passkeeper.data.model.ListRecord;
 import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.model.Record;
+import com.example.passkeeper.data.model.RecordFieldList;
 import com.example.passkeeper.data.retrofit.CompleteCallback;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.data.retrofit.RetrofitService;
