@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PasswordEditText">
+        <attr name="showIcon" format="integer" />
+        <attr name="hideIcon" format="integer" />
+        <attr name="hoverShow" format="boolean" />
+        <attr name="disableIconAlpha" format="boolean" />
+    </declare-styleable>
+</resources>

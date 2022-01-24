@@ -41,17 +41,14 @@
         android:textSize="18sp"
         android:textColor="#9A9A9A"
         android:layout_marginTop="24dp"/>
-    <EditText
+    <com.example.passkeeper.ui.utils.PasswordEditText
         android:id="@+id/password_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password"
         android:textSize="18sp"
         android:textColorHint="#D38F8E8E"
-        android:layout_marginTop="8dp"
-        android:drawableEnd="@drawable/ic_show_password"
-        android:inputType="textPassword"
-        android:singleLine="true"/>
+        android:layout_marginTop="8dp"/>
 
     <Button
         android:id="@+id/login"

@@ -14,27 +14,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.MessageResponse;
 import com.example.passkeeper.data.retrofit.Resource;
-import com.example.passkeeper.databinding.VerifyCodeFragmentBinding;
+import com.example.passkeeper.databinding.SetPasswordFragmentBinding;
 import com.example.passkeeper.ui.login.AccountViewModel;
 import com.example.passkeeper.ui.utils.EventObserver;
 
-public class VerifyCode extends Fragment implements View.OnClickListener {
+public class ResetPassword extends Fragment implements View.OnClickListener {
 
     private AccountViewModel mViewModel;
     private NavController navController;
-    private VerifyCodeFragmentBinding binding;
+    private SetPasswordFragmentBinding binding;
 
-    public static VerifyCode newInstance() {
-        return new VerifyCode();
+    public static SetPassword newInstance() {
+        return new SetPassword();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = VerifyCodeFragmentBinding.inflate(inflater, container, false);
+        binding = SetPasswordFragmentBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -45,21 +44,25 @@ public class VerifyCode extends Fragment implements View.OnClickListener {
         navController = Navigation.findNavController(view);
         mViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
-        binding.nextBtn.setOnClickListener(this);
-        mViewModel.getCodeStatus().observe(getViewLifecycleOwner(), new EventObserver<MessageResponse>(getActivity()) {
+        binding.savePassBtn.setOnClickListener(this);
+        mViewModel.getResetPasswordStatus().observe(getViewLifecycleOwner(), new EventObserver<MessageResponse>(getActivity()) {
             @Override
             public void onHandle(Resource<MessageResponse> data) {
-                navController.navigate(R.id.action_verifyCode_to_setPassword);
+                getActivity().finish();
             }
         });
     }
 
     @Override
     public void onClick(View view) {
+        String password = binding.newPasswordInput.getText().toString();
+        String reEnterPassword = binding.reEnterPasswordInput.getText().toString();
         String email = mViewModel.getEmail();
-        String code = binding.verifyCodeInput.getText().toString();
+        String code = mViewModel.getVerifyCode();
 
-        mViewModel.setVerifyCode(code);
-        mViewModel.checkVerifyCode(email, code);
+        if (password.equals(reEnterPassword)) {
+            mViewModel.setPassword(password);
+            mViewModel.resetPassword(email, password, code);
+        }
     }
 }

@@ -17,24 +17,24 @@ import android.view.ViewGroup;
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.MessageResponse;
 import com.example.passkeeper.data.retrofit.Resource;
-import com.example.passkeeper.databinding.VerifyCodeFragmentBinding;
+import com.example.passkeeper.databinding.EnterEmailFragmentBinding;
 import com.example.passkeeper.ui.login.AccountViewModel;
 import com.example.passkeeper.ui.utils.EventObserver;
 
-public class VerifyCode extends Fragment implements View.OnClickListener {
+public class ForgotPassword extends Fragment implements View.OnClickListener {
 
     private AccountViewModel mViewModel;
     private NavController navController;
-    private VerifyCodeFragmentBinding binding;
+    private EnterEmailFragmentBinding binding;
 
-    public static VerifyCode newInstance() {
-        return new VerifyCode();
+    public static EnterEmail newInstance() {
+        return new EnterEmail();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = VerifyCodeFragmentBinding.inflate(inflater, container, false);
+        binding = EnterEmailFragmentBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -42,24 +42,23 @@ public class VerifyCode extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        navController = Navigation.findNavController(view);
+        navController =  Navigation.findNavController(view);
         mViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
         binding.nextBtn.setOnClickListener(this);
-        mViewModel.getCodeStatus().observe(getViewLifecycleOwner(), new EventObserver<MessageResponse>(getActivity()) {
+        mViewModel.getForgotPasswordStatus().observe(getViewLifecycleOwner(), new EventObserver<MessageResponse>(getActivity()) {
             @Override
             public void onHandle(Resource<MessageResponse> data) {
-                navController.navigate(R.id.action_verifyCode_to_setPassword);
+                navController.navigate(R.id.action_enterEmail_to_verifyCode);
             }
         });
     }
 
     @Override
     public void onClick(View view) {
-        String email = mViewModel.getEmail();
-        String code = binding.verifyCodeInput.getText().toString();
+        String email = binding.emailInput.getText().toString();
 
-        mViewModel.setVerifyCode(code);
-        mViewModel.checkVerifyCode(email, code);
+        mViewModel.setEmail(email);
+        mViewModel.forgotPassword(email);
     }
 }
