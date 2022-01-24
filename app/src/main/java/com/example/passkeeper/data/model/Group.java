@@ -1,5 +1,6 @@
 package com.example.passkeeper.data.model;
 
+import com.example.passkeeper.ui.listMemberGroup.Members;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -53,10 +54,16 @@ public class Group {
         this.members = members;
     }
 
-    public List<String> getOwnersAndMembers(){
-        List<String> allMembers = new ArrayList<String>();
-        allMembers.addAll(owners);
-        allMembers.addAll(members);
+    public List<Members> getOwnersAndMembers() {
+        List<Members> allMembers = new ArrayList<>();
+        for (String owner :
+                owners) {
+            allMembers.add(new Members(owner, true, getId()));
+        }
+        for (String member :
+                members) {
+            allMembers.add(new Members(member, false, getId()));
+        }
         return allMembers;
     }
 }

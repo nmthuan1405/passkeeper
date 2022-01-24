@@ -59,6 +59,14 @@ public class GroupRepository {
         return group;
     }
 
-    public void deleteMember(Integer id) {
+    public LiveData<Resource<Group>> deleteMember(Integer groupId, String email) {
+        MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        List<String> emails = new ArrayList<>();
+        emails.add(email);
+        groupApi.deleteMember(token, groupId, new ListEmail(emails)).enqueue(new CompleteCallback<>(group));
+
+        return group;
     }
 }

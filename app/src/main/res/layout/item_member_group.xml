@@ -33,6 +33,9 @@
         android:layout_height="@dimen/fav_size"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_margin="@dimen/default_padding"
-        android:background="@drawable/ic_delete"/>
+        android:layout_marginStart="@dimen/default_padding"
+        android:layout_marginTop="@dimen/default_padding"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_marginBottom="@dimen/default_padding"
+        android:background="@drawable/ic_delete" />
 </RelativeLayout>

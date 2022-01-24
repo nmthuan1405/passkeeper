@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ListMemberGroupViewModel extends ViewModel {
     private final GroupRepository repository;
-    private MediatorLiveData<Resource<List<String>>> group;
+    private MediatorLiveData<Resource<List<Members>>> group;
     private int id;
     private final String TAG = "@LMG_flag";
 
@@ -55,7 +55,7 @@ public class ListMemberGroupViewModel extends ViewModel {
             public void onSuccess(Resource<Group> resource) {
                 Log.i(TAG, "Load member group success, id = " + id);
 
-                List<String> currentData = group.getValue().getData();
+                List<Members> currentData = group.getValue().getData();
                 Group data = resource.getData();
                 currentData.addAll(data.getOwnersAndMembers());
                 Log.i(TAG, "Load member group list done !!!");
@@ -78,20 +78,20 @@ public class ListMemberGroupViewModel extends ViewModel {
         getAllMembers();
     }
 
-    public LiveData<Resource<List<String>>> getGroup() {
+    public LiveData<Resource<List<Members>>> getGroup() {
         fetchAllMembers();
         return group;
     }
 
 
-    public LiveData<Resource<List<String>>> addMember(String email) {
+    public LiveData<Resource<List<Members>>> addMember(String email) {
         repository.addMember(this.id, email);
         fetchGroup();
         return getGroup();
     }
 
-    public LiveData<Resource<List<String>>> deleteMember(Integer id) {
-        repository.deleteMember(id);
+    public LiveData<Resource<List<Members>>> deleteMember(String email) {
+        repository.deleteMember(this.id, email);
         fetchGroup();
         return getGroup();
     }
