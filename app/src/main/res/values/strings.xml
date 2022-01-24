@@ -50,4 +50,8 @@
     <string name="specialChar">!@#</string>
     <string name="minimum_number">Minimum Number</string>
     <string name="minimum_special">Minimum Special</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="new_url">New URL</string>
 </resources>

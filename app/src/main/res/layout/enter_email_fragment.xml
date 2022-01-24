@@ -25,7 +25,8 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="#D38F8E8E"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:singleLine="true"/>
 
     <Button
         android:id="@+id/next_btn"
