@@ -168,7 +168,7 @@ public class ViewRecordActivity extends AppCompatActivity implements View.OnClic
 
                         new MaterialAlertDialogBuilder(context)
                                 .setTitle("Choose shared groups")
-                                .setNeutralButton("Cancle", new DialogInterface.OnClickListener() {
+                                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
