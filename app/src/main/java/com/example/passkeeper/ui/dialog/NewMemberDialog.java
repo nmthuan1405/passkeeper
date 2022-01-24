@@ -14,28 +14,28 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.passkeeper.R;
 
-public class NewGroupDialog extends AppCompatDialogFragment {
-    private EditText edtGroupName;
-    private NewGroupDialogListener listener;
+public class NewMemberDialog extends AppCompatDialogFragment {
+    private EditText edtMemberEmail;
+    private NewMemberDialogListener listener;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.new_group_dialog, null);
+        View view = inflater.inflate(R.layout.new_member_dialog, null);
 
         builder.setView(view)
-                .setTitle("New Group")
+                .setTitle("Add Member")
                 .setNegativeButton("Cancel", (dialog, which) -> {
 
                 })
                 .setPositiveButton("OK", (dialog, which) -> {
-                    String groupName = edtGroupName.getText().toString();
-                    listener.applyResult(groupName);
+                    String memberEmail = edtMemberEmail.getText().toString();
+                    listener.applyResult(memberEmail);
                 });
 
-        edtGroupName = view.findViewById(R.id.edtName);
+        edtMemberEmail = view.findViewById(R.id.edtMemberEmail);
 
         return builder.create();
     }
@@ -45,13 +45,13 @@ public class NewGroupDialog extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (NewGroupDialogListener) context;
+            listener = (NewMemberDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement NewGroupDialogListener");
+            throw new ClassCastException(context.toString() + "must implement AddGroupMemberDialogListener");
         }
     }
 
-    public interface NewGroupDialogListener{
-        void applyResult(String groupName);
+    public interface NewMemberDialogListener{
+        void applyResult(String memberEmail);
     }
 }

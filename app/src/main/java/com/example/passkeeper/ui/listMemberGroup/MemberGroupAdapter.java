@@ -6,19 +6,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.passkeeper.data.model.MemberGroup;
-import com.example.passkeeper.databinding.ItemGroupBinding;
+import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ItemMemberGroupBinding;
+import com.example.passkeeper.ui.utils.ActivityObserver;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Member;
 import java.util.List;
 
 public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.MemberGroupViewHolder> {
 
-    private List<MemberGroup> mListMemberGroup = null;
+    private final ListMemberGroupActivity activity;
     private ItemMemberGroupBinding binding;
+    private List<Members> mListMemberGroup = null;
+
+    public MemberGroupAdapter(ListMemberGroupActivity a) {
+        activity = a;
+    }
 
     @NonNull
     @Override
@@ -29,10 +33,55 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MemberGroupViewHolder holder, int position) {
-        MemberGroup memberGroup = mListMemberGroup.get(position);
+        Members memberGroup = mListMemberGroup.get(position);
+        ListMemberGroupViewModel viewModel = new ListMemberGroupViewModel();
+        viewModel.setId(memberGroup.getGroupId());
+        holder.binding.nameMemberTextView.setText(memberGroup.getEmail());
+        if (memberGroup.isOwner()) {
+            holder.binding.ownerToggle.toggle();
+        }
 
-        // TODO: Set member group data to UI
+        holder.binding.ownerToggle.setOnClickListener(v -> {
+            if (memberGroup.isOwner())
+                viewModel.deleteOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<List<Members>>(activity) {
+                    @Override
+                    public void onSuccess(Resource<List<Members>> resource) {
+
+                    }
+
+                    @Override
+                    public void onError(Resource<List<Members>> resource) {
+                        super.onError(resource);
+                        holder.binding.ownerToggle.toggle();
+                    }
+                });
+            else
+                viewModel.addOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<List<Members>>(activity) {
+                    @Override
+                    public void onSuccess(Resource<List<Members>> resource) {
+
+                    }
+
+                    @Override
+                    public void onError(Resource<List<Members>> resource) {
+                        super.onError(resource);
+                        holder.binding.ownerToggle.toggle();
+                    }
+                });
+        });
+
+        holder.binding.deleteButton.setOnClickListener(v -> {
+            System.out.println("Delete member");
+
+            viewModel.deleteMember(memberGroup.getEmail()).observe(activity, new ActivityObserver<List<Members>>(activity) {
+                @Override
+                public void onSuccess(Resource<List<Members>> data) {
+                    activity.updateRecycleView();
+                }
+            });
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -41,15 +90,16 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
         return 0;
     }
 
-    public void setListMemberGroup(List<MemberGroup> listMemberGroup){
-        if (listMemberGroup != null){
-            mListMemberGroup = listMemberGroup;
+
+    public void setListMember(List<Members> allMembers) {
+        if (allMembers != null) {
+            mListMemberGroup = allMembers;
             notifyDataSetChanged();
         }
     }
 
     public static class MemberGroupViewHolder extends RecyclerView.ViewHolder{
-        private ItemMemberGroupBinding binding;
+        private final ItemMemberGroupBinding binding;
 
         public MemberGroupViewHolder(@NotNull ItemMemberGroupBinding itemBinding){
             super(itemBinding.getRoot());

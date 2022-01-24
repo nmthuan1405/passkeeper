@@ -6,9 +6,13 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.GroupApi;
 import com.example.passkeeper.data.model.Group;
+import com.example.passkeeper.data.model.ListEmail;
 import com.example.passkeeper.data.retrofit.CompleteCallback;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.data.retrofit.RetrofitService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupRepository {
     private final GroupApi groupApi;
@@ -35,11 +39,55 @@ public class GroupRepository {
         return resultGroup;
     }
 
-    public LiveData<Resource<Group>> getGroup(Integer groupId) {
+    public LiveData<Resource<Group>> getGroup(int id) {
         MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
 
         String token = SessionManager.getInstance().getAccessToken();
-        groupApi.getGroup(token, groupId).enqueue(new CompleteCallback<>(group));
+        groupApi.getGroup(token, id).enqueue(new CompleteCallback<>(group));
+
+        return group;
+    }
+
+    public LiveData<Resource<Group>> addMember(Integer groupId, String email) {
+        MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        List<String> emails = new ArrayList<>();
+        emails.add(email);
+        groupApi.addMember(token, groupId, new ListEmail(emails)).enqueue(new CompleteCallback<>(group));
+
+        return group;
+    }
+
+    public LiveData<Resource<Group>> deleteMember(Integer groupId, String email) {
+        MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        List<String> emails = new ArrayList<>();
+        emails.add(email);
+        groupApi.deleteMember(token, groupId, new ListEmail(emails)).enqueue(new CompleteCallback<>(group));
+
+        return group;
+    }
+
+    public LiveData<Resource<Group>> addOwner(Integer groupId, String email) {
+        MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        List<String> emails = new ArrayList<>();
+        emails.add(email);
+        groupApi.addOwner(token, groupId, new ListEmail(emails)).enqueue(new CompleteCallback<>(group));
+
+        return group;
+    }
+
+    public LiveData<Resource<Group>> deleteOwner(Integer groupId, String email) {
+        MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        List<String> emails = new ArrayList<>();
+        emails.add(email);
+        groupApi.deleteOwner(token, groupId, new ListEmail(emails)).enqueue(new CompleteCallback<>(group));
 
         return group;
     }

@@ -1,8 +1,10 @@
 package com.example.passkeeper.data.model;
 
+import com.example.passkeeper.ui.listMemberGroup.Members;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
@@ -50,5 +52,18 @@ public class Group {
 
     public void setMembers(List<String> members) {
         this.members = members;
+    }
+
+    public List<Members> getOwnersAndMembers() {
+        List<Members> allMembers = new ArrayList<>();
+        for (String owner :
+                owners) {
+            allMembers.add(new Members(owner, true, getId()));
+        }
+        for (String member :
+                members) {
+            allMembers.add(new Members(member, false, getId()));
+        }
+        return allMembers;
     }
 }

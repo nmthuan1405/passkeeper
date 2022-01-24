@@ -50,4 +50,6 @@
     <string name="specialChar">!@#</string>
     <string name="minimum_number">Minimum Number</string>
     <string name="minimum_special">Minimum Special</string>W
+    <string name="member_email">Member Email</string>
+    <string name="group_name">Group Name</string>
 </resources>
