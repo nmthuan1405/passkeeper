@@ -1,4 +1,4 @@
-package com.example.passkeeper.ui.listMemberGroup;
+package com.example.passkeeper.ui.listGroup.listMemberGroup;
 
 import android.util.Log;
 
@@ -7,6 +7,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.passkeeper.data.model.Group;
+import com.example.passkeeper.data.model.Members;
 import com.example.passkeeper.data.repository.GroupRepository;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.ui.utils.BaseObserver;

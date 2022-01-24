@@ -27,13 +27,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.listMemberGroup.ListMemberGroupActivity"
+            android:name=".ui.listGroup.listMemberGroup.ListMemberGroupActivity"
             android:theme="@style/Theme.Passkeeper.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ui.listGroup.ListGroupActivity"
             android:theme="@style/Theme.Passkeeper.NoActionBar"
             android:exported="false" />
+        <activity
+            android:name=".ui.shareGroup.ShareGroupActivity"
+            android:theme="@style/Theme.Passkeeper.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name=".ui.shareGroup.listRecordShareGroup.ListRecordShareGroupActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Passkeeper.NoActionBar" />
         <activity
             android:name=".ui.record.edit.EditRecordActivity"
             android:exported="false"

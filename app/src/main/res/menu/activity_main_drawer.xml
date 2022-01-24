@@ -27,11 +27,15 @@
     <group>
         <item
             android:id="@+id/nav_fav"
-            android:icon="@drawable/ic_fill_start"
+            android:icon="@drawable/ic_fill_star"
             android:title="@string/favorite" />
     </group>
 
    <group>
+       <item
+           android:id="@+id/share_group"
+           android:icon="@drawable/ic_share_group"
+           android:title="Share Group" />
         <item
             android:id="@+id/manage_group"
             android:icon="@drawable/ic_baseline_groups"

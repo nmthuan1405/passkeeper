@@ -3,6 +3,9 @@ package com.example.passkeeper.data.api;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.model.ListEmail;
 import com.example.passkeeper.data.model.ListGroup;
+import com.example.passkeeper.data.model.Record;
+
+import java.util.List;
 
 import java.util.List;
 
@@ -42,4 +45,8 @@ public interface GroupApi {
 
     @POST("/groups/{id}/remove_owners/")
     Call<Group> deleteOwner(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListEmail emails);
+
+    @GET("/groups/{id}/records/")
+    Call<List<Record>> getListRecordGroup(@Header("Authorization") String token, @Path(value = "id") int id);
+
 }

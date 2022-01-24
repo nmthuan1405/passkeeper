@@ -7,6 +7,7 @@ import com.example.passkeeper.data.SessionManager;
 import com.example.passkeeper.data.api.GroupApi;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.model.ListEmail;
+import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.retrofit.CompleteCallback;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.data.retrofit.RetrofitService;
@@ -90,5 +91,14 @@ public class GroupRepository {
         groupApi.deleteOwner(token, groupId, new ListEmail(emails)).enqueue(new CompleteCallback<>(group));
 
         return group;
+    }
+
+    public LiveData<Resource<List<Record>>> fetchListRecordGroup(Integer groupId) {
+        MutableLiveData<Resource<List<Record>>> listRecord = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        groupApi.getListRecordGroup(token, groupId).enqueue(new CompleteCallback<>(listRecord));
+
+        return listRecord;
     }
 }
