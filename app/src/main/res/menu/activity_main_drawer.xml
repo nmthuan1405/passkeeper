@@ -26,6 +26,13 @@
 
     <group>
         <item
+            android:id="@+id/nav_fav"
+            android:icon="@drawable/ic_fill_start"
+            android:title="@string/favorite" />
+    </group>
+
+   <group>
+        <item
             android:id="@+id/manage_group"
             android:icon="@drawable/ic_baseline_groups"
             android:title="Manage Group" />

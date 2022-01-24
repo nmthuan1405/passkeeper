@@ -23,10 +23,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     private OnItemClickListener onItemLongClickListener;
 
     public interface OnCheckedListener {
-        void onChecked(Record record, int position, boolean isChecked);
+        void onChecked(Record record, boolean isChecked);
     }
     public interface OnItemClickListener {
-        void onItemClick(Record record, int position);
+        void onItemClick(Record record);
     }
 
     @NonNull
@@ -42,11 +42,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
         holder.binding.favoriteToggle.setOnClickListener(view -> {
             boolean isChecked = holder.binding.favoriteToggle.isChecked();
-            onFavoriteCheckedListener.onChecked(record, position, isChecked);
+            onFavoriteCheckedListener.onChecked(record, isChecked);
         });
-        holder.itemView.setOnClickListener(view -> onItemClickListener.onItemClick(record, position));
+        holder.itemView.setOnClickListener(view -> onItemClickListener.onItemClick(record));
         holder.itemView.setOnLongClickListener(view -> {
-            onItemLongClickListener.onItemClick(record, position);
+            onItemLongClickListener.onItemClick(record);
             return true;
         });
 
@@ -67,14 +67,16 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         }
     }
 
-    public void editRecord(Record record, int position) {
-        if (record != null) {
+    public void editRecord(Record originRecord, Record record) {
+        if (originRecord != null && record != null) {
+            int position = listRecord.indexOf(originRecord);
             listRecord.set(position, record);
             notifyItemChanged(position, record);
         }
     }
 
-    public void deleteRecord(int position) {
+    public void deleteRecord(Record originRecord) {
+        int position = listRecord.indexOf(originRecord);
         listRecord.remove(position);
         notifyItemRemoved(position);
     }
