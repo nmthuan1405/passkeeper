@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.databinding.ItemShareGroupBinding;
 
-import com.example.passkeeper.ui.listMemberGroup.ListMemberGroupActivity;
 import com.example.passkeeper.ui.shareGroup.listRecordShareGroup.ListRecordShareGroupActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -21,12 +20,10 @@ public class ShareGroupAdapter extends RecyclerView.Adapter<ShareGroupAdapter.Sh
 
     private List<Group> mListGroup = null;
     private ItemShareGroupBinding binding;
-    private final ShareGroupViewModel viewModel;
     private final ShareGroupActivity activity;
 
     public ShareGroupAdapter(ShareGroupActivity activity) {
         this.activity = activity;
-        viewModel = new ShareGroupViewModel();
     }
 
     @NonNull

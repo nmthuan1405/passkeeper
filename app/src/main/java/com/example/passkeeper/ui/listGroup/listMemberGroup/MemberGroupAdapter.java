@@ -1,4 +1,4 @@
-package com.example.passkeeper.ui.listMemberGroup;
+package com.example.passkeeper.ui.listGroup.listMemberGroup;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.passkeeper.data.model.Members;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ItemMemberGroupBinding;
 import com.example.passkeeper.ui.utils.ActivityObserver;

@@ -22,8 +22,6 @@ public class ShareGroupActivity extends AppCompatActivity {
     private ActivityShareGroupBinding binding;
     private ShareGroupAdapter mAdapter;
 
-    private boolean firstInit;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +34,6 @@ public class ShareGroupActivity extends AppCompatActivity {
         mViewModel = new ViewModelProvider(this).get(ShareGroupViewModel.class);
 
         initRecyclerView();
-
-        firstInit = true;
     }
 
     private void initRecyclerView() {

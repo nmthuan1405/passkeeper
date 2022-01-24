@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ItemGroupBinding;
-import com.example.passkeeper.ui.listMemberGroup.ListMemberGroupActivity;
+import com.example.passkeeper.ui.listGroup.listMemberGroup.ListMemberGroupActivity;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 
 import org.jetbrains.annotations.NotNull;

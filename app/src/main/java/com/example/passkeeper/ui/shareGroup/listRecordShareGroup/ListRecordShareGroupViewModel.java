@@ -35,55 +35,9 @@ public class ListRecordShareGroupViewModel extends ViewModel {
 
     public LiveData<Resource<List<Record>>> fetchListRecordGroup() {
         return groupRepository.fetchListRecordGroup(id);
-        // return repository.fetchListRecord(id);
     }
-
-    /*public void getAllRecordsGroup() {
-        LiveData<Resource<ListRecord>> fetchAllMembers = fetchListRecordGroup();
-        records.addSource(fetchAllMembers, new BaseObserver<ListRecord>() {
-            @Override
-            public void onWaiting(Resource<ListRecord> resource) {
-
-            }
-
-            @Override
-            public void onError(Resource<ListRecord> resource) {
-                Log.e(TAG, "Load member group error, id = " + id);
-                records.setValue(Resource.ERROR(resource.getError()));
-            }
-
-            @Override
-            public void onSuccess(Resource<ListRecord> resource) {
-                Log.i(TAG, "Load member group success, id = " + id);
-
-                List<Record> currentData = records.getValue().getData();
-                ListRecord data = resource.getData();
-                currentData.addAll(data.getResults());
-                Log.i(TAG, "Load member group list done !!!");
-                records.setValue(Resource.SUCCESS(currentData));
-            }
-
-            @Override
-            public void onChanged(Resource<ListRecord> resource) {
-                super.onChanged(resource);
-                if (resource.isComplete()) {
-                    records.removeSource(fetchListRecordGroup());
-                }
-            }
-        });
-    }
-
-
-    public void fetchAllRecordsGroup() {
-        records = new MediatorLiveData<>();
-        records.setValue(Resource.WAITING(new ArrayList<>()));
-        getAllRecordsGroup();
-    }
-
-     */
 
     public LiveData<Resource<List<Record>>> getListRecordGroup() {
         return fetchListRecordGroup();
-        // return records;
     }
 }

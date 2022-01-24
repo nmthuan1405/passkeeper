@@ -1,4 +1,4 @@
-package com.example.passkeeper.ui.listMemberGroup;
+package com.example.passkeeper.ui.listGroup.listMemberGroup;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.passkeeper.data.model.Group;
+import com.example.passkeeper.data.model.Members;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityListMemberGroupBinding;
 import com.example.passkeeper.ui.dialog.NewMemberDialog;

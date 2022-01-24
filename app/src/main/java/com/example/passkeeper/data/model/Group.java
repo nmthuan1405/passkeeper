@@ -1,6 +1,5 @@
 package com.example.passkeeper.data.model;
 
-import com.example.passkeeper.ui.listMemberGroup.Members;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

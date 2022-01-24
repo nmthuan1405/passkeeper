@@ -63,10 +63,6 @@ public class RecordGroupAdapter extends RecyclerView.Adapter<RecordGroupAdapter.
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
     public static class RecordGroupViewHolder extends RecyclerView.ViewHolder{
         private final ItemRecordGroupBinding binding;
 

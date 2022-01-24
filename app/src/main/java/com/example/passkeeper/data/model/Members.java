@@ -1,4 +1,4 @@
-package com.example.passkeeper.ui.listMemberGroup;
+package com.example.passkeeper.data.model;
 
 public class Members {
     private final String email;

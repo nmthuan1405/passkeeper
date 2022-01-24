@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.model.ListGroup;
-import com.example.passkeeper.data.repository.GroupRepository;
 import com.example.passkeeper.data.repository.ListGroupRepository;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.ui.utils.BaseObserver;
@@ -18,14 +17,12 @@ import java.util.List;
 
 public class ShareGroupViewModel extends ViewModel {
     private final ListGroupRepository repository;
-    private final GroupRepository groupRepository;
     private MediatorLiveData<Resource<List<Group>>> listGroup;
     private final int firstPage = 1;
     private final String TAG = "@LG_flag";
 
     public ShareGroupViewModel() {
         repository = new ListGroupRepository();
-        groupRepository = new GroupRepository();
         listGroup = new MediatorLiveData<>();
     }
 
