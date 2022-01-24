@@ -34,14 +34,45 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
     @Override
     public void onBindViewHolder(@NonNull MemberGroupViewHolder holder, int position) {
         Members memberGroup = mListMemberGroup.get(position);
+        ListMemberGroupViewModel viewModel = new ListMemberGroupViewModel();
+        viewModel.setId(memberGroup.getGroupId());
         holder.binding.nameMemberTextView.setText(memberGroup.getEmail());
         if (memberGroup.isOwner()) {
-            holder.binding.ownerToggle.performClick();
+            holder.binding.ownerToggle.toggle();
         }
+
+        holder.binding.ownerToggle.setOnClickListener(v -> {
+            if (memberGroup.isOwner())
+                viewModel.deleteOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<List<Members>>(activity) {
+                    @Override
+                    public void onSuccess(Resource<List<Members>> resource) {
+
+                    }
+
+                    @Override
+                    public void onError(Resource<List<Members>> resource) {
+                        super.onError(resource);
+                        holder.binding.ownerToggle.toggle();
+                    }
+                });
+            else
+                viewModel.addOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<List<Members>>(activity) {
+                    @Override
+                    public void onSuccess(Resource<List<Members>> resource) {
+
+                    }
+
+                    @Override
+                    public void onError(Resource<List<Members>> resource) {
+                        super.onError(resource);
+                        holder.binding.ownerToggle.toggle();
+                    }
+                });
+        });
+
         holder.binding.deleteButton.setOnClickListener(v -> {
             System.out.println("Delete member");
-            ListMemberGroupViewModel viewModel = new ListMemberGroupViewModel();
-            viewModel.setId(memberGroup.getGroupId());
+
             viewModel.deleteMember(memberGroup.getEmail()).observe(activity, new ActivityObserver<List<Members>>(activity) {
                 @Override
                 public void onSuccess(Resource<List<Members>> data) {

@@ -31,4 +31,10 @@ public interface GroupApi {
 
     @POST("/groups/{id}/remove_members/")
     Call<Group> deleteMember(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListEmail emails);
+
+    @POST("/groups/{id}/add_owners/")
+    Call<Group> addOwner(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListEmail emails);
+
+    @POST("/groups/{id}/remove_owners/")
+    Call<Group> deleteOwner(@Header("Authorization") String token, @Path(value = "id") int id, @Body ListEmail emails);
 }

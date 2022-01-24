@@ -69,4 +69,26 @@ public class GroupRepository {
 
         return group;
     }
+
+    public LiveData<Resource<Group>> addOwner(Integer groupId, String email) {
+        MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        List<String> emails = new ArrayList<>();
+        emails.add(email);
+        groupApi.addOwner(token, groupId, new ListEmail(emails)).enqueue(new CompleteCallback<>(group));
+
+        return group;
+    }
+
+    public LiveData<Resource<Group>> deleteOwner(Integer groupId, String email) {
+        MutableLiveData<Resource<Group>> group = new MutableLiveData<>(Resource.NONE());
+
+        String token = SessionManager.getInstance().getAccessToken();
+        List<String> emails = new ArrayList<>();
+        emails.add(email);
+        groupApi.deleteOwner(token, groupId, new ListEmail(emails)).enqueue(new CompleteCallback<>(group));
+
+        return group;
+    }
 }

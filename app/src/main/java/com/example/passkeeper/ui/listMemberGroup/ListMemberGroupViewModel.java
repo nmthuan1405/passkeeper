@@ -96,4 +96,16 @@ public class ListMemberGroupViewModel extends ViewModel {
         return getGroup();
     }
 
+    public LiveData<Resource<List<Members>>> addOwner(String email) {
+        repository.addOwner(this.id, email);
+        fetchGroup();
+        return getGroup();
+    }
+
+    public LiveData<Resource<List<Members>>> deleteOwner(String email) {
+        repository.deleteOwner(this.id, email);
+        fetchGroup();
+        return getGroup();
+    }
+
 }
