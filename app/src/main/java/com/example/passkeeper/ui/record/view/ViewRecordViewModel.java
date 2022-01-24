@@ -2,9 +2,9 @@ package com.example.passkeeper.ui.record.view;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.example.passkeeper.data.model.FavoriteStatus;
 import com.example.passkeeper.data.model.Record;
 import com.example.passkeeper.data.repository.RecordRepository;
 import com.example.passkeeper.data.retrofit.Resource;
@@ -39,5 +39,13 @@ public class ViewRecordViewModel extends ViewModel {
 
     public LiveData<Resource<Record>> getRecord() {
         return record;
+    }
+
+    public LiveData<Resource<Record>> changeFavoriteStatus(boolean status) {
+        return repository.setFavoriteStatus(id, new FavoriteStatus(status));
+    }
+
+    public LiveData<Resource<Void>> deleteRecord() {
+        return repository.deleteRecord(id);
     }
 }

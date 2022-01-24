@@ -1,16 +1,16 @@
 package com.example.passkeeper.ui.record.view;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.passkeeper.R;
 import com.example.passkeeper.data.model.Record;
@@ -27,6 +27,8 @@ public class ViewRecordActivity extends AppCompatActivity implements View.OnClic
 
     private ViewRecordViewModel viewModel;
     private ActivityViewRecordBinding binding;
+    private boolean is_fav;
+    private Menu actionMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,12 @@ public class ViewRecordActivity extends AppCompatActivity implements View.OnClic
                         break;
                 }
 
+                is_fav = record.isFavorite();
+                if (is_fav) {
+                    System.out.println("change");
+                    actionMenu.findItem(R.id.favorite).setIcon(R.drawable.ic_filled_star);
+                }
+
                 viewModel.getRecord().removeObserver(this);
             }
         });
@@ -85,11 +93,37 @@ public class ViewRecordActivity extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.record_menu, menu);
+        actionMenu = menu;
+
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.favorite:
+                is_fav = !is_fav;
+                viewModel.changeFavoriteStatus(is_fav).observe(this, new ActivityObserver<Record>(this) {
+                    @Override
+                    public void onSuccess(Resource<Record> data) {
+                        if (is_fav) {
+                            item.setIcon(R.drawable.ic_filled_star);
+                        } else {
+                            item.setIcon(R.drawable.ic_star_white);
+                        }
+                    }
+                });
+                break;
+            case R.id.delete_record:
+                viewModel.deleteRecord().observe(this, new ActivityObserver<Void>(this) {
+                    @Override
+                    public void onSuccess(Resource<Void> resource) {
+                        finish();
+                    }
+                });
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
