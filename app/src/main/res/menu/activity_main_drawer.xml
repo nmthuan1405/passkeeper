@@ -32,6 +32,10 @@
     </group>
 
    <group>
+       <item
+           android:id="@+id/share_group"
+           android:icon="@drawable/ic_share_group"
+           android:title="Share Group" />
         <item
             android:id="@+id/manage_group"
             android:icon="@drawable/ic_baseline_groups"

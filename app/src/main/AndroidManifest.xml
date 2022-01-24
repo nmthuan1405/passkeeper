@@ -35,6 +35,10 @@
             android:theme="@style/Theme.Passkeeper.NoActionBar"
             android:exported="false" />
         <activity
+            android:name=".ui.shareGroup.ShareGroupActivity"
+            android:theme="@style/Theme.Passkeeper.NoActionBar"
+            android:exported="false" />
+        <activity
             android:name=".ui.record.edit.EditRecordActivity"
             android:exported="false"
             android:theme="@style/Theme.Passkeeper.NoActionBar" />

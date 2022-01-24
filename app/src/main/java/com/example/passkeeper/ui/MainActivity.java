@@ -20,6 +20,7 @@ import com.example.passkeeper.databinding.ActivityMainBinding;
 import com.example.passkeeper.ui.generatePass.GeneratePasswordActivity;
 import com.example.passkeeper.ui.listGroup.ListGroupActivity;
 import com.example.passkeeper.ui.login.LoginActivity;
+import com.example.passkeeper.ui.shareGroup.ShareGroupActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -67,6 +68,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent loginIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginIntent);
                 finish();
+                break;
+
+            case R.id.share_group:
+                Intent shareGroupIntent = new Intent(this, ShareGroupActivity.class);
+                startActivity(shareGroupIntent);
                 break;
 
             case R.id.manage_group:
