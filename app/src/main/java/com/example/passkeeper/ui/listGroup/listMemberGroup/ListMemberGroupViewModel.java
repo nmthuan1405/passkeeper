@@ -79,31 +79,32 @@ public class ListMemberGroupViewModel extends ViewModel {
         getAllMembers();
     }
 
-    public LiveData<Resource<List<Members>>> getGroup() {
-        fetchAllMembers();
-        return group;
+    public LiveData<Resource<Group>> getGroup() {
+        // fetchAllMembers();
+        // return group;
+        return repository.getGroup(this.id);
     }
 
 
-    public LiveData<Resource<List<Members>>> addMember(String email) {
+    public LiveData<Resource<Group>> addMember(String email) {
         repository.addMember(this.id, email);
         fetchGroup();
         return getGroup();
     }
 
-    public LiveData<Resource<List<Members>>> deleteMember(String email) {
+    public LiveData<Resource<Group>> deleteMember(String email) {
         repository.deleteMember(this.id, email);
         fetchGroup();
         return getGroup();
     }
 
-    public LiveData<Resource<List<Members>>> addOwner(String email) {
+    public LiveData<Resource<Group>> addOwner(String email) {
         repository.addOwner(this.id, email);
         fetchGroup();
         return getGroup();
     }
 
-    public LiveData<Resource<List<Members>>> deleteOwner(String email) {
+    public LiveData<Resource<Group>> deleteOwner(String email) {
         repository.deleteOwner(this.id, email);
         fetchGroup();
         return getGroup();

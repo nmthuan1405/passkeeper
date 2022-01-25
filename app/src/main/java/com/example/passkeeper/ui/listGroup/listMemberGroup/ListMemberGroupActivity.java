@@ -64,6 +64,12 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateRecycleView();
+    }
+
     private void initRecyclerView() {
         mAdapter = new MemberGroupAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -71,27 +77,14 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
         binding.recyclerView.setAdapter(mAdapter);
 
         updateRecycleView();
-
-        /*mViewModel.getGroup().observe(this, new ActivityObserver<List<Members>>(this) {
-            @Override
-            public void onSuccess(Resource<List<Members>> data) {
-                List<Members> allMembers = data.getData();
-                if (allMembers != null) {
-                    Log.i(TAG, "List member data changed, size = " + allMembers.size());
-                    mAdapter.setListMember(allMembers);
-
-                }
-            }
-        });
-
-         */
     }
 
     public void updateRecycleView() {
-        mViewModel.getGroup().observe(this, new ActivityObserver<List<Members>>(this) {
+        mViewModel.getGroup().observe(this, new ActivityObserver<Group>(this) {
             @Override
-            public void onSuccess(Resource<List<Members>> data) {
-                List<Members> allMembers = data.getData();
+            public void onSuccess(Resource<Group> data) {
+                List<Members> allMembers = data.getData().getOwnersAndMembers();
+                System.out.println(allMembers.size());
                 if (allMembers != null) {
                     Log.i(TAG, "List member data changed, size = " + allMembers.size());
                     mAdapter.setListMember(allMembers);
@@ -99,10 +92,12 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
             }
         });
 
-        int members_size = mAdapter.getItemCount();
+        /*int members_size = mAdapter.getItemCount();
         for (int i = 0; i < members_size; i++) {
             mAdapter.notifyItemChanged(i);
         }
+
+         */
     }
 
 
@@ -130,9 +125,9 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
 
     @Override
     public void applyResult(String memberEmail) {
-        mViewModel.addMember(memberEmail).observe(this, new ActivityObserver<List<Members>>(this) {
+        mViewModel.addMember(memberEmail).observe(this, new ActivityObserver<Group>(this) {
             @Override
-            public void onSuccess(Resource<List<Members>> data) {
+            public void onSuccess(Resource<Group> data) {
                 updateRecycleView();
             }
         });
