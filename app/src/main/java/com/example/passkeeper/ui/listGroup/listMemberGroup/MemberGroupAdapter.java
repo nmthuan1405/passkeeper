@@ -1,11 +1,13 @@
 package com.example.passkeeper.ui.listGroup.listMemberGroup;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.passkeeper.data.model.Group;
 import com.example.passkeeper.data.model.Members;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ItemMemberGroupBinding;
@@ -13,6 +15,7 @@ import com.example.passkeeper.ui.utils.ActivityObserver;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.MemberGroupViewHolder> {
@@ -38,33 +41,39 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
         ListMemberGroupViewModel viewModel = new ListMemberGroupViewModel();
         viewModel.setId(memberGroup.getGroupId());
         holder.binding.nameMemberTextView.setText(memberGroup.getEmail());
+        if (!activity.isOwned()) {
+            holder.binding.ownerToggle.setVisibility(View.INVISIBLE);
+            holder.binding.deleteButton.setVisibility(View.INVISIBLE);
+        }
+
         if (memberGroup.isOwner()) {
-            holder.binding.ownerToggle.toggle();
+            holder.binding.ownerToggle.setChecked(true);
+            System.out.println("ok");
         }
 
         holder.binding.ownerToggle.setOnClickListener(v -> {
             if (memberGroup.isOwner())
-                viewModel.deleteOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<List<Members>>(activity) {
+                viewModel.deleteOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<Group>(activity) {
                     @Override
-                    public void onSuccess(Resource<List<Members>> resource) {
-
+                    public void onSuccess(Resource<Group> resource) {
+                        activity.updateRecycleView();
                     }
 
                     @Override
-                    public void onError(Resource<List<Members>> resource) {
+                    public void onError(Resource<Group> resource) {
                         super.onError(resource);
                         holder.binding.ownerToggle.toggle();
                     }
                 });
             else
-                viewModel.addOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<List<Members>>(activity) {
+                viewModel.addOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<Group>(activity) {
                     @Override
-                    public void onSuccess(Resource<List<Members>> resource) {
-
+                    public void onSuccess(Resource<Group> resource) {
+                        activity.updateRecycleView();
                     }
 
                     @Override
-                    public void onError(Resource<List<Members>> resource) {
+                    public void onError(Resource<Group> resource) {
                         super.onError(resource);
                         holder.binding.ownerToggle.toggle();
                     }
@@ -74,9 +83,9 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
         holder.binding.deleteButton.setOnClickListener(v -> {
             System.out.println("Delete member");
 
-            viewModel.deleteMember(memberGroup.getEmail()).observe(activity, new ActivityObserver<List<Members>>(activity) {
+            viewModel.deleteMember(memberGroup.getEmail()).observe(activity, new ActivityObserver<Group>(activity) {
                 @Override
-                public void onSuccess(Resource<List<Members>> data) {
+                public void onSuccess(Resource<Group> data) {
                     activity.updateRecycleView();
                 }
             });
@@ -94,7 +103,7 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
 
     public void setListMember(List<Members> allMembers) {
         if (allMembers != null) {
-            mListMemberGroup = allMembers;
+            mListMemberGroup = new ArrayList<>(allMembers);
             notifyDataSetChanged();
         }
     }

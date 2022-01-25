@@ -10,12 +10,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.passkeeper.data.model.Group;
+import com.example.passkeeper.data.repository.ListGroupRepository;
 import com.example.passkeeper.data.retrofit.Resource;
 import com.example.passkeeper.databinding.ActivityListGroupBinding;
 import com.example.passkeeper.ui.dialog.NewGroupDialog;
 import com.example.passkeeper.ui.utils.ActivityObserver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListGroupActivity extends AppCompatActivity implements NewGroupDialog.NewGroupDialogListener {
@@ -26,6 +28,7 @@ public class ListGroupActivity extends AppCompatActivity implements NewGroupDial
     private GroupAdapter mAdapter;
 
     private boolean firstInit;
+    private List<Integer> ownedGroupIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class ListGroupActivity extends AppCompatActivity implements NewGroupDial
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mViewModel = new ViewModelProvider(this).get(ListGroupViewModel.class);
+
+        ownedGroupIds = new ArrayList<>();
 
         initRecyclerView();
         initFloatingActionButton();
@@ -59,30 +64,38 @@ public class ListGroupActivity extends AppCompatActivity implements NewGroupDial
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(mAdapter);
 
-        mViewModel.getGroups().observe(this, new ActivityObserver<List<Group>>(this) {
-            @Override
-            public void onSuccess(Resource<List<Group>> data) {
-                List<Group> groups = data.getData();
-                if (groups != null) {
-                    Log.i(TAG, "List group data changed, size = " + groups.size());
-                    mAdapter.setListGroup(groups);
-
-                }
-            }
-        });
+        updateRecycleView();
     }
 
     public void updateRecycleView() {
-        mViewModel.getGroups().observe(this, new ActivityObserver<List<Group>>(this) {
+        ListGroupActivity activity = this;
+        ListGroupRepository repository = new ListGroupRepository();
+        repository.fetchOwnedGroups().observe(this, new ActivityObserver<List<Group>>(this) {
             @Override
             public void onSuccess(Resource<List<Group>> data) {
-                List<Group> groups = data.getData();
-                if (groups != null) {
-                    Log.i(TAG, "List group data changed, size = " + groups.size());
-                    mAdapter.setListGroup(groups);
+                System.out.println("fetch owned groups");
+                List<Group> ownedGroups = data.getData();
+                ownedGroupIds.clear();
+                for (Group group :
+                        ownedGroups) {
+                    ownedGroupIds.add(group.getId());
                 }
+
+                mViewModel.getGroups().observe(activity, new ActivityObserver<List<Group>>(activity) {
+                    @Override
+                    public void onSuccess(Resource<List<Group>> data) {
+                        List<Group> groups = data.getData();
+                        if (groups != null) {
+                            Log.i(TAG, "List group data changed, size = " + groups.size());
+                            mAdapter.setListGroup(groups);
+                            mAdapter.setOwnedGroupIds(ownedGroupIds);
+                        }
+                    }
+                });
             }
         });
+
+
     }
 
 
@@ -113,4 +126,9 @@ public class ListGroupActivity extends AppCompatActivity implements NewGroupDial
             }
         });
     }
+
+    public List<Integer> getOwnedGroupIds() {
+        return ownedGroupIds;
+    }
+
 }
