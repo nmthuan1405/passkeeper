@@ -50,7 +50,7 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
                 viewModel.deleteOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<Group>(activity) {
                     @Override
                     public void onSuccess(Resource<Group> resource) {
-
+                        activity.updateRecycleView();
                     }
 
                     @Override
@@ -63,7 +63,7 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
                 viewModel.addOwner(memberGroup.getEmail()).observe(activity, new ActivityObserver<Group>(activity) {
                     @Override
                     public void onSuccess(Resource<Group> resource) {
-
+                        activity.updateRecycleView();
                     }
 
                     @Override
