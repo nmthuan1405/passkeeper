@@ -25,6 +25,7 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
     private ActivityListMemberGroupBinding binding;
     private MemberGroupAdapter mAdapter;
     private final String TAG = "@LMG_flag";
+    private boolean isOwned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
 
         mViewModel = new ViewModelProvider(this).get(ListMemberGroupViewModel.class);
         int id = getIntent().getIntExtra("id", -1);
+        isOwned = getIntent().getBooleanExtra("owned", false);
         Log.i(TAG, "List member group, id = " + id);
         mViewModel.setId(id);
 
@@ -48,6 +50,9 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
 
     private void initDeleteGroup() {
         AppCompatActivity activity = this;
+        if (!isOwned) {
+            binding.deleteGroupBtn.setVisibility(View.INVISIBLE);
+        }
         binding.deleteGroupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,5 +136,9 @@ public class ListMemberGroupActivity extends AppCompatActivity implements NewMem
                 updateRecycleView();
             }
         });
+    }
+
+    public boolean isOwned() {
+        return isOwned;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.passkeeper.ui.listGroup.listMemberGroup;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,11 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
         ListMemberGroupViewModel viewModel = new ListMemberGroupViewModel();
         viewModel.setId(memberGroup.getGroupId());
         holder.binding.nameMemberTextView.setText(memberGroup.getEmail());
+        if (!activity.isOwned()) {
+            holder.binding.ownerToggle.setVisibility(View.INVISIBLE);
+            holder.binding.deleteButton.setVisibility(View.INVISIBLE);
+        }
+
         if (memberGroup.isOwner()) {
             holder.binding.ownerToggle.setChecked(true);
             System.out.println("ok");

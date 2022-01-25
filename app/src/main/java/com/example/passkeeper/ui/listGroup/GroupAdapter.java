@@ -2,6 +2,7 @@ package com.example.passkeeper.ui.listGroup;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,22 @@ public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui
         return new com.example.passkeeper.ui.listGroup.GroupAdapter.GroupViewHolder(binding);
     }
 
+    private List<Integer> ownedGroupIds;
+
+    @Override
+    public int getItemCount() {
+        if (mListGroup != null)
+            return mListGroup.size();
+        return 0;
+    }
+
+    public void setListGroup(List<Group> listGroup) {
+        if (listGroup != null) {
+            mListGroup = listGroup;
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
         Group group = mListGroup.get(position);
@@ -44,8 +61,13 @@ public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui
         holder.binding.nameGroupTextView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), ListMemberGroupActivity.class);
             intent.putExtra("id", group.getId());
+            intent.putExtra("owned", activity.getOwnedGroupIds().contains(group.getId()));
             view.getContext().startActivity(intent);
         });
+
+        if (!ownedGroupIds.contains(group.getId())) {
+            holder.binding.deleteButton.setVisibility(View.INVISIBLE);
+        }
         holder.binding.deleteButton.setOnClickListener(view -> {
             Integer groupId = group.getId();
 
@@ -58,24 +80,15 @@ public class GroupAdapter extends RecyclerView.Adapter<com.example.passkeeper.ui
         });
     }
 
-    @Override
-    public int getItemCount() {
-        if (mListGroup != null)
-            return mListGroup.size();
-        return 0;
+    public void setOwnedGroupIds(List<Integer> ownedGroupIds) {
+        this.ownedGroupIds = ownedGroupIds;
     }
 
-    public void setListGroup(List<Group> listGroup){
-        if (listGroup != null){
-            mListGroup = listGroup;
-            notifyDataSetChanged();
-        }
-    }
 
-    public static class GroupViewHolder extends RecyclerView.ViewHolder{
+    public static class GroupViewHolder extends RecyclerView.ViewHolder {
         private final ItemGroupBinding binding;
 
-        public GroupViewHolder(@NotNull ItemGroupBinding itemBinding){
+        public GroupViewHolder(@NotNull ItemGroupBinding itemBinding) {
             super(itemBinding.getRoot());
             binding = itemBinding;
         }
