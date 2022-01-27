@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/drawable/ic_eye.xml" value="0.2675925925925926" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_add_record.xml" value="0.17831813576494426" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_edit_record.xml" value="0.28306159420289856" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_generate_password.xml" value="0.17831813576494426" />
@@ -12,9 +13,9 @@
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_manage_group.xml" value="0.28306159420289856" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_sign_up.xml" value="0.28306159420289856" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/activity_view_record.xml" value="0.28940217391304346" />
-        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/add_card_fragment.xml" value="0.28306159420289856" />
-        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/add_note_fragment.xml" value="0.28306159420289856" />
-        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/add_password_fragment.xml" value="0.28306159420289856" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/add_card_fragment.xml" value="0.25" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/add_note_fragment.xml" value="0.25" />
+        <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/add_password_fragment.xml" value="0.45" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/app_bar_main.xml" value="0.28306159420289856" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/content_main.xml" value="0.28306159420289856" />
         <entry key="..\:/Huy/AndroidProjects/passkeeper/app/src/main/res/layout/enter_email_fragment.xml" value="0.28306159420289856" />

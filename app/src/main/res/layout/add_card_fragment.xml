@@ -17,8 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:singleLine="true">
+        android:singleLine="true"
+        android:background="@android:color/transparent">
     </EditText>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/black" />
 
     <TextView
         android:layout_width="match_parent"
@@ -32,8 +38,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:singleLine="true">
+        android:singleLine="true"
+        android:background="@android:color/transparent">
     </EditText>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/black" />
 
     <TextView
         android:layout_width="match_parent"
@@ -47,8 +59,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:singleLine="true">
+        android:singleLine="true"
+        android:background="@android:color/transparent">
     </EditText>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/black" />
 
     <TextView
         android:layout_width="match_parent"
@@ -62,8 +80,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
-        android:singleLine="true">
+        android:singleLine="true"
+        android:background="@android:color/transparent">
     </EditText>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/black" />
 
     <TextView
         android:layout_width="match_parent"
@@ -76,8 +100,14 @@
     <EditText
         android:id="@+id/note"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
     </EditText>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/black" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,6 +127,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:singleLine="true">
+        android:singleLine="true"
+        android:background="@android:color/transparent">
     </EditText>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/black" />
 </LinearLayout>
